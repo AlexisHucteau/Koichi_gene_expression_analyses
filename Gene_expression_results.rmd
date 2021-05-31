@@ -5,47 +5,62 @@ output: html_notebook
 
 # Gene set enrichment
 
-## CR&CRi vs OR&NR
+## OR vs R
 
 ```{r}
-dotplot(Gene_set_diff_analysis[["CR_vs_OR"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
+dotplot(Gene_set_diff_analysis[["R_vs_OR"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
 ```
+
+
+## OR vs R no RUNX1m
+
+```{r}
+# png("../Results/NR_vs_R_Geneset.png", width = 720, height = 720*9/16)
+dotplot(Gene_set_diff_analysis[["R_vs_OR_without_RUNX1m"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
+# dev.off()
+```
+
 
 
 ## NR vs R
 
 ```{r}
-png("../Results/NR_vs_R_Geneset.png", width = 720, height = 720*9/16)
 dotplot(Gene_set_diff_analysis[["NR_vs_R"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
-dev.off()
 ```
 
-
-
-## NR vs R (without RUNX1m)
+## NR vs R no RUNX1m
 
 ```{r}
 dotplot(Gene_set_diff_analysis[["NR_vs_R_without_RUNX1m"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
 ```
 
-## RUNX1m vs RUNX1 wt
-
-```{r}
-dotplot(Gene_set_diff_analysis[["RUNX1wt_vs_RUNX1m"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
-gseaplot(Gene_set_diff_analysis[["RUNX1wt_vs_RUNX1m"]], by = "all", title = Gene_set_diff_analysis[["RUNX1wt_vs_RUNX1m"]]$Description[155], geneSetID = 155)
-```
-
 # MS Viper
 
-## CR+CRi vs OR/NR
+## R vs OR
 
 ```{r}
-plot(CR_msViper$mrs)
-plot(CR_vs_OR_msViper_synergy)
+plot(R_OR_msViper$mrs)
+plot(R_OR_msViper_synergy)
 ```
 
+## R vs OR no RUNX1
+
 ```{r}
-plot(RUNX1m_msViper$mrs)
-plot(RUNX1m_msViper_synergy)
+plot(R_OR_without_RUNX1m_msViper$mrs)
+plot(R_OR_without_RUNX1m_msViper_synergy)
+```
+
+## NR vs R
+
+```{r}
+plot(R_NR_msViper$mrs)
+plot(R_NR_msViper_synergy)
+```
+
+## NR vs R no RUNX1m
+
+```{r}
+plot(R_NR_without_RUNX1m_msViper$mrs)
+plot(R_NR_without_RUNX1m_msViper_synergy)
 ```
 
