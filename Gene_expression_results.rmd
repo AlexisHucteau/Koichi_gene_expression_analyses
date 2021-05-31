@@ -25,6 +25,7 @@ dotplot(Gene_set_diff_analysis[["R_vs_OR_without_RUNX1m"]], showCategory=10, spl
 ## NR vs R
 
 ```{r}
+
 dotplot(Gene_set_diff_analysis[["NR_vs_R"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
 ```
 
@@ -62,5 +63,32 @@ plot(R_NR_msViper_synergy)
 ```{r}
 plot(R_NR_without_RUNX1m_msViper$mrs)
 plot(R_NR_without_RUNX1m_msViper_synergy)
+```
+
+# Export table results
+
+## DEG
+
+### NR vs R
+
+```{r}
+write.csv(RNAseq_diff_gene_expression_analysis[["NR_vs_R"]][["NR-R"]], "Results/Tables/DEG_NR_vs_R.csv", row.names = T)
+```
+
+
+## MS_viper
+
+### NR vs R
+
+```{r}
+write.csv(R_NR_msViper$mrs_table, "Results/Tables/NR_vs_R_ms_viper.csv", row.names = F)
+```
+
+# Export figures
+
+```{r}
+png("Results/Figures/NR_vs_R_msviper.png")
+plot(R_NR_msViper$mrs)
+dev.off()
 ```
 

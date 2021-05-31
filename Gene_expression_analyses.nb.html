@@ -2042,6 +2042,10 @@ R_NR_without_RUNX1m_msViper &lt;- run_msviper(RNAseq, regulons, use_aracne = T, 
 number of iterations= 1000 
 number of iterations= 946 </code></pre>
 <!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUl9OUl93aXRob3V0X1JVTlgxbV9tc1ZpcGVyX2NvbWJpbmF0b3J5IDwtIG1zdmlwZXJDb21iaW5hdG9yaWFsKFJfTlJfd2l0aG91dF9SVU5YMW1fbXNWaXBlciRtcnMsIHJlZ3VsYXRvcnMgPSAyNSwgdmVyYm9zZSA9IEZBTFNFKVxuUl9OUl93aXRob3V0X1JVTlgxbV9tc1ZpcGVyX3N5bmVyZ3kgPC0gbXN2aXBlclN5bmVyZ3koUl9OUl93aXRob3V0X1JVTlgxbV9tc1ZpcGVyX2NvbWJpbmF0b3J5LCB2ZXJib3NlID0gRkFMU0UpXG5gYGAifQ== -->
+<pre class="r"><code>R_NR_without_RUNX1m_msViper_combinatory &lt;- msviperCombinatorial(R_NR_without_RUNX1m_msViper$mrs, regulators = 25, verbose = FALSE)
+R_NR_without_RUNX1m_msViper_synergy &lt;- msviperSynergy(R_NR_without_RUNX1m_msViper_combinatory, verbose = FALSE)</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
