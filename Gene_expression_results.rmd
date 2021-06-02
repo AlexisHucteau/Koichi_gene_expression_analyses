@@ -5,31 +5,29 @@ output: html_notebook
 
 # Gene set enrichment
 
-## OR vs R
+## OR vs R 
 
 ```{r}
-dotplot(Gene_set_diff_analysis[["R_vs_OR"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
+dotplot(Gene_set_diff_analysis[["OR_vs_R"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
 ```
 
-
-## OR vs R no RUNX1m
+## OR vs R (no RUNX1m)
 
 ```{r}
-# png("../Results/NR_vs_R_Geneset.png", width = 720, height = 720*9/16)
-dotplot(Gene_set_diff_analysis[["R_vs_OR_without_RUNX1m"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
-# dev.off()
-```
+dotplot(Gene_set_diff_analysis[["OR_vs_R_without_RUNX1m"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
 
+```
 
 
 ## NR vs R
 
 ```{r}
-
 dotplot(Gene_set_diff_analysis[["NR_vs_R"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
 ```
 
-## NR vs R no RUNX1m
+
+
+## NR vs R (without RUNX1m)
 
 ```{r}
 dotplot(Gene_set_diff_analysis[["NR_vs_R_without_RUNX1m"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
@@ -44,26 +42,29 @@ plot(R_OR_msViper$mrs)
 plot(R_OR_msViper_synergy)
 ```
 
-## R vs OR no RUNX1
+## R vs OR (without RUNX1m)
 
 ```{r}
-plot(R_OR_without_RUNX1m_msViper$mrs)
-plot(R_OR_without_RUNX1m_msViper_synergy)
+plot(R_OR_no_RUNX1m_msViper$mrs)
+plot(R_OR_no_RUNX1m_msViper_synergy)
 ```
 
-## NR vs R
+## R vs NR
 
 ```{r}
 plot(R_NR_msViper$mrs)
 plot(R_NR_msViper_synergy)
 ```
 
-## NR vs R no RUNX1m
+
+## R vs NR (without RUNX1m)
+
 
 ```{r}
-plot(R_NR_without_RUNX1m_msViper$mrs)
-plot(R_NR_without_RUNX1m_msViper_synergy)
+plot(R_NR_no_RUNX1m_msViper$mrs)
+plot(R_NR_no_RUNX1m_msViper_synergy)
 ```
+
 
 # Export table results
 
@@ -72,23 +73,14 @@ plot(R_NR_without_RUNX1m_msViper_synergy)
 ### NR vs R
 
 ```{r}
-write.csv(RNAseq_diff_gene_expression_analysis[["NR_vs_R"]][["NR-R"]], "Results/Tables/DEG_NR_vs_R.csv", row.names = T)
+write.csv(RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline"]][["Non_responder.Baseline-Responder.Baseline"]], "Results/Tables/DEG_NR_vs_R.csv", row.names = T)
 ```
-
 
 ## MS_viper
 
 ### NR vs R
 
 ```{r}
-write.csv(R_NR_msViper$mrs_table, "Results/Tables/NR_vs_R_ms_viper.csv", row.names = F)
-```
-
-# Export figures
-
-```{r}
-png("Results/Figures/NR_vs_R_msviper.png")
-plot(R_NR_msViper$mrs)
-dev.off()
+write.csv(R_NR_msViper$mrs_table, "Results/Tables/NR_vs_R_msviper.csv", row.names = F)
 ```
 

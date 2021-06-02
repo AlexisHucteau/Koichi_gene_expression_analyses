@@ -8,99 +8,50 @@ source("functions.R")
 
 RNAseq_diff_gene_expression_analysis <- list()
 Gene_set_diff_analysis <- list()
-RNAseq <- read.csv("DATA/RNAseq_parsed.csv", check.names = F, row.names = 1)
+RNAseq <- read.csv("DATA/RNAseq_parsed.csv", row.names = 1, header = T, check.names = F)
 Clinical_patient_data <- read.csv("DATA/Clinical_patient_data.csv")
 ```
 
+# Differential gene expression
+
+```{r}
+Factor_R_OR_NR_Baseline_RUNX1m <- Make_factor(Clinical_patient_data, 
+                                                colnames(RNAseq),
+                                                c("RUNX1"), 
+                                                c("CR", "CRi"), 
+                                                "Responder", 
+                                                c("MLFS", "HI", "CRp", "PR"), 
+                                                "Overall_responder",
+                                                c("SD", "PD"), 
+                                                "Non_responder")
+
+RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline_RUNX1m"]] <- Differential_analysis(Factor_R_OR_NR_Baseline_RUNX1m, RNAseq)
+
+Factor_R_OR_NR_Baseline <- Make_factor(Clinical_patient_data, 
+                                                colnames(RNAseq),
+                                                0, 
+                                                c("CR", "CRi"), 
+                                                "Responder", 
+                                                c("MLFS", "HI", "CRp", "PR"), 
+                                                "Overall_responder",
+                                                c("SD", "PD"), 
+                                                "Non_responder")
+
+RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline"]] <- Differential_analysis(Factor_R_OR_NR_Baseline, RNAseq)
+
+
+```
 
 # Gene set enrichment analysis
 
-```{r}
-R_vs_OR_factor <- Make_factor(samples = colnames(RNAseq), 
-                               samplesheet = Clinical_patient_data, 
-                               index_of_samplesheet = 5, 
-                               index_name = 9, 
-                               First_level = c("CR", "CRi"), 
-                               Second_level = c("CRp", "MLFS", "HI", "PR"), 
-                               condition_A_name = "R", 
-                               condition_B_name = "OR", 
-                               mutation_to_ignore = "RUNX1", 
-                               column_of_mutation = 2)
+```{r, include = F}
+Gene_set_diff_analysis[["OR_vs_R"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline"]][["Overall_responder.Baseline-Responder.Baseline"]])
 
-RNAseq_diff_gene_expression_analysis[["R_vs_OR"]] <- Differential_analysis(R_vs_OR_factor, RNAseq)
+Gene_set_diff_analysis[["OR_vs_R_without_RUNX1m"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline_RUNX1m"]][["WT.Overall_responder.Baseline-WT.Responder.Baseline"]])
 
-Gene_set_diff_analysis[["R_vs_OR"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_vs_OR"]][["OR-R"]])
-```
+Gene_set_diff_analysis[["NR_vs_R"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline"]][["Non_responder.Baseline-Responder.Baseline"]])
 
-```{r}
-R_vs_OR_without_RUNX1m_factor <- Make_factor(samples = colnames(RNAseq), 
-                              samplesheet = Clinical_patient_data, 
-                              index_of_samplesheet = 5, 
-                              index_name = 9, 
-                              First_level = c("CR", "CRi"), 
-                              Second_level = c("CRp", "MLFS", "HI", "PR"), 
-                              condition_A_name = "R", 
-                              condition_B_name = "OR", 
-                              mutation_to_ignore = "RUNX1", 
-                              column_of_mutation = 2, 
-                              comparing_mutation = F)
-
-RNAseq_diff_gene_expression_analysis[["R_vs_OR_without_RUNX1m"]] <- Differential_analysis(R_vs_OR_without_RUNX1m_factor, RNAseq)
-
-Gene_set_diff_analysis[["R_vs_OR_without_RUNX1m"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_vs_OR_without_RUNX1m"]][["OR-R"]])
-```
-
-
-
-```{r}
-NR_vs_R_factor <- Make_factor(samples = colnames(RNAseq), 
-                              samplesheet = Clinical_patient_data, 
-                              index_of_samplesheet = 5, 
-                              index_name = 9, 
-                              First_level = c("PD", "SD"), 
-                              Second_level = c("CR", "CRi"), 
-                              condition_A_name = "NR", 
-                              condition_B_name = "R", 
-                              comparing_mutation = F)
-
-RNAseq_diff_gene_expression_analysis[["NR_vs_R"]] <- Differential_analysis(NR_vs_R_factor, RNAseq)
-
-Gene_set_diff_analysis[["NR_vs_R"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["NR_vs_R"]][["NR-R"]])
-```
-
-```{r}
-NR_vs_R_without_RUNX1m_factor <- Make_factor(samples = colnames(RNAseq), 
-                              samplesheet = Clinical_patient_data, 
-                              index_of_samplesheet = 5, 
-                              index_name = 9, 
-                              First_level = c("PD", "SD"), 
-                              Second_level = c("CR", "CRi"), 
-                              condition_A_name = "NR", 
-                              condition_B_name = "R", 
-                              mutation_to_ignore = "RUNX1",
-                              comparing_mutation = F)
-
-RNAseq_diff_gene_expression_analysis[["NR_vs_R_without_RUNX1m"]] <- Differential_analysis(NR_vs_R_without_RUNX1m_factor, RNAseq)
-
-Gene_set_diff_analysis[["NR_vs_R_without_RUNX1m"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["NR_vs_R_without_RUNX1m"]][["NR-R"]])
-```
-
-
-
-```{r}
-RUNX1m_wt_factor <- Make_factor(samples = colnames(RNAseq), 
-                                samplesheet = Clinical_patient_data, 
-                                index_of_samplesheet = 2, 
-                                index_name = 9, 
-                                First_level = c("RUNX1"), 
-                                Second_level = c("wt"), 
-                                condition_A_name = "RUNX1m", 
-                                condition_B_name = "RUNX1_wt",
-                                comparing_mutation = T)
-
-RNAseq_diff_gene_expression_analysis[["RUNX1m_vs_RUNX1wt"]] <- Differential_analysis(RUNX1m_wt_factor, RNAseq)
-
-Gene_set_diff_analysis[["RUNX1wt_vs_RUNX1m"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["RUNX1m_vs_RUNX1wt"]][["RUNX1_wt-RUNX1m"]])
+Gene_set_diff_analysis[["NR_vs_R_without_RUNX1m"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline_RUNX1m"]][["WT.Non_responder.Baseline-WT.Responder.Baseline"]])
 ```
 
 # MS Viper analyses
@@ -109,117 +60,34 @@ Gene_set_diff_analysis[["RUNX1wt_vs_RUNX1m"]] <- Gene_set_analysis(RNAseq_diff_g
 data(dorothea_hs, package = "dorothea") 
 regulons = dorothea_hs %>%
   filter(confidence %in% c("A", "B"))
-```
 
-
-```{r}
-R_vs_OR_factor <- Make_factor(samples = colnames(RNAseq), 
-                               samplesheet = Clinical_patient_data, 
-                               index_of_samplesheet = 5, 
-                               index_name = 9, 
-                               First_level = c("CR", "CRi"), 
-                               Second_level = c("CRi", "CRp", "MLFS", "HI", "PR"), 
-                               condition_A_name = "R", 
-                               condition_B_name = "OR", 
-                              comparing_mutation = F)
-
-ref_R_Baseline <- R_vs_OR_factor == "R"
-ref_OR_Baseline <- R_vs_OR_factor == "OR"
+ref_R_Baseline <- Factor_R_OR_NR_Baseline == "Responder.Baseline"
+ref_OR_Baseline <- Factor_R_OR_NR_Baseline == "Overall_responder.Baseline"
+ref_NR_Baseline <- Factor_R_OR_NR_Baseline == "Non_responder.Baseline"
 
 R_OR_msViper <- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline, ref_name = "R", treat = ref_OR_Baseline, treat_name = "OR", minsize = 4, ges.filter = T)
 
 R_OR_msViper_combinatory <- msviperCombinatorial(R_OR_msViper$mrs, regulators = 25, verbose = FALSE)
 R_OR_msViper_synergy <- msviperSynergy(R_OR_msViper_combinatory, verbose = FALSE)
 
-
-# png(filename = "../Results/CR_msViper.ong")
-# plot(CR_msViper$mrs)
-# dev.off()
-# png("../Results/CR_vs_OR_msViper_synergy.png")
-# plot(CR_vs_OR_msViper_synergy)
-# dev.off()
-
-
-```
-
-```{r}
-R_vs_OR_without_RUNX1m_factor <- Make_factor(samples = colnames(RNAseq), 
-                               samplesheet = Clinical_patient_data, 
-                               index_of_samplesheet = 5, 
-                               index_name = 9, 
-                               First_level = c("CR", "CRi"), 
-                               Second_level = c("CRi", "CRp", "MLFS", "HI", "PR"), 
-                               condition_A_name = "R", 
-                               condition_B_name = "OR", 
-                               mutation_to_ignore = "RUNX1", 
-                               column_of_mutation = 2, 
-                              comparing_mutation = F)
-
-ref_R_without_RUNX1m_Baseline <- R_vs_OR_without_RUNX1m_factor == "R"
-ref_OR_without_RUNX1m_Baseline <- R_vs_OR_without_RUNX1m_factor == "OR"
-
-R_OR_without_RUNX1m_msViper <- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_without_RUNX1m_Baseline, ref_name = "R", treat = ref_OR_without_RUNX1m_Baseline, treat_name = "OR", minsize = 4, ges.filter = T)
-
-R_OR_without_RUNX1m_msViper_combinatory <- msviperCombinatorial(R_OR_without_RUNX1m_msViper$mrs, regulators = 25, verbose = FALSE)
-R_OR_without_RUNX1m_msViper_synergy <- msviperSynergy(R_OR_without_RUNX1m_msViper_combinatory, verbose = FALSE)
-
-```
-
-
-
-
-```{r}
-R_vs_NR_factor <- Make_factor(samples = colnames(RNAseq), 
-                               samplesheet = Clinical_patient_data, 
-                               index_of_samplesheet = 5, 
-                               index_name = 9, 
-                               First_level = c("CR", "CRi"), 
-                               Second_level = c("PD", "SD"), 
-                               condition_A_name = "R", 
-                               condition_B_name = "NR", 
-                              comparing_mutation = F)
-
-ref_R_Baseline <- R_vs_NR_factor == "R"
-ref_NR_Baseline <- R_vs_NR_factor == "NR"
-
 R_NR_msViper <- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline, ref_name = "R", treat = ref_NR_Baseline, treat_name = "NR", minsize = 4, ges.filter = T)
 
 R_NR_msViper_combinatory <- msviperCombinatorial(R_NR_msViper$mrs, regulators = 25, verbose = FALSE)
 R_NR_msViper_synergy <- msviperSynergy(R_NR_msViper_combinatory, verbose = FALSE)
+
+ref_R_Baseline_no_RUNX1m <- Factor_R_OR_NR_Baseline_RUNX1m == "WT.Responder.Baseline"
+ref_OR_Baseline_no_RUNX1m <- Factor_R_OR_NR_Baseline_RUNX1m == "WT.Overall_responder.Baseline"
+ref_NR_Baseline_no_RUNX1m <- Factor_R_OR_NR_Baseline_RUNX1m == "WT.Non_responder.Baseline"
+
+R_OR_no_RUNX1m_msViper <- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline_no_RUNX1m, ref_name = "R", treat = ref_OR_Baseline_no_RUNX1m, treat_name = "OR", minsize = 4, ges.filter = T)
+
+R_OR_no_RUNX1m_msViper_combinatory <- msviperCombinatorial(R_OR_no_RUNX1m_msViper$mrs, regulators = 25, verbose = FALSE)
+R_OR_no_RUNX1m_msViper_synergy <- msviperSynergy(R_OR_no_RUNX1m_msViper_combinatory, verbose = FALSE)
+
+R_NR_no_RUNX1m_msViper <- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline_no_RUNX1m, ref_name = "R", treat = ref_NR_Baseline_no_RUNX1m, treat_name = "NR", minsize = 4, ges.filter = T)
+
+R_NR_no_RUNX1m_msViper_combinatory <- msviperCombinatorial(R_NR_no_RUNX1m_msViper$mrs, regulators = 25, verbose = FALSE)
+R_NR_no_RUNX1m_msViper_synergy <- msviperSynergy(R_NR_no_RUNX1m_msViper_combinatory, verbose = FALSE)
 ```
 
-```{r}
-R_vs_NR_without_RUNX1m_factor <- Make_factor(samples = colnames(RNAseq), 
-                               samplesheet = Clinical_patient_data, 
-                               index_of_samplesheet = 5, 
-                               index_name = 9, 
-                               First_level = c("CR", "CRi"), 
-                               Second_level = c("PD", "SD"), 
-                               condition_A_name = "R", 
-                               condition_B_name = "NR", 
-                               mutation_to_ignore = "RUNX1", 
-                               column_of_mutation = 2, 
-                              comparing_mutation = F)
-
-ref_R_without_RUNX1m_Baseline <- R_vs_NR_without_RUNX1m_factor == "R"
-ref_NR_without_RUNX1m_Baseline <- R_vs_NR_without_RUNX1m_factor == "NR"
-
-R_NR_without_RUNX1m_msViper <- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_without_RUNX1m_Baseline, ref_name = "R", treat = ref_NR_without_RUNX1m_Baseline, treat_name = "NR", minsize = 4, ges.filter = T)
-
-R_NR_without_RUNX1m_msViper_combinatory <- msviperCombinatorial(R_NR_without_RUNX1m_msViper$mrs, regulators = 25, verbose = FALSE)
-R_NR_without_RUNX1m_msViper_synergy <- msviperSynergy(R_NR_without_RUNX1m_msViper_combinatory, verbose = FALSE)
-```
-
-
-
-
-```{r}
-ref_RUNX1m_Baseline <- RUNX1m_wt_factor == "RUNX1m"
-ref_RUNX1wt_Baseline <- RUNX1m_wt_factor == "RUNX1_wt"
-
-RUNX1m_msViper <- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_RUNX1wt_Baseline, ref_name = "WT", treat = ref_RUNX1m_Baseline, treat_name = "RUNX1m", minsize = 4, ges.filter = T)
-
-RUNX1m_msViper_combinatory <- msviperCombinatorial(RUNX1m_msViper$mrs, regulators = 25, verbose = FALSE)
-RUNX1m_msViper_synergy <- msviperSynergy(RUNX1m_msViper_combinatory, verbose = FALSE)
-```
 
