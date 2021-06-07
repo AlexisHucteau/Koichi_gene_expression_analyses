@@ -91,7 +91,7 @@ Make_factor <- function(Samplesheet = Clinical_patient_data,
   Clinical_outcome <- factor(ifelse(Samples_names %in% Clinical_outcome_A, Clinical_name_A,
                                     ifelse(Samples_names %in% Clinical_outcome_B, Clinical_name_B, 
                                            ifelse(Samples_names %in% Clinical_outcome_C, Clinical_name_C, ""))))
-  Sample_timing <- factor(ifelse(Samples_names %in% Samplesheet$Baseline_RNAseq_data, "Baseline", "Relapse"))
+  Sample_timing <- factor(ifelse(Samples_names %in% Samplesheet$Baseline_RNAseq_data, "B", "REL"))
   if(typeof(Mutations_to_ignore) != "double"){
     Final_factor <- paste(Mutations_factor, Clinical_outcome, Sample_timing, sep = ".") %>% as.factor()
   }else{
@@ -286,22 +286,22 @@ viper_regulons2dorothea <- function(r) {
 
 
 
-run_msviper <- function(exprs_m, dorothea, use_aracne, ref, treat, ref_name, treat_name, minsize, ges.filter) {
+run_msviper <- function(exprs_m, dorothea, use_aracne, ref_samples_all_data, ref_name, treat_samples, treat_name, minsize, ges.filter) {
   # First we need to generate the phenotype table (AnnotatedDataFrame)
-  conditions <- rep("NA", ncol(exprs_m))
-  conditions[ref] <- ref_name
-  conditions[treat] <- treat_name
-  names(conditions) <- colnames(exprs_m)
-  conditions <- conditions[which(conditions != "NA")]
   
+  factor_merged <- ref_samples_all_data | treat_samples
+  
+  
+  ref_samples <- ref_samples_all_data[factor_merged]
+  exprs_m <- exprs_m[,factor_merged]
+  conditions <- rep(ref_name, ncol(exprs_m))
+  conditions[!ref_samples] <- treat_name
   phenotype <- data.frame(condition = factor(conditions))
-  rownames(phenotype) <- names(conditions)
-  
+  phenotype$condition[!ref_samples] <- treat_name
+  rownames(phenotype) <- colnames(exprs_m)
   phenoData <- new("AnnotatedDataFrame", data = phenotype)
-  exprs_m <- exprs_m[,which(colnames(exprs_m) %in% rownames(phenotype))] %>% as.matrix()
-  
   # Create Expression set from phenotyble table and expression matrix
-  dset_viper <- ExpressionSet(assayData = exprs_m, phenoData = phenoData)
+  dset_viper <- ExpressionSet(assayData = as.matrix(exprs_m), phenoData = phenoData)
   dset_viper$sampleID <- factor(colnames(exprs_m))
   
   # Aracne can be used to estimate the mor instead using the -1, 1 from dorothea
@@ -326,4 +326,21 @@ run_msviper <- function(exprs_m, dorothea, use_aracne, ref, treat, ref_name, tre
   mrs_table <- tibble(TF = names(mrs$es$p.value), size = mrs$es$size, nes = mrs$es$nes, pval = mrs$es$p.value, pval.fdr = p.adjust(mrs$es$p.value, method = "fdr")) %>% arrange(pval)
   
   list(mrs_table = mrs_table, mrs = mrs, regulons = dorothea_mrs_regulons)
+}
+
+
+
+
+Do_MS_viper_analysis <- function(exprs_m,
+                                 dorothea, 
+                                 ref_samples, 
+                                 ref_name, 
+                                 treat_samples, 
+                                 treat_name){
+  MS_vip <- run_msviper(exprs_m, dorothea, use_aracne=T, ref_samples, ref_name, treat_samples, treat_name, minsize=4, ges.filter=T)
+  combi <- msviperCombinatorial(MS_vip$mrs, regulators = 25, verbose = FALSE)
+  Synergy <- msviperSynergy(combi, verbose = FALSE)
+  message(paste0(treat_name, " vs ", ref_name, " DONE!"))
+  return(list("MSVIPER" = MS_vip, 
+              "Synergy" = Synergy))
 }

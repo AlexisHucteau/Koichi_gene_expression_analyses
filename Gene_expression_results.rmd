@@ -33,38 +33,64 @@ dotplot(Gene_set_diff_analysis[["NR_vs_R"]], showCategory=10, split=".sign") + f
 dotplot(Gene_set_diff_analysis[["NR_vs_R_without_RUNX1m"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
 ```
 
+## NR exclusif
+
+### UP
+
+```{r}
+dotplot(Gene_set_diff_analysis[["Intersection_analysis"]][["NR_UP"]], showCategory = 30)
+emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["NR_UP"]], color = "qvalue", size = "Count")
+```
+
+### DOWN
+
+```{r}
+dotplot(Gene_set_diff_analysis[["Intersection_analysis"]][["NR_DOWN"]], showCategory = 30)
+emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["NR_DOWN"]], color = "qvalue", size = "Count")
+```
+
+
+## R exclusif
+
+### UP 
+
+```{r}
+dotplot(Gene_set_diff_analysis[["Intersection_analysis"]][["R_UP"]], showCategory = 30)
+emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["R_UP"]], color = "qvalue", size = "Count")
+```
+
+## Relapse R 
+
+### DOWN
+
+```{r}
+dotplot(Gene_set_diff_analysis[["Intersection_analysis"]][["REL_R_B_DOWN"]], showCategory = 30)
+emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["REL_R_B_DOWN"]], color = "qvalue", size = "Count")
+```
+
+
 # MS Viper
 
-## R vs OR
+## OR vs R
 
 ```{r}
-plot(R_OR_msViper$mrs)
-plot(R_OR_msViper_synergy)
+plot(R_OR_msviper[["MSVIPER"]]$mrs)
+plot(R_OR_msviper[["Synergy"]])
 ```
 
-## R vs OR (without RUNX1m)
+## NR vs R
 
 ```{r}
-plot(R_OR_no_RUNX1m_msViper$mrs)
-plot(R_OR_no_RUNX1m_msViper_synergy)
+plot(R_NR_msviper[["MSVIPER"]]$mrs)
+plot(R_NR_msviper[["Synergy"]])
 ```
 
-## R vs NR
+## REL vs R baseline
 
 ```{r}
-plot(R_NR_msViper$mrs)
-plot(R_NR_msViper_synergy)
+plot(R_B_R_REL_msviper[["MSVIPER"]]$mrs)
+plot(R_B_R_REL_msviper[["Synergy"]])
 ```
-
-
-## R vs NR (without RUNX1m)
-
-
-```{r}
-plot(R_NR_no_RUNX1m_msViper$mrs)
-plot(R_NR_no_RUNX1m_msViper_synergy)
-```
-
 
 # Export table results
 
@@ -81,6 +107,8 @@ write.csv(RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline"]][["Non_respo
 ### NR vs R
 
 ```{r}
-write.csv(R_NR_msViper$mrs_table, "Results/Tables/NR_vs_R_msviper.csv", row.names = F)
+write.csv(R_NR_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/NR_vs_R_msviper.csv", row.names = F)
+write.csv(R_OR_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/OR_vs_R_msviper.csv", row.names = F)
+write.csv(R_B_R_REL_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/REL_vs_R_msviper.csv", row.names = F)
 ```
 

@@ -1765,96 +1765,214 @@ summary {
 <h1>Differential gene expression</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRmFjdG9yX1JfT1JfTlJfQmFzZWxpbmVfUlVOWDFtIDwtIE1ha2VfZmFjdG9yKENsaW5pY2FsX3BhdGllbnRfZGF0YSwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xuYW1lcyhSTkFzZXEpLFxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYyhcIlJVTlgxXCIpLCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGMoXCJDUlwiLCBcIkNSaVwiKSwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlJlc3BvbmRlclwiLCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGMoXCJNTEZTXCIsIFwiSElcIiwgXCJDUnBcIiwgXCJQUlwiKSwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIk92ZXJhbGxfcmVzcG9uZGVyXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjKFwiU0RcIiwgXCJQRFwiKSwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIk5vbl9yZXNwb25kZXJcIilcblxuUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzW1tcIlJfT1JfTlJfQmFzZWxpbmVfUlVOWDFtXCJdXSA8LSBEaWZmZXJlbnRpYWxfYW5hbHlzaXMoRmFjdG9yX1JfT1JfTlJfQmFzZWxpbmVfUlVOWDFtLCBSTkFzZXEpXG5gYGAifQ== -->
-<pre class="r"><code>Factor_R_OR_NR_Baseline_RUNX1m &lt;- Make_factor(Clinical_patient_data, 
-                                                colnames(RNAseq),
-                                                c(&quot;RUNX1&quot;), 
-                                                c(&quot;CR&quot;, &quot;CRi&quot;), 
-                                                &quot;Responder&quot;, 
-                                                c(&quot;MLFS&quot;, &quot;HI&quot;, &quot;CRp&quot;, &quot;PR&quot;), 
-                                                &quot;Overall_responder&quot;,
-                                                c(&quot;SD&quot;, &quot;PD&quot;), 
-                                                &quot;Non_responder&quot;)
-
-RNAseq_diff_gene_expression_analysis[[&quot;R_OR_NR_Baseline_RUNX1m&quot;]] &lt;- Differential_analysis(Factor_R_OR_NR_Baseline_RUNX1m, RNAseq)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzW1tcIlJFTF9CYXNlbGluZVwiXV0gPC0gRGlmZmVyZW50aWFsX2FuYWx5c2lzKEZhY3Rvcl9SRUxfQmFzZWxpbmUsIFJOQXNlcSlcblxuYGBgIn0= -->
+<pre class="r"><code>RNAseq_diff_gene_expression_analysis[[&quot;REL_Baseline&quot;]] &lt;- Differential_analysis(Factor_REL_Baseline, RNAseq)
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiMSBkb25lXG4yIGRvbmVcbjMgZG9uZVxuNCBkb25lXG41IGRvbmVcbjYgZG9uZVxuNyBkb25lXG44IGRvbmVcbjkgZG9uZVxuMTAgZG9uZVxuMTEgZG9uZVxuMTIgZG9uZVxuMTMgZG9uZVxuMTQgZG9uZVxuMTUgZG9uZVxuMTYgZG9uZVxuMTcgZG9uZVxuMTggZG9uZVxuMTkgZG9uZVxuMjAgZG9uZVxuMjEgZG9uZVxuMjIgZG9uZVxuMjMgZG9uZVxuMjQgZG9uZVxuMjUgZG9uZVxuMjYgZG9uZVxuMjcgZG9uZVxuMjggZG9uZVxuIn0= -->
+<!-- rnb-output-begin eyJkYXRhIjoiMSBkb25lXG4yIGRvbmVcbjMgZG9uZVxuNCBkb25lXG41IGRvbmVcbjYgZG9uZVxuIn0= -->
 <pre><code>1 done
 2 done
 3 done
 4 done
 5 done
-6 done
-7 done
-8 done
-9 done
-10 done
-11 done
-12 done
-13 done
-14 done
-15 done
-16 done
-17 done
-18 done
-19 done
-20 done
-21 done
-22 done
-23 done
-24 done
-25 done
-26 done
-27 done
-28 done</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuRmFjdG9yX1JfT1JfTlJfQmFzZWxpbmUgPC0gTWFrZV9mYWN0b3IoQ2xpbmljYWxfcGF0aWVudF9kYXRhLCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG5hbWVzKFJOQXNlcSksXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwLCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGMoXCJDUlwiLCBcIkNSaVwiKSwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIlJlc3BvbmRlclwiLCBcbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGMoXCJNTEZTXCIsIFwiSElcIiwgXCJDUnBcIiwgXCJQUlwiKSwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIk92ZXJhbGxfcmVzcG9uZGVyXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjKFwiU0RcIiwgXCJQRFwiKSwgXG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBcIk5vbl9yZXNwb25kZXJcIilcblxuUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzW1tcIlJfT1JfTlJfQmFzZWxpbmVcIl1dIDwtIERpZmZlcmVudGlhbF9hbmFseXNpcyhGYWN0b3JfUl9PUl9OUl9CYXNlbGluZSwgUk5Bc2VxKVxuYGBgIn0= -->
-<pre class="r"><code>Factor_R_OR_NR_Baseline &lt;- Make_factor(Clinical_patient_data, 
-                                                colnames(RNAseq),
-                                                0, 
-                                                c(&quot;CR&quot;, &quot;CRi&quot;), 
-                                                &quot;Responder&quot;, 
-                                                c(&quot;MLFS&quot;, &quot;HI&quot;, &quot;CRp&quot;, &quot;PR&quot;), 
-                                                &quot;Overall_responder&quot;,
-                                                c(&quot;SD&quot;, &quot;PD&quot;), 
-                                                &quot;Non_responder&quot;)
-
-RNAseq_diff_gene_expression_analysis[[&quot;R_OR_NR_Baseline&quot;]] &lt;- Differential_analysis(Factor_R_OR_NR_Baseline, RNAseq)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiMSBkb25lXG4yIGRvbmVcbjMgZG9uZVxuNCBkb25lXG41IGRvbmVcbjYgZG9uZVxuNyBkb25lXG44IGRvbmVcbjkgZG9uZVxuMTAgZG9uZVxuIn0= -->
-<pre><code>1 done
-2 done
-3 done
-4 done
-5 done
-6 done
-7 done
-8 done
-9 done
-10 done</code></pre>
+6 done</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<div id="venn-diagramm" class="section level2">
+<h2>Venn diagramm</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShWZW5uRGlhZ3JhbSlcbkxpc3Rfb2ZfREVHIDwtIGxpc3QoKVxuXG5WZWN0b3JfREVHX29mX2ludGVyZXN0IDwtIGMoXCJOUi5CLU9SLkJcIiwgXCJOUi5CLVIuQlwiLCBcIk9SLkItUi5CXCIsIFwiUi5CLVIuUkVMXCIpXG5cbmZvciAoaSBpbiBWZWN0b3JfREVHX29mX2ludGVyZXN0KXtcbiAgTGlzdF9vZl9ERUdbW3Bhc3RlKGksIFwiVVBcIiwgc2VwID0gXCJfXCIpXV0gPC0gUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzW1tcIlJfT1JfTlJfQlwiXV1bW2ldXSAlPiUgZHBseXI6OmZpbHRlcihsb2dGQyA+IDAuNzUgJiBQLlZhbHVlIDwgMC4xKSAlPiUgLiRJRFxuICBcbiAgTGlzdF9vZl9ERUdbW3Bhc3RlKGksIFwiRE9XTlwiLCBzZXAgPSAgXCJfXCIpXV0gPC0gUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzW1tcIlJfT1JfTlJfQlwiXV1bW2ldXSAlPiUgZHBseXI6OmZpbHRlcihsb2dGQyA8IC0wLjc1ICYgUC5WYWx1ZSA8IDAuMSkgJT4lIC4kSURcbn1cblxuVmVjdG9yX0RFR19vZl9pbnRlcmVzdDIgPC0gYyhcIldULk5SLkItV1QuT1IuQlwiLCBcIldULk5SLkItV1QuUi5CXCIsIFwiV1QuT1IuQi1XVC5SLkJcIiwgXCJXVC5SLkItV1QuUi5SRUxcIilcblxuZm9yIChpIGluIFZlY3Rvcl9ERUdfb2ZfaW50ZXJlc3QyKXtcbiAgTGlzdF9vZl9ERUdbW3Bhc3RlKGksIFwiVVBcIiwgc2VwID0gXCJfXCIpXV0gPC0gUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzW1tcIlJfT1JfTlJfQl9SVU5YMW1cIl1dW1tpXV0gJT4lIGRwbHlyOjpmaWx0ZXIobG9nRkMgPiAwLjc1ICYgUC5WYWx1ZSA8IDAuMSkgJT4lIC4kSURcbiAgXG4gIExpc3Rfb2ZfREVHW1twYXN0ZShpLCBcIkRPV05cIiwgc2VwID0gIFwiX1wiKV1dIDwtIFJOQXNlcV9kaWZmX2dlbmVfZXhwcmVzc2lvbl9hbmFseXNpc1tbXCJSX09SX05SX0JfUlVOWDFtXCJdXVtbaV1dICU+JSBkcGx5cjo6ZmlsdGVyKGxvZ0ZDIDwgLTAuNzUgJiBQLlZhbHVlIDwgMC4xKSAlPiUgLiRJRFxufVxuXG5gYGAifQ== -->
+<pre class="r"><code>library(VennDiagram)
+List_of_DEG &lt;- list()
+
+Vector_DEG_of_interest &lt;- c(&quot;NR.B-OR.B&quot;, &quot;NR.B-R.B&quot;, &quot;OR.B-R.B&quot;, &quot;R.B-R.REL&quot;)
+
+for (i in Vector_DEG_of_interest){
+  List_of_DEG[[paste(i, &quot;UP&quot;, sep = &quot;_&quot;)]] &lt;- RNAseq_diff_gene_expression_analysis[[&quot;R_OR_NR_B&quot;]][[i]] %&gt;% dplyr::filter(logFC &gt; 0.75 &amp; P.Value &lt; 0.1) %&gt;% .$ID
+  
+  List_of_DEG[[paste(i, &quot;DOWN&quot;, sep =  &quot;_&quot;)]] &lt;- RNAseq_diff_gene_expression_analysis[[&quot;R_OR_NR_B&quot;]][[i]] %&gt;% dplyr::filter(logFC &lt; -0.75 &amp; P.Value &lt; 0.1) %&gt;% .$ID
+}
+
+Vector_DEG_of_interest2 &lt;- c(&quot;WT.NR.B-WT.OR.B&quot;, &quot;WT.NR.B-WT.R.B&quot;, &quot;WT.OR.B-WT.R.B&quot;, &quot;WT.R.B-WT.R.REL&quot;)
+
+for (i in Vector_DEG_of_interest2){
+  List_of_DEG[[paste(i, &quot;UP&quot;, sep = &quot;_&quot;)]] &lt;- RNAseq_diff_gene_expression_analysis[[&quot;R_OR_NR_B_RUNX1m&quot;]][[i]] %&gt;% dplyr::filter(logFC &gt; 0.75 &amp; P.Value &lt; 0.1) %&gt;% .$ID
+  
+  List_of_DEG[[paste(i, &quot;DOWN&quot;, sep =  &quot;_&quot;)]] &lt;- RNAseq_diff_gene_expression_analysis[[&quot;R_OR_NR_B_RUNX1m&quot;]][[i]] %&gt;% dplyr::filter(logFC &lt; -0.75 &amp; P.Value &lt; 0.1) %&gt;% .$ID
+}
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="no-runx1m-filter" class="section level3">
+<h3>No RUNX1m filter</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVmVubmRpYWdyYW1fQl9kZiA8LSBsaXN0KFxuICBcIk5SX3ZzX09SXCIgPSBjKExpc3Rfb2ZfREVHJGBOUi5CLU9SLkJfVVBgLCBMaXN0X29mX0RFRyRgTlIuQi1PUi5CX0RPV05gKSxcbiAgXCJOUl92c19SXCIgPSBjKExpc3Rfb2ZfREVHJGBOUi5CLVIuQl9VUGAsIExpc3Rfb2ZfREVHJGBOUi5CLVIuQl9ET1dOYCksXG4gIFwiT1JfdnNfUlwiID0gYyhMaXN0X29mX0RFRyRgT1IuQi1SLkJfVVBgLCBMaXN0X29mX0RFRyRgT1IuQi1SLkJfRE9XTmApXG4pXG5cbnZlbm4uZGlhZ3JhbShWZW5uZGlhZ3JhbV9CX2RmLFxuICAgICAgICAgICAgIGZpbGVuYW1lID0gXCJSZXN1bHRzL0ZpZ3VyZXMvVmVubl9CX0RFRy5wbmdcIiwgXG4gICAgICAgICAgICAgaW1hZ2V0eXBlID0gXCJwbmdcIilcbmBgYCJ9 -->
+<pre class="r"><code>Venndiagram_B_df &lt;- list(
+  &quot;NR_vs_OR&quot; = c(List_of_DEG$`NR.B-OR.B_UP`, List_of_DEG$`NR.B-OR.B_DOWN`),
+  &quot;NR_vs_R&quot; = c(List_of_DEG$`NR.B-R.B_UP`, List_of_DEG$`NR.B-R.B_DOWN`),
+  &quot;OR_vs_R&quot; = c(List_of_DEG$`OR.B-R.B_UP`, List_of_DEG$`OR.B-R.B_DOWN`)
+)
+
+venn.diagram(Venndiagram_B_df,
+             filename = &quot;Results/Figures/Venn_B_DEG.png&quot;, 
+             imagetype = &quot;png&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="runx1m-filter" class="section level3">
+<h3>RUNX1m filter</h3>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVmVubmRpYWdyYW1fQl9Ob19SVU5YMV9kZiA8LSBsaXN0KFxuICBcIk5SX3ZzX09SXCIgPSBjKExpc3Rfb2ZfREVHJGBXVC5OUi5CLVdULk9SLkJfVVBgLCBMaXN0X29mX0RFRyRgV1QuTlIuQi1XVC5PUi5CX0RPV05gKSxcbiAgXCJOUl92c19SXCIgPSBjKExpc3Rfb2ZfREVHJGBXVC5OUi5CLVdULlIuQl9VUGAsIExpc3Rfb2ZfREVHJGBXVC5OUi5CLVdULlIuQl9ET1dOYCksXG4gIFwiT1JfdnNfUlwiID0gYyhMaXN0X29mX0RFRyRgV1QuT1IuQi1XVC5SLkJfVVBgLCBMaXN0X29mX0RFRyRgV1QuT1IuQi1XVC5SLkJfRE9XTmApXG4pXG5cbnZlbm4uZGlhZ3JhbShWZW5uZGlhZ3JhbV9CX05vX1JVTlgxX2RmLFxuICAgICAgICAgICAgIGZpbGVuYW1lID0gXCJSZXN1bHRzL0ZpZ3VyZXMvVmVubl9CX0RFR19ub1JVTlgxLnBuZ1wiLCBcbiAgICAgICAgICAgICBpbWFnZXR5cGUgPSBcInBuZ1wiKVxuYGBgIn0= -->
+<pre class="r"><code>Venndiagram_B_No_RUNX1_df &lt;- list(
+  &quot;NR_vs_OR&quot; = c(List_of_DEG$`WT.NR.B-WT.OR.B_UP`, List_of_DEG$`WT.NR.B-WT.OR.B_DOWN`),
+  &quot;NR_vs_R&quot; = c(List_of_DEG$`WT.NR.B-WT.R.B_UP`, List_of_DEG$`WT.NR.B-WT.R.B_DOWN`),
+  &quot;OR_vs_R&quot; = c(List_of_DEG$`WT.OR.B-WT.R.B_UP`, List_of_DEG$`WT.OR.B-WT.R.B_DOWN`)
+)
+
+venn.diagram(Venndiagram_B_No_RUNX1_df,
+             filename = &quot;Results/Figures/Venn_B_DEG_noRUNX1.png&quot;, 
+             imagetype = &quot;png&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="relapsebaseline-r-nr-vs-r-or-vs-r" class="section level2">
+<h2>Relapse/Baseline R NR vs R OR vs R</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuVmVubmRpYWdyYW1fUkVMX0JfZGYgPC0gbGlzdChcbiAgXCJSQmFzZWxpbmVfUlJlbGFwc2VcIiA9IGMoTGlzdF9vZl9ERUckYFdULlIuQi1XVC5SLlJFTF9VUGAsIExpc3Rfb2ZfREVHJGBXVC5SLkItV1QuUi5SRUxfRE9XTmApLFxuICBcIk5SX3ZzX1JcIiA9IGMoTGlzdF9vZl9ERUckYFdULk5SLkItV1QuUi5CX1VQYCwgTGlzdF9vZl9ERUckYFdULk5SLkItV1QuUi5CX0RPV05gKSxcbiAgXCJPUl92c19SXCIgPSBjKExpc3Rfb2ZfREVHJGBXVC5PUi5CLVdULlIuQl9VUGAsIExpc3Rfb2ZfREVHJGBXVC5PUi5CLVdULlIuQl9ET1dOYClcbilcblxudmVubi5kaWFncmFtKFZlbm5kaWFncmFtX1JFTF9CX2RmLFxuICAgICAgICAgICAgIGZpbGVuYW1lID0gXCJSZXN1bHRzL0ZpZ3VyZXMvVmVubmRpYWdyYW1fUkVMX0JfZGYucG5nXCIsIFxuICAgICAgICAgICAgIGltYWdldHlwZSA9IFwicG5nXCIpXG5gYGAifQ== -->
+<pre class="r"><code>Venndiagram_REL_B_df &lt;- list(
+  &quot;RBaseline_RRelapse&quot; = c(List_of_DEG$`WT.R.B-WT.R.REL_UP`, List_of_DEG$`WT.R.B-WT.R.REL_DOWN`),
+  &quot;NR_vs_R&quot; = c(List_of_DEG$`WT.NR.B-WT.R.B_UP`, List_of_DEG$`WT.NR.B-WT.R.B_DOWN`),
+  &quot;OR_vs_R&quot; = c(List_of_DEG$`WT.OR.B-WT.R.B_UP`, List_of_DEG$`WT.OR.B-WT.R.B_DOWN`)
+)
+
+venn.diagram(Venndiagram_REL_B_df,
+             filename = &quot;Results/Figures/Venndiagram_REL_B_df.png&quot;, 
+             imagetype = &quot;png&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
 </div>
 <div id="gene-set-enrichment-analysis" class="section level1">
 <h1>Gene set enrichment analysis</h1>
+<div id="clinical-analysis" class="section level2">
+<h2>Clinical analysis</h2>
 <!-- rnb-text-end -->
 <!-- rnb-text-begin -->
+</div>
+<div id="intersection-nr-r-or-analyses" class="section level2">
+<h2>Intersection NR R OR analyses</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2VuZV91bml2ZXJzZSA8LSByb3duYW1lcyhSTkFzZXEpXG5cbkdlbmVzX1VQX05SIDwtIGludGVyc2VjdChMaXN0X29mX0RFRyRgTlIuQi1PUi5CX1VQYCwgTGlzdF9vZl9ERUckYE5SLkItUi5CX1VQYClcbkdlbmVzX0RPV05fTlIgPC0gaW50ZXJzZWN0KExpc3Rfb2ZfREVHJGBOUi5CLU9SLkJfRE9XTmAsIExpc3Rfb2ZfREVHJGBOUi5CLVIuQl9ET1dOYClcblxuR2VuZXNfVVBfUiA8LSBpbnRlcnNlY3QoTGlzdF9vZl9ERUckYE5SLkItUi5CX0RPV05gLCBMaXN0X29mX0RFRyRgT1IuQi1SLkJfRE9XTmApXG5HZW5lc19ET1dOX1IgPC0gaW50ZXJzZWN0KExpc3Rfb2ZfREVHJGBOUi5CLVIuQl9VUGAsIExpc3Rfb2ZfREVHJGBPUi5CLVIuQl9VUGApXG5cbiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyBOUiAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyNcbkdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbW1wiSW50ZXJzZWN0aW9uX2FuYWx5c2lzXCJdXSA8LSBsaXN0KClcbkdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbW1wiSW50ZXJzZWN0aW9uX2FuYWx5c2lzXCJdXVtbXCJOUl9VUFwiXV0gPC0gZW5yaWNoR08oXG4gICAgZ2VuZSA9IEdlbmVzX1VQX05SLFxuICAgIGtleVR5cGUgPSBcIlNZTUJPTFwiLFxuICAgIE9yZ0RiID0gXCJvcmcuSHMuZWcuZGJcIixcbiAgICBvbnQgPSBcIkFMTFwiLFxuICAgIHBBZGp1c3RNZXRob2QgPSBcIm5vbmVcIiwgXG4gICAgdW5pdmVyc2UgPSBnZW5lX3VuaXZlcnNlXG4gIClcbkdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbW1wiSW50ZXJzZWN0aW9uX2FuYWx5c2lzXCJdXVtbXCJOUl9ET1dOXCJdXSA8LSBlbnJpY2hHTyhcbiAgICBnZW5lID0gR2VuZXNfRE9XTl9OUixcbiAgICBrZXlUeXBlID0gXCJTWU1CT0xcIixcbiAgICBPcmdEYiA9IFwib3JnLkhzLmVnLmRiXCIsXG4gICAgb250ID0gXCJBTExcIixcbiAgICBwQWRqdXN0TWV0aG9kID0gXCJub25lXCIsIFxuICAgIHVuaXZlcnNlID0gZ2VuZV91bml2ZXJzZVxuICApXG5cbiMjIyMjIyMjIyMjIyMjIyMjIyMjIFIgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjXG5HZW5lX3NldF9kaWZmX2FuYWx5c2lzW1tcIkludGVyc2VjdGlvbl9hbmFseXNpc1wiXV1bW1wiUl9VUFwiXV0gPC0gZW5yaWNoR08oXG4gICAgZ2VuZSA9IEdlbmVzX1VQX1IsXG4gICAga2V5VHlwZSA9IFwiU1lNQk9MXCIsXG4gICAgT3JnRGIgPSBcIm9yZy5Icy5lZy5kYlwiLFxuICAgIG9udCA9IFwiQUxMXCIsXG4gICAgcEFkanVzdE1ldGhvZCA9IFwibm9uZVwiLCBcbiAgICB1bml2ZXJzZSA9IGdlbmVfdW5pdmVyc2VcbiAgKVxuR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbXCJJbnRlcnNlY3Rpb25fYW5hbHlzaXNcIl1dW1tcIlJfRE9XTlwiXV0gPC0gZW5yaWNoR08oXG4gICAgZ2VuZSA9IEdlbmVzX0RPV05fUixcbiAgICBrZXlUeXBlID0gXCJTWU1CT0xcIixcbiAgICBPcmdEYiA9IFwib3JnLkhzLmVnLmRiXCIsXG4gICAgb250ID0gXCJBTExcIixcbiAgICBwQWRqdXN0TWV0aG9kID0gXCJub25lXCIsIFxuICAgIHVuaXZlcnNlID0gZ2VuZV91bml2ZXJzZVxuICApXG5cbnJtKEdlbmVzX1VQX05SLCBHZW5lc19ET1dOX05SLCBHZW5lc19VUF9SLCBHZW5lc19ET1dOX1IpXG5gYGAifQ== -->
+<pre class="r"><code>gene_universe &lt;- rownames(RNAseq)
+
+Genes_UP_NR &lt;- intersect(List_of_DEG$`NR.B-OR.B_UP`, List_of_DEG$`NR.B-R.B_UP`)
+Genes_DOWN_NR &lt;- intersect(List_of_DEG$`NR.B-OR.B_DOWN`, List_of_DEG$`NR.B-R.B_DOWN`)
+
+Genes_UP_R &lt;- intersect(List_of_DEG$`NR.B-R.B_DOWN`, List_of_DEG$`OR.B-R.B_DOWN`)
+Genes_DOWN_R &lt;- intersect(List_of_DEG$`NR.B-R.B_UP`, List_of_DEG$`OR.B-R.B_UP`)
+
+######################## NR ###########################
+Gene_set_diff_analysis[[&quot;Intersection_analysis&quot;]] &lt;- list()
+Gene_set_diff_analysis[[&quot;Intersection_analysis&quot;]][[&quot;NR_UP&quot;]] &lt;- enrichGO(
+    gene = Genes_UP_NR,
+    keyType = &quot;SYMBOL&quot;,
+    OrgDb = &quot;org.Hs.eg.db&quot;,
+    ont = &quot;ALL&quot;,
+    pAdjustMethod = &quot;none&quot;, 
+    universe = gene_universe
+  )
+Gene_set_diff_analysis[[&quot;Intersection_analysis&quot;]][[&quot;NR_DOWN&quot;]] &lt;- enrichGO(
+    gene = Genes_DOWN_NR,
+    keyType = &quot;SYMBOL&quot;,
+    OrgDb = &quot;org.Hs.eg.db&quot;,
+    ont = &quot;ALL&quot;,
+    pAdjustMethod = &quot;none&quot;, 
+    universe = gene_universe
+  )
+
+#################### R ########################
+Gene_set_diff_analysis[[&quot;Intersection_analysis&quot;]][[&quot;R_UP&quot;]] &lt;- enrichGO(
+    gene = Genes_UP_R,
+    keyType = &quot;SYMBOL&quot;,
+    OrgDb = &quot;org.Hs.eg.db&quot;,
+    ont = &quot;ALL&quot;,
+    pAdjustMethod = &quot;none&quot;, 
+    universe = gene_universe
+  )
+Gene_set_diff_analysis[[&quot;Intersection_analysis&quot;]][[&quot;R_DOWN&quot;]] &lt;- enrichGO(
+    gene = Genes_DOWN_R,
+    keyType = &quot;SYMBOL&quot;,
+    OrgDb = &quot;org.Hs.eg.db&quot;,
+    ont = &quot;ALL&quot;,
+    pAdjustMethod = &quot;none&quot;, 
+    universe = gene_universe
+  )
+
+rm(Genes_UP_NR, Genes_DOWN_NR, Genes_UP_R, Genes_DOWN_R)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="intersection-relapse-r-analyses" class="section level2">
+<h2>Intersection Relapse R analyses</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR2VuZXNfVVBfUl9CX1VQIDwtIGludGVyc2VjdChMaXN0X29mX0RFRyRgTlIuQi1SLkJfRE9XTmAsIExpc3Rfb2ZfREVHJGBSLkItUi5SRUxfVVBgKVxuR2VuZXNfVVBfUl9CX0RPV04gPC0gaW50ZXJzZWN0KExpc3Rfb2ZfREVHJGBOUi5CLVIuQl9VUGAsIExpc3Rfb2ZfREVHJGBSLkItUi5SRUxfRE9XTmApXG5cbkdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbW1wiSW50ZXJzZWN0aW9uX2FuYWx5c2lzXCJdXVtbXCJSRUxfUl9CX1VQXCJdXSA8LSBlbnJpY2hHTyhcbiAgICBnZW5lID0gR2VuZXNfVVBfUl9CX1VQLFxuICAgIGtleVR5cGUgPSBcIlNZTUJPTFwiLFxuICAgIE9yZ0RiID0gXCJvcmcuSHMuZWcuZGJcIixcbiAgICBvbnQgPSBcIkFMTFwiLFxuICAgIHBBZGp1c3RNZXRob2QgPSBcIm5vbmVcIiwgXG4gICAgdW5pdmVyc2UgPSBnZW5lX3VuaXZlcnNlXG4gIClcbkdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbW1wiSW50ZXJzZWN0aW9uX2FuYWx5c2lzXCJdXVtbXCJSRUxfUl9CX0RPV05cIl1dIDwtIGVucmljaEdPKFxuICAgIGdlbmUgPSBHZW5lc19VUF9SX0JfRE9XTixcbiAgICBrZXlUeXBlID0gXCJTWU1CT0xcIixcbiAgICBPcmdEYiA9IFwib3JnLkhzLmVnLmRiXCIsXG4gICAgb250ID0gXCJBTExcIixcbiAgICBwQWRqdXN0TWV0aG9kID0gXCJub25lXCIsIFxuICAgIHVuaXZlcnNlID0gZ2VuZV91bml2ZXJzZVxuICApXG5cbnJtKEdlbmVzX1VQX1JfQl9VUCwgR2VuZXNfVVBfUl9CX0RPV04pXG5gYGAifQ== -->
+<pre class="r"><code>Genes_UP_R_B_UP &lt;- intersect(List_of_DEG$`NR.B-R.B_DOWN`, List_of_DEG$`R.B-R.REL_UP`)
+Genes_UP_R_B_DOWN &lt;- intersect(List_of_DEG$`NR.B-R.B_UP`, List_of_DEG$`R.B-R.REL_DOWN`)
+
+Gene_set_diff_analysis[[&quot;Intersection_analysis&quot;]][[&quot;REL_R_B_UP&quot;]] &lt;- enrichGO(
+    gene = Genes_UP_R_B_UP,
+    keyType = &quot;SYMBOL&quot;,
+    OrgDb = &quot;org.Hs.eg.db&quot;,
+    ont = &quot;ALL&quot;,
+    pAdjustMethod = &quot;none&quot;, 
+    universe = gene_universe
+  )
+Gene_set_diff_analysis[[&quot;Intersection_analysis&quot;]][[&quot;REL_R_B_DOWN&quot;]] &lt;- enrichGO(
+    gene = Genes_UP_R_B_DOWN,
+    keyType = &quot;SYMBOL&quot;,
+    OrgDb = &quot;org.Hs.eg.db&quot;,
+    ont = &quot;ALL&quot;,
+    pAdjustMethod = &quot;none&quot;, 
+    universe = gene_universe
+  )
+
+rm(Genes_UP_R_B_UP, Genes_UP_R_B_DOWN)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="relapse-versus-baseline-r" class="section level2">
+<h2>Relapse versus Baseline R</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbXCJSRUxfQi5SXCJdXSA8LSBHZW5lX3NldF9hbmFseXNpcyhSTkFzZXFfZGlmZl9nZW5lX2V4cHJlc3Npb25fYW5hbHlzaXNbW1wiUkVMX0Jhc2VsaW5lXCJdXVtbXCJSLkItUkVMXCJdXSlcbmBgYCJ9 -->
+<pre class="r"><code>Gene_set_diff_analysis[[&quot;REL_B.R&quot;]] &lt;- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[[&quot;REL_Baseline&quot;]][[&quot;R.B-REL&quot;]])</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
 </div>
 <div id="ms-viper-analyses" class="section level1">
 <h1>MS Viper analyses</h1>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZGF0YShkb3JvdGhlYV9ocywgcGFja2FnZSA9IFwiZG9yb3RoZWFcIikgXG5yZWd1bG9ucyA9IGRvcm90aGVhX2hzICU+JVxuICBmaWx0ZXIoY29uZmlkZW5jZSAlaW4lIGMoXCJBXCIsIFwiQlwiKSlcblxucmVmX1JfQmFzZWxpbmUgPC0gRmFjdG9yX1JfT1JfTlJfQmFzZWxpbmUgPT0gXCJSZXNwb25kZXIuQmFzZWxpbmVcIlxucmVmX09SX0Jhc2VsaW5lIDwtIEZhY3Rvcl9SX09SX05SX0Jhc2VsaW5lID09IFwiT3ZlcmFsbF9yZXNwb25kZXIuQmFzZWxpbmVcIlxucmVmX05SX0Jhc2VsaW5lIDwtIEZhY3Rvcl9SX09SX05SX0Jhc2VsaW5lID09IFwiTm9uX3Jlc3BvbmRlci5CYXNlbGluZVwiXG5cblJfT1JfbXNWaXBlciA8LSBydW5fbXN2aXBlcihSTkFzZXEsIHJlZ3Vsb25zLCB1c2VfYXJhY25lID0gVCwgcmVmID0gcmVmX1JfQmFzZWxpbmUsIHJlZl9uYW1lID0gXCJSXCIsIHRyZWF0ID0gcmVmX09SX0Jhc2VsaW5lLCB0cmVhdF9uYW1lID0gXCJPUlwiLCBtaW5zaXplID0gNCwgZ2VzLmZpbHRlciA9IFQpXG5gYGAifQ== -->
-<pre class="r"><code>data(dorothea_hs, package = &quot;dorothea&quot;) 
-regulons = dorothea_hs %&gt;%
-  filter(confidence %in% c(&quot;A&quot;, &quot;B&quot;))
-
-ref_R_Baseline &lt;- Factor_R_OR_NR_Baseline == &quot;Responder.Baseline&quot;
-ref_OR_Baseline &lt;- Factor_R_OR_NR_Baseline == &quot;Overall_responder.Baseline&quot;
-ref_NR_Baseline &lt;- Factor_R_OR_NR_Baseline == &quot;Non_responder.Baseline&quot;
-
-R_OR_msViper &lt;- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline, ref_name = &quot;R&quot;, treat = ref_OR_Baseline, treat_name = &quot;OR&quot;, minsize = 4, ges.filter = T)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5SX09SX21zdmlwZXIgPC0gRG9fTVNfdmlwZXJfYW5hbHlzaXMoUk5Bc2VxLCByZWd1bG9ucywgcmVmX1JfQiwgXCJSXCIsIHJlZl9PUl9CLCBcIk9SXCIpXG5cbmBgYCJ9 -->
+<pre class="r"><code>
+R_OR_msviper &lt;- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, &quot;R&quot;, ref_OR_B, &quot;OR&quot;)
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiV0FSTklORyEgTk9UIENPTlZFUkdFTlQhIFxubnVtYmVyIG9mIGl0ZXJhdGlvbnM9IDEwMDAgXG5XQVJOSU5HISBOT1QgQ09OVkVSR0VOVCEgXG5udW1iZXIgb2YgaXRlcmF0aW9ucz0gMTAwMCBcbldBUk5JTkchIE5PVCBDT05WRVJHRU5UISBcbm51bWJlciBvZiBpdGVyYXRpb25zPSAxMDAwIFxuIn0= -->
 <pre><code>WARNING! NOT CONVERGENT! 
@@ -1864,54 +1982,58 @@ number of iterations= 1000
 WARNING! NOT CONVERGENT! 
 number of iterations= 1000 </code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUl9PUl9tc1ZpcGVyX2NvbWJpbmF0b3J5IDwtIG1zdmlwZXJDb21iaW5hdG9yaWFsKFJfT1JfbXNWaXBlciRtcnMsIHJlZ3VsYXRvcnMgPSAyNSwgdmVyYm9zZSA9IEZBTFNFKVxuUl9PUl9tc1ZpcGVyX3N5bmVyZ3kgPC0gbXN2aXBlclN5bmVyZ3koUl9PUl9tc1ZpcGVyX2NvbWJpbmF0b3J5LCB2ZXJib3NlID0gRkFMU0UpXG5cblJfTlJfbXNWaXBlciA8LSBydW5fbXN2aXBlcihSTkFzZXEsIHJlZ3Vsb25zLCB1c2VfYXJhY25lID0gVCwgcmVmID0gcmVmX1JfQmFzZWxpbmUsIHJlZl9uYW1lID0gXCJSXCIsIHRyZWF0ID0gcmVmX05SX0Jhc2VsaW5lLCB0cmVhdF9uYW1lID0gXCJOUlwiLCBtaW5zaXplID0gNCwgZ2VzLmZpbHRlciA9IFQpXG5gYGAifQ== -->
-<pre class="r"><code>R_OR_msViper_combinatory &lt;- msviperCombinatorial(R_OR_msViper$mrs, regulators = 25, verbose = FALSE)
-R_OR_msViper_synergy &lt;- msviperSynergy(R_OR_msViper_combinatory, verbose = FALSE)
-
-R_NR_msViper &lt;- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline, ref_name = &quot;R&quot;, treat = ref_NR_Baseline, treat_name = &quot;NR&quot;, minsize = 4, ges.filter = T)</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiT1IgdnMgUiBET05FIVxuIn0= -->
+<pre><code>OR vs R DONE!</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUl9OUl9tc3ZpcGVyIDwtIERvX01TX3ZpcGVyX2FuYWx5c2lzKFJOQXNlcSwgcmVndWxvbnMsIHJlZl9SX0IsIFwiUlwiLCByZWZfTlJfQiwgXCJOUlwiKVxuYGBgIn0= -->
+<pre class="r"><code>R_NR_msviper &lt;- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, &quot;R&quot;, ref_NR_B, &quot;NR&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoibnVtYmVyIG9mIGl0ZXJhdGlvbnM9IDU5NSBcbiJ9 -->
 <pre><code>number of iterations= 595 </code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUl9OUl9tc1ZpcGVyX2NvbWJpbmF0b3J5IDwtIG1zdmlwZXJDb21iaW5hdG9yaWFsKFJfTlJfbXNWaXBlciRtcnMsIHJlZ3VsYXRvcnMgPSAyNSwgdmVyYm9zZSA9IEZBTFNFKVxuUl9OUl9tc1ZpcGVyX3N5bmVyZ3kgPC0gbXN2aXBlclN5bmVyZ3koUl9OUl9tc1ZpcGVyX2NvbWJpbmF0b3J5LCB2ZXJib3NlID0gRkFMU0UpXG5cbnJlZl9SX0Jhc2VsaW5lX25vX1JVTlgxbSA8LSBGYWN0b3JfUl9PUl9OUl9CYXNlbGluZV9SVU5YMW0gPT0gXCJXVC5SZXNwb25kZXIuQmFzZWxpbmVcIlxucmVmX09SX0Jhc2VsaW5lX25vX1JVTlgxbSA8LSBGYWN0b3JfUl9PUl9OUl9CYXNlbGluZV9SVU5YMW0gPT0gXCJXVC5PdmVyYWxsX3Jlc3BvbmRlci5CYXNlbGluZVwiXG5yZWZfTlJfQmFzZWxpbmVfbm9fUlVOWDFtIDwtIEZhY3Rvcl9SX09SX05SX0Jhc2VsaW5lX1JVTlgxbSA9PSBcIldULk5vbl9yZXNwb25kZXIuQmFzZWxpbmVcIlxuXG5SX09SX25vX1JVTlgxbV9tc1ZpcGVyIDwtIHJ1bl9tc3ZpcGVyKFJOQXNlcSwgcmVndWxvbnMsIHVzZV9hcmFjbmUgPSBULCByZWYgPSByZWZfUl9CYXNlbGluZV9ub19SVU5YMW0sIHJlZl9uYW1lID0gXCJSXCIsIHRyZWF0ID0gcmVmX09SX0Jhc2VsaW5lX25vX1JVTlgxbSwgdHJlYXRfbmFtZSA9IFwiT1JcIiwgbWluc2l6ZSA9IDQsIGdlcy5maWx0ZXIgPSBUKVxuYGBgIn0= -->
-<pre class="r"><code>R_NR_msViper_combinatory &lt;- msviperCombinatorial(R_NR_msViper$mrs, regulators = 25, verbose = FALSE)
-R_NR_msViper_synergy &lt;- msviperSynergy(R_NR_msViper_combinatory, verbose = FALSE)
-
-ref_R_Baseline_no_RUNX1m &lt;- Factor_R_OR_NR_Baseline_RUNX1m == &quot;WT.Responder.Baseline&quot;
-ref_OR_Baseline_no_RUNX1m &lt;- Factor_R_OR_NR_Baseline_RUNX1m == &quot;WT.Overall_responder.Baseline&quot;
-ref_NR_Baseline_no_RUNX1m &lt;- Factor_R_OR_NR_Baseline_RUNX1m == &quot;WT.Non_responder.Baseline&quot;
-
-R_OR_no_RUNX1m_msViper &lt;- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline_no_RUNX1m, ref_name = &quot;R&quot;, treat = ref_OR_Baseline_no_RUNX1m, treat_name = &quot;OR&quot;, minsize = 4, ges.filter = T)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiV0FSTklORyEgTk9UIENPTlZFUkdFTlQhIFxubnVtYmVyIG9mIGl0ZXJhdGlvbnM9IDEwMDAgXG5udW1iZXIgb2YgaXRlcmF0aW9ucz0gNzIgXG4ifQ== -->
-<pre><code>WARNING! NOT CONVERGENT! 
-number of iterations= 1000 
-number of iterations= 72 </code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiTlIgdnMgUiBET05FIVxuIn0= -->
+<pre><code>NR vs R DONE!</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUl9PUl9ub19SVU5YMW1fbXNWaXBlcl9jb21iaW5hdG9yeSA8LSBtc3ZpcGVyQ29tYmluYXRvcmlhbChSX09SX25vX1JVTlgxbV9tc1ZpcGVyJG1ycywgcmVndWxhdG9ycyA9IDI1LCB2ZXJib3NlID0gRkFMU0UpXG5SX09SX25vX1JVTlgxbV9tc1ZpcGVyX3N5bmVyZ3kgPC0gbXN2aXBlclN5bmVyZ3koUl9PUl9ub19SVU5YMW1fbXNWaXBlcl9jb21iaW5hdG9yeSwgdmVyYm9zZSA9IEZBTFNFKVxuXG5SX05SX25vX1JVTlgxbV9tc1ZpcGVyIDwtIHJ1bl9tc3ZpcGVyKFJOQXNlcSwgcmVndWxvbnMsIHVzZV9hcmFjbmUgPSBULCByZWYgPSByZWZfUl9CYXNlbGluZV9ub19SVU5YMW0sIHJlZl9uYW1lID0gXCJSXCIsIHRyZWF0ID0gcmVmX05SX0Jhc2VsaW5lX25vX1JVTlgxbSwgdHJlYXRfbmFtZSA9IFwiTlJcIiwgbWluc2l6ZSA9IDQsIGdlcy5maWx0ZXIgPSBUKVxuYGBgIn0= -->
-<pre class="r"><code>R_OR_no_RUNX1m_msViper_combinatory &lt;- msviperCombinatorial(R_OR_no_RUNX1m_msViper$mrs, regulators = 25, verbose = FALSE)
-R_OR_no_RUNX1m_msViper_synergy &lt;- msviperSynergy(R_OR_no_RUNX1m_msViper_combinatory, verbose = FALSE)
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<div id="intersection-nrs" class="section level2">
+<h2>Intersection NRs</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+</div>
+<div id="saving" class="section level1">
+<h1>Saving</h1>
+<div id="figures" class="section level2">
+<h2>Figures</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucG5nKFwiUmVzdWx0cy9GaWd1cmVzL0dPX05SX1VQLnBuZ1wiKVxuZW1hcHBsb3QoR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbXCJJbnRlcnNlY3Rpb25fYW5hbHlzaXNcIl1dW1tcIk5SX1VQXCJdXSwgY29sb3IgPSBcInF2YWx1ZVwiLCBzaXplID0gXCJDb3VudFwiKVxuZGV2Lm9mZigpXG5wbmcoXCJSZXN1bHRzL0ZpZ3VyZXMvR09fTlJfRE9XTi5wbmdcIilcbmVtYXBwbG90KEdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbW1wiSW50ZXJzZWN0aW9uX2FuYWx5c2lzXCJdXVtbXCJOUl9ET1dOXCJdXSwgY29sb3IgPSBcInF2YWx1ZVwiLCBzaXplID0gXCJDb3VudFwiKVxuZGV2Lm9mZigpXG5cbnBuZyhcIlJlc3VsdHMvRmlndXJlcy9HT19SX1VQLnBuZ1wiKVxuZW1hcHBsb3QoR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbXCJJbnRlcnNlY3Rpb25fYW5hbHlzaXNcIl1dW1tcIlJfVVBcIl1dLCBjb2xvciA9IFwicXZhbHVlXCIsIHNpemUgPSBcIkNvdW50XCIpXG5kZXYub2ZmKClcblxucG5nKFwiUmVzdWx0cy9GaWd1cmVzL0dPX1JFTF9SX0JfRE9XTi5wbmdcIilcbmVtYXBwbG90KEdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbW1wiSW50ZXJzZWN0aW9uX2FuYWx5c2lzXCJdXVtbXCJSRUxfUl9CX0RPV05cIl1dLCBjb2xvciA9IFwicXZhbHVlXCIsIHNpemUgPSBcIkNvdW50XCIpXG5kZXYub2ZmKClcblxuXG5gYGAifQ== -->
+<pre class="r"><code>png(&quot;Results/Figures/GO_NR_UP.png&quot;)
+emapplot(Gene_set_diff_analysis[[&quot;Intersection_analysis&quot;]][[&quot;NR_UP&quot;]], color = &quot;qvalue&quot;, size = &quot;Count&quot;)
+dev.off()
+png(&quot;Results/Figures/GO_NR_DOWN.png&quot;)
+emapplot(Gene_set_diff_analysis[[&quot;Intersection_analysis&quot;]][[&quot;NR_DOWN&quot;]], color = &quot;qvalue&quot;, size = &quot;Count&quot;)
+dev.off()
 
-R_NR_no_RUNX1m_msViper &lt;- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline_no_RUNX1m, ref_name = &quot;R&quot;, treat = ref_NR_Baseline_no_RUNX1m, treat_name = &quot;NR&quot;, minsize = 4, ges.filter = T)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiV0FSTklORyEgTk9UIENPTlZFUkdFTlQhIFxubnVtYmVyIG9mIGl0ZXJhdGlvbnM9IDEwMDAgXG5XQVJOSU5HISBOT1QgQ09OVkVSR0VOVCEgXG5udW1iZXIgb2YgaXRlcmF0aW9ucz0gMTAwMCBcbldBUk5JTkchIE5PVCBDT05WRVJHRU5UISBcbm51bWJlciBvZiBpdGVyYXRpb25zPSAxMDAwIFxuIn0= -->
-<pre><code>WARNING! NOT CONVERGENT! 
-number of iterations= 1000 
-WARNING! NOT CONVERGENT! 
-number of iterations= 1000 
-WARNING! NOT CONVERGENT! 
-number of iterations= 1000 </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuUl9OUl9ub19SVU5YMW1fbXNWaXBlcl9jb21iaW5hdG9yeSA8LSBtc3ZpcGVyQ29tYmluYXRvcmlhbChSX05SX25vX1JVTlgxbV9tc1ZpcGVyJG1ycywgcmVndWxhdG9ycyA9IDI1LCB2ZXJib3NlID0gRkFMU0UpXG5SX05SX25vX1JVTlgxbV9tc1ZpcGVyX3N5bmVyZ3kgPC0gbXN2aXBlclN5bmVyZ3koUl9OUl9ub19SVU5YMW1fbXNWaXBlcl9jb21iaW5hdG9yeSwgdmVyYm9zZSA9IEZBTFNFKVxuYGBgIn0= -->
-<pre class="r"><code>R_NR_no_RUNX1m_msViper_combinatory &lt;- msviperCombinatorial(R_NR_no_RUNX1m_msViper$mrs, regulators = 25, verbose = FALSE)
-R_NR_no_RUNX1m_msViper_synergy &lt;- msviperSynergy(R_NR_no_RUNX1m_msViper_combinatory, verbose = FALSE)</code></pre>
+png(&quot;Results/Figures/GO_R_UP.png&quot;)
+emapplot(Gene_set_diff_analysis[[&quot;Intersection_analysis&quot;]][[&quot;R_UP&quot;]], color = &quot;qvalue&quot;, size = &quot;Count&quot;)
+dev.off()
+
+png(&quot;Results/Figures/GO_REL_R_B_DOWN.png&quot;)
+emapplot(Gene_set_diff_analysis[[&quot;Intersection_analysis&quot;]][[&quot;REL_R_B_DOWN&quot;]], color = &quot;qvalue&quot;, size = &quot;Count&quot;)
+dev.off()
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
+</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3IsIGluY2x1ZGU9RkFMU0V9CnNvdXJjZSgiZnVuY3Rpb25zLlIiKQoKUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzIDwtIGxpc3QoKQpHZW5lX3NldF9kaWZmX2FuYWx5c2lzIDwtIGxpc3QoKQpSTkFzZXEgPC0gcmVhZC5jc3YoIkRBVEEvUk5Bc2VxX3BhcnNlZC5jc3YiLCByb3cubmFtZXMgPSAxLCBoZWFkZXIgPSBULCBjaGVjay5uYW1lcyA9IEYpCkNsaW5pY2FsX3BhdGllbnRfZGF0YSA8LSByZWFkLmNzdigiREFUQS9DbGluaWNhbF9wYXRpZW50X2RhdGEuY3N2IikKYGBgCgojIERpZmZlcmVudGlhbCBnZW5lIGV4cHJlc3Npb24KCmBgYHtyfQpGYWN0b3JfUl9PUl9OUl9CYXNlbGluZV9SVU5YMW0gPC0gTWFrZV9mYWN0b3IoQ2xpbmljYWxfcGF0aWVudF9kYXRhLCAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgY29sbmFtZXMoUk5Bc2VxKSwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYygiUlVOWDEiKSwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGMoIkNSIiwgIkNSaSIpLCAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIlJlc3BvbmRlciIsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjKCJNTEZTIiwgIkhJIiwgIkNScCIsICJQUiIpLCAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIk92ZXJhbGxfcmVzcG9uZGVyIiwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYygiU0QiLCAiUEQiKSwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJOb25fcmVzcG9uZGVyIikKClJOQXNlcV9kaWZmX2dlbmVfZXhwcmVzc2lvbl9hbmFseXNpc1tbIlJfT1JfTlJfQmFzZWxpbmVfUlVOWDFtIl1dIDwtIERpZmZlcmVudGlhbF9hbmFseXNpcyhGYWN0b3JfUl9PUl9OUl9CYXNlbGluZV9SVU5YMW0sIFJOQXNlcSkKCkZhY3Rvcl9SX09SX05SX0Jhc2VsaW5lIDwtIE1ha2VfZmFjdG9yKENsaW5pY2FsX3BhdGllbnRfZGF0YSwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGNvbG5hbWVzKFJOQXNlcSksCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDAsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjKCJDUiIsICJDUmkiKSwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJSZXNwb25kZXIiLCAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYygiTUxGUyIsICJISSIsICJDUnAiLCAiUFIiKSwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJPdmVyYWxsX3Jlc3BvbmRlciIsCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGMoIlNEIiwgIlBEIiksIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiTm9uX3Jlc3BvbmRlciIpCgpSTkFzZXFfZGlmZl9nZW5lX2V4cHJlc3Npb25fYW5hbHlzaXNbWyJSX09SX05SX0Jhc2VsaW5lIl1dIDwtIERpZmZlcmVudGlhbF9hbmFseXNpcyhGYWN0b3JfUl9PUl9OUl9CYXNlbGluZSwgUk5Bc2VxKQoKCmBgYAoKIyBHZW5lIHNldCBlbnJpY2htZW50IGFuYWx5c2lzCgpgYGB7ciwgaW5jbHVkZSA9IEZ9CkdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbWyJPUl92c19SIl1dIDwtIEdlbmVfc2V0X2FuYWx5c2lzKFJOQXNlcV9kaWZmX2dlbmVfZXhwcmVzc2lvbl9hbmFseXNpc1tbIlJfT1JfTlJfQmFzZWxpbmUiXV1bWyJPdmVyYWxsX3Jlc3BvbmRlci5CYXNlbGluZS1SZXNwb25kZXIuQmFzZWxpbmUiXV0pCgpHZW5lX3NldF9kaWZmX2FuYWx5c2lzW1siT1JfdnNfUl93aXRob3V0X1JVTlgxbSJdXSA8LSBHZW5lX3NldF9hbmFseXNpcyhSTkFzZXFfZGlmZl9nZW5lX2V4cHJlc3Npb25fYW5hbHlzaXNbWyJSX09SX05SX0Jhc2VsaW5lX1JVTlgxbSJdXVtbIldULk92ZXJhbGxfcmVzcG9uZGVyLkJhc2VsaW5lLVdULlJlc3BvbmRlci5CYXNlbGluZSJdXSkKCkdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbWyJOUl92c19SIl1dIDwtIEdlbmVfc2V0X2FuYWx5c2lzKFJOQXNlcV9kaWZmX2dlbmVfZXhwcmVzc2lvbl9hbmFseXNpc1tbIlJfT1JfTlJfQmFzZWxpbmUiXV1bWyJOb25fcmVzcG9uZGVyLkJhc2VsaW5lLVJlc3BvbmRlci5CYXNlbGluZSJdXSkKCkdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbWyJOUl92c19SX3dpdGhvdXRfUlVOWDFtIl1dIDwtIEdlbmVfc2V0X2FuYWx5c2lzKFJOQXNlcV9kaWZmX2dlbmVfZXhwcmVzc2lvbl9hbmFseXNpc1tbIlJfT1JfTlJfQmFzZWxpbmVfUlVOWDFtIl1dW1siV1QuTm9uX3Jlc3BvbmRlci5CYXNlbGluZS1XVC5SZXNwb25kZXIuQmFzZWxpbmUiXV0pCmBgYAoKIyBNUyBWaXBlciBhbmFseXNlcwoKYGBge3J9CmRhdGEoZG9yb3RoZWFfaHMsIHBhY2thZ2UgPSAiZG9yb3RoZWEiKSAKcmVndWxvbnMgPSBkb3JvdGhlYV9ocyAlPiUKICBmaWx0ZXIoY29uZmlkZW5jZSAlaW4lIGMoIkEiLCAiQiIpKQoKcmVmX1JfQmFzZWxpbmUgPC0gRmFjdG9yX1JfT1JfTlJfQmFzZWxpbmUgPT0gIlJlc3BvbmRlci5CYXNlbGluZSIKcmVmX09SX0Jhc2VsaW5lIDwtIEZhY3Rvcl9SX09SX05SX0Jhc2VsaW5lID09ICJPdmVyYWxsX3Jlc3BvbmRlci5CYXNlbGluZSIKcmVmX05SX0Jhc2VsaW5lIDwtIEZhY3Rvcl9SX09SX05SX0Jhc2VsaW5lID09ICJOb25fcmVzcG9uZGVyLkJhc2VsaW5lIgoKUl9PUl9tc1ZpcGVyIDwtIHJ1bl9tc3ZpcGVyKFJOQXNlcSwgcmVndWxvbnMsIHVzZV9hcmFjbmUgPSBULCByZWYgPSByZWZfUl9CYXNlbGluZSwgcmVmX25hbWUgPSAiUiIsIHRyZWF0ID0gcmVmX09SX0Jhc2VsaW5lLCB0cmVhdF9uYW1lID0gIk9SIiwgbWluc2l6ZSA9IDQsIGdlcy5maWx0ZXIgPSBUKQoKUl9PUl9tc1ZpcGVyX2NvbWJpbmF0b3J5IDwtIG1zdmlwZXJDb21iaW5hdG9yaWFsKFJfT1JfbXNWaXBlciRtcnMsIHJlZ3VsYXRvcnMgPSAyNSwgdmVyYm9zZSA9IEZBTFNFKQpSX09SX21zVmlwZXJfc3luZXJneSA8LSBtc3ZpcGVyU3luZXJneShSX09SX21zVmlwZXJfY29tYmluYXRvcnksIHZlcmJvc2UgPSBGQUxTRSkKClJfTlJfbXNWaXBlciA8LSBydW5fbXN2aXBlcihSTkFzZXEsIHJlZ3Vsb25zLCB1c2VfYXJhY25lID0gVCwgcmVmID0gcmVmX1JfQmFzZWxpbmUsIHJlZl9uYW1lID0gIlIiLCB0cmVhdCA9IHJlZl9OUl9CYXNlbGluZSwgdHJlYXRfbmFtZSA9ICJOUiIsIG1pbnNpemUgPSA0LCBnZXMuZmlsdGVyID0gVCkKClJfTlJfbXNWaXBlcl9jb21iaW5hdG9yeSA8LSBtc3ZpcGVyQ29tYmluYXRvcmlhbChSX05SX21zVmlwZXIkbXJzLCByZWd1bGF0b3JzID0gMjUsIHZlcmJvc2UgPSBGQUxTRSkKUl9OUl9tc1ZpcGVyX3N5bmVyZ3kgPC0gbXN2aXBlclN5bmVyZ3koUl9OUl9tc1ZpcGVyX2NvbWJpbmF0b3J5LCB2ZXJib3NlID0gRkFMU0UpCgpyZWZfUl9CYXNlbGluZV9ub19SVU5YMW0gPC0gRmFjdG9yX1JfT1JfTlJfQmFzZWxpbmVfUlVOWDFtID09ICJXVC5SZXNwb25kZXIuQmFzZWxpbmUiCnJlZl9PUl9CYXNlbGluZV9ub19SVU5YMW0gPC0gRmFjdG9yX1JfT1JfTlJfQmFzZWxpbmVfUlVOWDFtID09ICJXVC5PdmVyYWxsX3Jlc3BvbmRlci5CYXNlbGluZSIKcmVmX05SX0Jhc2VsaW5lX25vX1JVTlgxbSA8LSBGYWN0b3JfUl9PUl9OUl9CYXNlbGluZV9SVU5YMW0gPT0gIldULk5vbl9yZXNwb25kZXIuQmFzZWxpbmUiCgpSX09SX25vX1JVTlgxbV9tc1ZpcGVyIDwtIHJ1bl9tc3ZpcGVyKFJOQXNlcSwgcmVndWxvbnMsIHVzZV9hcmFjbmUgPSBULCByZWYgPSByZWZfUl9CYXNlbGluZV9ub19SVU5YMW0sIHJlZl9uYW1lID0gIlIiLCB0cmVhdCA9IHJlZl9PUl9CYXNlbGluZV9ub19SVU5YMW0sIHRyZWF0X25hbWUgPSAiT1IiLCBtaW5zaXplID0gNCwgZ2VzLmZpbHRlciA9IFQpCgpSX09SX25vX1JVTlgxbV9tc1ZpcGVyX2NvbWJpbmF0b3J5IDwtIG1zdmlwZXJDb21iaW5hdG9yaWFsKFJfT1Jfbm9fUlVOWDFtX21zVmlwZXIkbXJzLCByZWd1bGF0b3JzID0gMjUsIHZlcmJvc2UgPSBGQUxTRSkKUl9PUl9ub19SVU5YMW1fbXNWaXBlcl9zeW5lcmd5IDwtIG1zdmlwZXJTeW5lcmd5KFJfT1Jfbm9fUlVOWDFtX21zVmlwZXJfY29tYmluYXRvcnksIHZlcmJvc2UgPSBGQUxTRSkKClJfTlJfbm9fUlVOWDFtX21zVmlwZXIgPC0gcnVuX21zdmlwZXIoUk5Bc2VxLCByZWd1bG9ucywgdXNlX2FyYWNuZSA9IFQsIHJlZiA9IHJlZl9SX0Jhc2VsaW5lX25vX1JVTlgxbSwgcmVmX25hbWUgPSAiUiIsIHRyZWF0ID0gcmVmX05SX0Jhc2VsaW5lX25vX1JVTlgxbSwgdHJlYXRfbmFtZSA9ICJOUiIsIG1pbnNpemUgPSA0LCBnZXMuZmlsdGVyID0gVCkKClJfTlJfbm9fUlVOWDFtX21zVmlwZXJfY29tYmluYXRvcnkgPC0gbXN2aXBlckNvbWJpbmF0b3JpYWwoUl9OUl9ub19SVU5YMW1fbXNWaXBlciRtcnMsIHJlZ3VsYXRvcnMgPSAyNSwgdmVyYm9zZSA9IEZBTFNFKQpSX05SX25vX1JVTlgxbV9tc1ZpcGVyX3N5bmVyZ3kgPC0gbXN2aXBlclN5bmVyZ3koUl9OUl9ub19SVU5YMW1fbXNWaXBlcl9jb21iaW5hdG9yeSwgdmVyYm9zZSA9IEZBTFNFKQpgYGAKCgoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiBOb3RlYm9vayIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKYGBge3IsIGluY2x1ZGU9RkFMU0V9CnNvdXJjZSgiZnVuY3Rpb25zLlIiKQoKUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzIDwtIGxpc3QoKQpHZW5lX3NldF9kaWZmX2FuYWx5c2lzIDwtIGxpc3QoKQpSTkFzZXEgPC0gcmVhZC5jc3YoIkRBVEEvUk5Bc2VxX3BhcnNlZC5jc3YiLCByb3cubmFtZXMgPSAxLCBoZWFkZXIgPSBULCBjaGVjay5uYW1lcyA9IEYpCkNsaW5pY2FsX3BhdGllbnRfZGF0YSA8LSByZWFkLmNzdigiREFUQS9DbGluaWNhbF9wYXRpZW50X2RhdGEuY3N2IikKYGBgCgojIERpZmZlcmVudGlhbCBnZW5lIGV4cHJlc3Npb24KCmBgYHtyfQpGYWN0b3JfUl9PUl9OUl9CX1JVTlgxbSA8LSBNYWtlX2ZhY3RvcihDbGluaWNhbF9wYXRpZW50X2RhdGEsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xuYW1lcyhSTkFzZXEpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjKCJSVU5YMSIpLCAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYygiQ1IiLCAiQ1JpIiksIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiUiIsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjKCJNTEZTIiwgIkhJIiwgIkNScCIsICJQUiIpLCAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIk9SIiwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYygiU0QiLCAiUEQiKSwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJOUiIpCgpSTkFzZXFfZGlmZl9nZW5lX2V4cHJlc3Npb25fYW5hbHlzaXNbWyJSX09SX05SX0JfUlVOWDFtIl1dIDwtIERpZmZlcmVudGlhbF9hbmFseXNpcyhGYWN0b3JfUl9PUl9OUl9CX1JVTlgxbSwgUk5Bc2VxKQoKRmFjdG9yX1JfT1JfTlJfQiA8LSBNYWtlX2ZhY3RvcihDbGluaWNhbF9wYXRpZW50X2RhdGEsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjb2xuYW1lcyhSTkFzZXEpLAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAwLCAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYygiQ1IiLCAiQ1JpIiksIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiUiIsIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBjKCJNTEZTIiwgIkhJIiwgIkNScCIsICJQUiIpLCAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIk9SIiwKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgYygiU0QiLCAiUEQiKSwgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJOUiIpCgpSTkFzZXFfZGlmZl9nZW5lX2V4cHJlc3Npb25fYW5hbHlzaXNbWyJSX09SX05SX0IiXV0gPC0gRGlmZmVyZW50aWFsX2FuYWx5c2lzKEZhY3Rvcl9SX09SX05SX0IsIFJOQXNlcSkKCkZhY3Rvcl9SRUxfQmFzZWxpbmUgPC0gYXMudmVjdG9yKEZhY3Rvcl9SX09SX05SX0IpCkZhY3Rvcl9SRUxfQmFzZWxpbmVbc3RyX2RldGVjdChGYWN0b3JfUkVMX0Jhc2VsaW5lLCAiUkVMIildIDwtICJSRUwiCkZhY3Rvcl9SRUxfQmFzZWxpbmUgPC0gYXMuZmFjdG9yKEZhY3Rvcl9SRUxfQmFzZWxpbmUpCgpSTkFzZXFfZGlmZl9nZW5lX2V4cHJlc3Npb25fYW5hbHlzaXNbWyJSRUxfQmFzZWxpbmUiXV0gPC0gRGlmZmVyZW50aWFsX2FuYWx5c2lzKEZhY3Rvcl9SRUxfQmFzZWxpbmUsIFJOQXNlcSkKYGBgCiMjIFZlbm4gZGlhZ3JhbW0KCmBgYHtyfQpsaWJyYXJ5KFZlbm5EaWFncmFtKQpMaXN0X29mX0RFRyA8LSBsaXN0KCkKClZlY3Rvcl9ERUdfb2ZfaW50ZXJlc3QgPC0gYygiTlIuQi1PUi5CIiwgIk5SLkItUi5CIiwgIk9SLkItUi5CIiwgIlIuQi1SLlJFTCIpCgpmb3IgKGkgaW4gVmVjdG9yX0RFR19vZl9pbnRlcmVzdCl7CiAgTGlzdF9vZl9ERUdbW3Bhc3RlKGksICJVUCIsIHNlcCA9ICJfIildXSA8LSBSTkFzZXFfZGlmZl9nZW5lX2V4cHJlc3Npb25fYW5hbHlzaXNbWyJSX09SX05SX0IiXV1bW2ldXSAlPiUgZHBseXI6OmZpbHRlcihsb2dGQyA+IDAuNzUgJiBQLlZhbHVlIDwgMC4xKSAlPiUgLiRJRAogIAogIExpc3Rfb2ZfREVHW1twYXN0ZShpLCAiRE9XTiIsIHNlcCA9ICAiXyIpXV0gPC0gUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzW1siUl9PUl9OUl9CIl1dW1tpXV0gJT4lIGRwbHlyOjpmaWx0ZXIobG9nRkMgPCAtMC43NSAmIFAuVmFsdWUgPCAwLjEpICU+JSAuJElECn0KClZlY3Rvcl9ERUdfb2ZfaW50ZXJlc3QyIDwtIGMoIldULk5SLkItV1QuT1IuQiIsICJXVC5OUi5CLVdULlIuQiIsICJXVC5PUi5CLVdULlIuQiIsICJXVC5SLkItV1QuUi5SRUwiKQoKZm9yIChpIGluIFZlY3Rvcl9ERUdfb2ZfaW50ZXJlc3QyKXsKICBMaXN0X29mX0RFR1tbcGFzdGUoaSwgIlVQIiwgc2VwID0gIl8iKV1dIDwtIFJOQXNlcV9kaWZmX2dlbmVfZXhwcmVzc2lvbl9hbmFseXNpc1tbIlJfT1JfTlJfQl9SVU5YMW0iXV1bW2ldXSAlPiUgZHBseXI6OmZpbHRlcihsb2dGQyA+IDAuNzUgJiBQLlZhbHVlIDwgMC4xKSAlPiUgLiRJRAogIAogIExpc3Rfb2ZfREVHW1twYXN0ZShpLCAiRE9XTiIsIHNlcCA9ICAiXyIpXV0gPC0gUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzW1siUl9PUl9OUl9CX1JVTlgxbSJdXVtbaV1dICU+JSBkcGx5cjo6ZmlsdGVyKGxvZ0ZDIDwgLTAuNzUgJiBQLlZhbHVlIDwgMC4xKSAlPiUgLiRJRAp9CgpgYGAKCgojIyMgTm8gUlVOWDFtIGZpbHRlcgoKYGBge3J9ClZlbm5kaWFncmFtX0JfZGYgPC0gbGlzdCgKICAiTlJfdnNfT1IiID0gYyhMaXN0X29mX0RFRyRgTlIuQi1PUi5CX1VQYCwgTGlzdF9vZl9ERUckYE5SLkItT1IuQl9ET1dOYCksCiAgIk5SX3ZzX1IiID0gYyhMaXN0X29mX0RFRyRgTlIuQi1SLkJfVVBgLCBMaXN0X29mX0RFRyRgTlIuQi1SLkJfRE9XTmApLAogICJPUl92c19SIiA9IGMoTGlzdF9vZl9ERUckYE9SLkItUi5CX1VQYCwgTGlzdF9vZl9ERUckYE9SLkItUi5CX0RPV05gKQopCgp2ZW5uLmRpYWdyYW0oVmVubmRpYWdyYW1fQl9kZiwKICAgICAgICAgICAgIGZpbGVuYW1lID0gIlJlc3VsdHMvRmlndXJlcy9WZW5uX0JfREVHLnBuZyIsIAogICAgICAgICAgICAgaW1hZ2V0eXBlID0gInBuZyIpCmBgYAoKIyMjIFJVTlgxbSBmaWx0ZXIKCmBgYHtyfQpWZW5uZGlhZ3JhbV9CX05vX1JVTlgxX2RmIDwtIGxpc3QoCiAgIk5SX3ZzX09SIiA9IGMoTGlzdF9vZl9ERUckYFdULk5SLkItV1QuT1IuQl9VUGAsIExpc3Rfb2ZfREVHJGBXVC5OUi5CLVdULk9SLkJfRE9XTmApLAogICJOUl92c19SIiA9IGMoTGlzdF9vZl9ERUckYFdULk5SLkItV1QuUi5CX1VQYCwgTGlzdF9vZl9ERUckYFdULk5SLkItV1QuUi5CX0RPV05gKSwKICAiT1JfdnNfUiIgPSBjKExpc3Rfb2ZfREVHJGBXVC5PUi5CLVdULlIuQl9VUGAsIExpc3Rfb2ZfREVHJGBXVC5PUi5CLVdULlIuQl9ET1dOYCkKKQoKdmVubi5kaWFncmFtKFZlbm5kaWFncmFtX0JfTm9fUlVOWDFfZGYsCiAgICAgICAgICAgICBmaWxlbmFtZSA9ICJSZXN1bHRzL0ZpZ3VyZXMvVmVubl9CX0RFR19ub1JVTlgxLnBuZyIsIAogICAgICAgICAgICAgaW1hZ2V0eXBlID0gInBuZyIpCmBgYAoKIyMgUmVsYXBzZS9CYXNlbGluZSBSIE5SIHZzIFIgT1IgdnMgUgoKYGBge3J9ClZlbm5kaWFncmFtX1JFTF9CX2RmIDwtIGxpc3QoCiAgIlJCYXNlbGluZV9SUmVsYXBzZSIgPSBjKExpc3Rfb2ZfREVHJGBXVC5SLkItV1QuUi5SRUxfVVBgLCBMaXN0X29mX0RFRyRgV1QuUi5CLVdULlIuUkVMX0RPV05gKSwKICAiTlJfdnNfUiIgPSBjKExpc3Rfb2ZfREVHJGBXVC5OUi5CLVdULlIuQl9VUGAsIExpc3Rfb2ZfREVHJGBXVC5OUi5CLVdULlIuQl9ET1dOYCksCiAgIk9SX3ZzX1IiID0gYyhMaXN0X29mX0RFRyRgV1QuT1IuQi1XVC5SLkJfVVBgLCBMaXN0X29mX0RFRyRgV1QuT1IuQi1XVC5SLkJfRE9XTmApCikKCnZlbm4uZGlhZ3JhbShWZW5uZGlhZ3JhbV9SRUxfQl9kZiwKICAgICAgICAgICAgIGZpbGVuYW1lID0gIlJlc3VsdHMvRmlndXJlcy9WZW5uZGlhZ3JhbV9SRUxfQl9kZi5wbmciLCAKICAgICAgICAgICAgIGltYWdldHlwZSA9ICJwbmciKQpgYGAKCgojIEdlbmUgc2V0IGVucmljaG1lbnQgYW5hbHlzaXMKCiMjIENsaW5pY2FsIGFuYWx5c2lzCgpgYGB7ciwgaW5jbHVkZSA9IEZ9CkdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbWyJPUl92c19SIl1dIDwtIEdlbmVfc2V0X2FuYWx5c2lzKFJOQXNlcV9kaWZmX2dlbmVfZXhwcmVzc2lvbl9hbmFseXNpc1tbIlJfT1JfTlJfQiJdXVtbIk9SLkItUi5CIl1dKQoKR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbIk9SX3ZzX1Jfd2l0aG91dF9SVU5YMW0iXV0gPC0gR2VuZV9zZXRfYW5hbHlzaXMoUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzW1siUl9PUl9OUl9CX1JVTlgxbSJdXVtbIldULk9SLkItV1QuUi5CIl1dKQoKR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbIk5SX3ZzX1IiXV0gPC0gR2VuZV9zZXRfYW5hbHlzaXMoUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzW1siUl9PUl9OUl9CIl1dW1siTlIuQi1SLkIiXV0pCgpHZW5lX3NldF9kaWZmX2FuYWx5c2lzW1siTlJfdnNfUl93aXRob3V0X1JVTlgxbSJdXSA8LSBHZW5lX3NldF9hbmFseXNpcyhSTkFzZXFfZGlmZl9nZW5lX2V4cHJlc3Npb25fYW5hbHlzaXNbWyJSX09SX05SX0JfUlVOWDFtIl1dW1siV1QuTlIuQi1XVC5SLkIiXV0pCmBgYAoKIyMgSW50ZXJzZWN0aW9uIE5SIFIgT1IgYW5hbHlzZXMKCmBgYHtyfQpnZW5lX3VuaXZlcnNlIDwtIHJvd25hbWVzKFJOQXNlcSkKCkdlbmVzX1VQX05SIDwtIGludGVyc2VjdChMaXN0X29mX0RFRyRgTlIuQi1PUi5CX1VQYCwgTGlzdF9vZl9ERUckYE5SLkItUi5CX1VQYCkKR2VuZXNfRE9XTl9OUiA8LSBpbnRlcnNlY3QoTGlzdF9vZl9ERUckYE5SLkItT1IuQl9ET1dOYCwgTGlzdF9vZl9ERUckYE5SLkItUi5CX0RPV05gKQoKR2VuZXNfVVBfUiA8LSBpbnRlcnNlY3QoTGlzdF9vZl9ERUckYE5SLkItUi5CX0RPV05gLCBMaXN0X29mX0RFRyRgT1IuQi1SLkJfRE9XTmApCkdlbmVzX0RPV05fUiA8LSBpbnRlcnNlY3QoTGlzdF9vZl9ERUckYE5SLkItUi5CX1VQYCwgTGlzdF9vZl9ERUckYE9SLkItUi5CX1VQYCkKCiMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyBOUiAjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMKR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbIkludGVyc2VjdGlvbl9hbmFseXNpcyJdXSA8LSBsaXN0KCkKR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbIkludGVyc2VjdGlvbl9hbmFseXNpcyJdXVtbIk5SX1VQIl1dIDwtIGVucmljaEdPKAogICAgZ2VuZSA9IEdlbmVzX1VQX05SLAogICAga2V5VHlwZSA9ICJTWU1CT0wiLAogICAgT3JnRGIgPSAib3JnLkhzLmVnLmRiIiwKICAgIG9udCA9ICJBTEwiLAogICAgcEFkanVzdE1ldGhvZCA9ICJub25lIiwgCiAgICB1bml2ZXJzZSA9IGdlbmVfdW5pdmVyc2UKICApCkdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbWyJJbnRlcnNlY3Rpb25fYW5hbHlzaXMiXV1bWyJOUl9ET1dOIl1dIDwtIGVucmljaEdPKAogICAgZ2VuZSA9IEdlbmVzX0RPV05fTlIsCiAgICBrZXlUeXBlID0gIlNZTUJPTCIsCiAgICBPcmdEYiA9ICJvcmcuSHMuZWcuZGIiLAogICAgb250ID0gIkFMTCIsCiAgICBwQWRqdXN0TWV0aG9kID0gIm5vbmUiLCAKICAgIHVuaXZlcnNlID0gZ2VuZV91bml2ZXJzZQogICkKCiMjIyMjIyMjIyMjIyMjIyMjIyMjIFIgIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjCkdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbWyJJbnRlcnNlY3Rpb25fYW5hbHlzaXMiXV1bWyJSX1VQIl1dIDwtIGVucmljaEdPKAogICAgZ2VuZSA9IEdlbmVzX1VQX1IsCiAgICBrZXlUeXBlID0gIlNZTUJPTCIsCiAgICBPcmdEYiA9ICJvcmcuSHMuZWcuZGIiLAogICAgb250ID0gIkFMTCIsCiAgICBwQWRqdXN0TWV0aG9kID0gIm5vbmUiLCAKICAgIHVuaXZlcnNlID0gZ2VuZV91bml2ZXJzZQogICkKR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbIkludGVyc2VjdGlvbl9hbmFseXNpcyJdXVtbIlJfRE9XTiJdXSA8LSBlbnJpY2hHTygKICAgIGdlbmUgPSBHZW5lc19ET1dOX1IsCiAgICBrZXlUeXBlID0gIlNZTUJPTCIsCiAgICBPcmdEYiA9ICJvcmcuSHMuZWcuZGIiLAogICAgb250ID0gIkFMTCIsCiAgICBwQWRqdXN0TWV0aG9kID0gIm5vbmUiLCAKICAgIHVuaXZlcnNlID0gZ2VuZV91bml2ZXJzZQogICkKCnJtKEdlbmVzX1VQX05SLCBHZW5lc19ET1dOX05SLCBHZW5lc19VUF9SLCBHZW5lc19ET1dOX1IpCmBgYAoKIyMgSW50ZXJzZWN0aW9uIFJlbGFwc2UgUiBhbmFseXNlcwoKYGBge3J9CkdlbmVzX1VQX1JfQl9VUCA8LSBpbnRlcnNlY3QoTGlzdF9vZl9ERUckYE5SLkItUi5CX0RPV05gLCBMaXN0X29mX0RFRyRgUi5CLVIuUkVMX1VQYCkKR2VuZXNfVVBfUl9CX0RPV04gPC0gaW50ZXJzZWN0KExpc3Rfb2ZfREVHJGBOUi5CLVIuQl9VUGAsIExpc3Rfb2ZfREVHJGBSLkItUi5SRUxfRE9XTmApCgpHZW5lX3NldF9kaWZmX2FuYWx5c2lzW1siSW50ZXJzZWN0aW9uX2FuYWx5c2lzIl1dW1siUkVMX1JfQl9VUCJdXSA8LSBlbnJpY2hHTygKICAgIGdlbmUgPSBHZW5lc19VUF9SX0JfVVAsCiAgICBrZXlUeXBlID0gIlNZTUJPTCIsCiAgICBPcmdEYiA9ICJvcmcuSHMuZWcuZGIiLAogICAgb250ID0gIkFMTCIsCiAgICBwQWRqdXN0TWV0aG9kID0gIm5vbmUiLCAKICAgIHVuaXZlcnNlID0gZ2VuZV91bml2ZXJzZQogICkKR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbIkludGVyc2VjdGlvbl9hbmFseXNpcyJdXVtbIlJFTF9SX0JfRE9XTiJdXSA8LSBlbnJpY2hHTygKICAgIGdlbmUgPSBHZW5lc19VUF9SX0JfRE9XTiwKICAgIGtleVR5cGUgPSAiU1lNQk9MIiwKICAgIE9yZ0RiID0gIm9yZy5Icy5lZy5kYiIsCiAgICBvbnQgPSAiQUxMIiwKICAgIHBBZGp1c3RNZXRob2QgPSAibm9uZSIsIAogICAgdW5pdmVyc2UgPSBnZW5lX3VuaXZlcnNlCiAgKQoKcm0oR2VuZXNfVVBfUl9CX1VQLCBHZW5lc19VUF9SX0JfRE9XTikKYGBgCgojIyBSZWxhcHNlIHZlcnN1cyBCYXNlbGluZSBSCgpgYGB7cn0KR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbIlJFTF9CLlIiXV0gPC0gR2VuZV9zZXRfYW5hbHlzaXMoUk5Bc2VxX2RpZmZfZ2VuZV9leHByZXNzaW9uX2FuYWx5c2lzW1siUkVMX0Jhc2VsaW5lIl1dW1siUi5CLVJFTCJdXSkKYGBgCgoKCiMgTVMgVmlwZXIgYW5hbHlzZXMKCmBgYHtyfQpkYXRhKGRvcm90aGVhX2hzLCBwYWNrYWdlID0gImRvcm90aGVhIikgCnJlZ3Vsb25zID0gZG9yb3RoZWFfaHMgJT4lCiAgZmlsdGVyKGNvbmZpZGVuY2UgJWluJSBjKCJBIiwgIkIiKSkKCnJlZl9SX0IgPC0gRmFjdG9yX1JfT1JfTlJfQiA9PSAiUi5CIgpyZWZfT1JfQiA8LSBGYWN0b3JfUl9PUl9OUl9CID09ICJPUi5CIgpyZWZfTlJfQiA8LSBGYWN0b3JfUl9PUl9OUl9CID09ICJOUi5CIgpyZWZfUl9SRUwgPC0gRmFjdG9yX1JfT1JfTlJfQiA9PSAiUi5SRUwiIHwgRmFjdG9yX1JfT1JfTlJfQiA9PSAiT1IuUkVMIiB8IEZhY3Rvcl9SX09SX05SX0IgPT0gIk5SLlJFTCIgCgpSX09SX21zdmlwZXIgPC0gRG9fTVNfdmlwZXJfYW5hbHlzaXMoUk5Bc2VxLCByZWd1bG9ucywgcmVmX1JfQiwgIlIiLCByZWZfT1JfQiwgIk9SIikKClJfTlJfbXN2aXBlciA8LSBEb19NU192aXBlcl9hbmFseXNpcyhSTkFzZXEsIHJlZ3Vsb25zLCByZWZfUl9CLCAiUiIsIHJlZl9OUl9CLCAiTlIiKQoKUl9CX1JfUkVMX21zdmlwZXIgPC0gRG9fTVNfdmlwZXJfYW5hbHlzaXMoUk5Bc2VxLCByZWd1bG9ucywgcmVmX1JfQiwgIlIiLCByZWZfUl9SRUwsICJSX1JFTCIpCmBgYAoKIyMgSW50ZXJzZWN0aW9uIE5ScwoKYGBge3J9CgpgYGAKCgojIFNhdmluZwoKIyMgRmlndXJlcwoKYGBge3J9CnBuZygiUmVzdWx0cy9GaWd1cmVzL0dPX05SX1VQLnBuZyIpCmVtYXBwbG90KEdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbWyJJbnRlcnNlY3Rpb25fYW5hbHlzaXMiXV1bWyJOUl9VUCJdXSwgY29sb3IgPSAicXZhbHVlIiwgc2l6ZSA9ICJDb3VudCIpCmRldi5vZmYoKQpwbmcoIlJlc3VsdHMvRmlndXJlcy9HT19OUl9ET1dOLnBuZyIpCmVtYXBwbG90KEdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbWyJJbnRlcnNlY3Rpb25fYW5hbHlzaXMiXV1bWyJOUl9ET1dOIl1dLCBjb2xvciA9ICJxdmFsdWUiLCBzaXplID0gIkNvdW50IikKZGV2Lm9mZigpCgpwbmcoIlJlc3VsdHMvRmlndXJlcy9HT19SX1VQLnBuZyIpCmVtYXBwbG90KEdlbmVfc2V0X2RpZmZfYW5hbHlzaXNbWyJJbnRlcnNlY3Rpb25fYW5hbHlzaXMiXV1bWyJSX1VQIl1dLCBjb2xvciA9ICJxdmFsdWUiLCBzaXplID0gIkNvdW50IikKZGV2Lm9mZigpCgpwbmcoIlJlc3VsdHMvRmlndXJlcy9HT19SRUxfUl9CX0RPV04ucG5nIikKZW1hcHBsb3QoR2VuZV9zZXRfZGlmZl9hbmFseXNpc1tbIkludGVyc2VjdGlvbl9hbmFseXNpcyJdXVtbIlJFTF9SX0JfRE9XTiJdXSwgY29sb3IgPSAicXZhbHVlIiwgc2l6ZSA9ICJDb3VudCIpCmRldi5vZmYoKQoKCmBgYAoK</div>
 
 
 

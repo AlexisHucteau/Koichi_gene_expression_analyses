@@ -15,44 +15,202 @@ Clinical_patient_data <- read.csv("DATA/Clinical_patient_data.csv")
 # Differential gene expression
 
 ```{r}
-Factor_R_OR_NR_Baseline_RUNX1m <- Make_factor(Clinical_patient_data, 
+Factor_R_OR_NR_B_RUNX1m <- Make_factor(Clinical_patient_data, 
                                                 colnames(RNAseq),
                                                 c("RUNX1"), 
                                                 c("CR", "CRi"), 
-                                                "Responder", 
+                                                "R", 
                                                 c("MLFS", "HI", "CRp", "PR"), 
-                                                "Overall_responder",
+                                                "OR",
                                                 c("SD", "PD"), 
-                                                "Non_responder")
+                                                "NR")
 
-RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline_RUNX1m"]] <- Differential_analysis(Factor_R_OR_NR_Baseline_RUNX1m, RNAseq)
+RNAseq_diff_gene_expression_analysis[["R_OR_NR_B_RUNX1m"]] <- Differential_analysis(Factor_R_OR_NR_B_RUNX1m, RNAseq)
 
-Factor_R_OR_NR_Baseline <- Make_factor(Clinical_patient_data, 
+Factor_R_OR_NR_B <- Make_factor(Clinical_patient_data, 
                                                 colnames(RNAseq),
                                                 0, 
                                                 c("CR", "CRi"), 
-                                                "Responder", 
+                                                "R", 
                                                 c("MLFS", "HI", "CRp", "PR"), 
-                                                "Overall_responder",
+                                                "OR",
                                                 c("SD", "PD"), 
-                                                "Non_responder")
+                                                "NR")
 
-RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline"]] <- Differential_analysis(Factor_R_OR_NR_Baseline, RNAseq)
+RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]] <- Differential_analysis(Factor_R_OR_NR_B, RNAseq)
 
+Factor_REL_Baseline <- as.vector(Factor_R_OR_NR_B)
+Factor_REL_Baseline[str_detect(Factor_REL_Baseline, "REL")] <- "REL"
+Factor_REL_Baseline <- as.factor(Factor_REL_Baseline)
+
+RNAseq_diff_gene_expression_analysis[["REL_Baseline"]] <- Differential_analysis(Factor_REL_Baseline, RNAseq)
+```
+## Venn diagramm
+
+```{r}
+library(VennDiagram)
+List_of_DEG <- list()
+
+Vector_DEG_of_interest <- c("NR.B-OR.B", "NR.B-R.B", "OR.B-R.B", "R.B-R.REL")
+
+for (i in Vector_DEG_of_interest){
+  List_of_DEG[[paste(i, "UP", sep = "_")]] <- RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][[i]] %>% dplyr::filter(logFC > 0.75 & P.Value < 0.1) %>% .$ID
+  
+  List_of_DEG[[paste(i, "DOWN", sep =  "_")]] <- RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][[i]] %>% dplyr::filter(logFC < -0.75 & P.Value < 0.1) %>% .$ID
+}
+
+Vector_DEG_of_interest2 <- c("WT.NR.B-WT.OR.B", "WT.NR.B-WT.R.B", "WT.OR.B-WT.R.B", "WT.R.B-WT.R.REL")
+
+for (i in Vector_DEG_of_interest2){
+  List_of_DEG[[paste(i, "UP", sep = "_")]] <- RNAseq_diff_gene_expression_analysis[["R_OR_NR_B_RUNX1m"]][[i]] %>% dplyr::filter(logFC > 0.75 & P.Value < 0.1) %>% .$ID
+  
+  List_of_DEG[[paste(i, "DOWN", sep =  "_")]] <- RNAseq_diff_gene_expression_analysis[["R_OR_NR_B_RUNX1m"]][[i]] %>% dplyr::filter(logFC < -0.75 & P.Value < 0.1) %>% .$ID
+}
 
 ```
+
+
+### No RUNX1m filter
+
+```{r}
+Venndiagram_B_df <- list(
+  "NR_vs_OR" = c(List_of_DEG$`NR.B-OR.B_UP`, List_of_DEG$`NR.B-OR.B_DOWN`),
+  "NR_vs_R" = c(List_of_DEG$`NR.B-R.B_UP`, List_of_DEG$`NR.B-R.B_DOWN`),
+  "OR_vs_R" = c(List_of_DEG$`OR.B-R.B_UP`, List_of_DEG$`OR.B-R.B_DOWN`)
+)
+
+venn.diagram(Venndiagram_B_df,
+             filename = "Results/Figures/Venn_B_DEG.png", 
+             imagetype = "png")
+```
+
+### RUNX1m filter
+
+```{r}
+Venndiagram_B_No_RUNX1_df <- list(
+  "NR_vs_OR" = c(List_of_DEG$`WT.NR.B-WT.OR.B_UP`, List_of_DEG$`WT.NR.B-WT.OR.B_DOWN`),
+  "NR_vs_R" = c(List_of_DEG$`WT.NR.B-WT.R.B_UP`, List_of_DEG$`WT.NR.B-WT.R.B_DOWN`),
+  "OR_vs_R" = c(List_of_DEG$`WT.OR.B-WT.R.B_UP`, List_of_DEG$`WT.OR.B-WT.R.B_DOWN`)
+)
+
+venn.diagram(Venndiagram_B_No_RUNX1_df,
+             filename = "Results/Figures/Venn_B_DEG_noRUNX1.png", 
+             imagetype = "png")
+```
+
+## Relapse/Baseline R NR vs R OR vs R
+
+```{r}
+Venndiagram_REL_B_df <- list(
+  "RBaseline_RRelapse" = c(List_of_DEG$`WT.R.B-WT.R.REL_UP`, List_of_DEG$`WT.R.B-WT.R.REL_DOWN`),
+  "NR_vs_R" = c(List_of_DEG$`WT.NR.B-WT.R.B_UP`, List_of_DEG$`WT.NR.B-WT.R.B_DOWN`),
+  "OR_vs_R" = c(List_of_DEG$`WT.OR.B-WT.R.B_UP`, List_of_DEG$`WT.OR.B-WT.R.B_DOWN`)
+)
+
+venn.diagram(Venndiagram_REL_B_df,
+             filename = "Results/Figures/Venndiagram_REL_B_df.png", 
+             imagetype = "png")
+```
+
 
 # Gene set enrichment analysis
 
+## Clinical analysis
+
 ```{r, include = F}
-Gene_set_diff_analysis[["OR_vs_R"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline"]][["Overall_responder.Baseline-Responder.Baseline"]])
+Gene_set_diff_analysis[["OR_vs_R"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["OR.B-R.B"]])
 
-Gene_set_diff_analysis[["OR_vs_R_without_RUNX1m"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline_RUNX1m"]][["WT.Overall_responder.Baseline-WT.Responder.Baseline"]])
+Gene_set_diff_analysis[["OR_vs_R_without_RUNX1m"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B_RUNX1m"]][["WT.OR.B-WT.R.B"]])
 
-Gene_set_diff_analysis[["NR_vs_R"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline"]][["Non_responder.Baseline-Responder.Baseline"]])
+Gene_set_diff_analysis[["NR_vs_R"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["NR.B-R.B"]])
 
-Gene_set_diff_analysis[["NR_vs_R_without_RUNX1m"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline_RUNX1m"]][["WT.Non_responder.Baseline-WT.Responder.Baseline"]])
+Gene_set_diff_analysis[["NR_vs_R_without_RUNX1m"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B_RUNX1m"]][["WT.NR.B-WT.R.B"]])
 ```
+
+## Intersection NR R OR analyses
+
+```{r}
+gene_universe <- rownames(RNAseq)
+
+Genes_UP_NR <- intersect(List_of_DEG$`NR.B-OR.B_UP`, List_of_DEG$`NR.B-R.B_UP`)
+Genes_DOWN_NR <- intersect(List_of_DEG$`NR.B-OR.B_DOWN`, List_of_DEG$`NR.B-R.B_DOWN`)
+
+Genes_UP_R <- intersect(List_of_DEG$`NR.B-R.B_DOWN`, List_of_DEG$`OR.B-R.B_DOWN`)
+Genes_DOWN_R <- intersect(List_of_DEG$`NR.B-R.B_UP`, List_of_DEG$`OR.B-R.B_UP`)
+
+######################## NR ###########################
+Gene_set_diff_analysis[["Intersection_analysis"]] <- list()
+Gene_set_diff_analysis[["Intersection_analysis"]][["NR_UP"]] <- enrichGO(
+    gene = Genes_UP_NR,
+    keyType = "SYMBOL",
+    OrgDb = "org.Hs.eg.db",
+    ont = "ALL",
+    pAdjustMethod = "none", 
+    universe = gene_universe
+  )
+Gene_set_diff_analysis[["Intersection_analysis"]][["NR_DOWN"]] <- enrichGO(
+    gene = Genes_DOWN_NR,
+    keyType = "SYMBOL",
+    OrgDb = "org.Hs.eg.db",
+    ont = "ALL",
+    pAdjustMethod = "none", 
+    universe = gene_universe
+  )
+
+#################### R ########################
+Gene_set_diff_analysis[["Intersection_analysis"]][["R_UP"]] <- enrichGO(
+    gene = Genes_UP_R,
+    keyType = "SYMBOL",
+    OrgDb = "org.Hs.eg.db",
+    ont = "ALL",
+    pAdjustMethod = "none", 
+    universe = gene_universe
+  )
+Gene_set_diff_analysis[["Intersection_analysis"]][["R_DOWN"]] <- enrichGO(
+    gene = Genes_DOWN_R,
+    keyType = "SYMBOL",
+    OrgDb = "org.Hs.eg.db",
+    ont = "ALL",
+    pAdjustMethod = "none", 
+    universe = gene_universe
+  )
+
+rm(Genes_UP_NR, Genes_DOWN_NR, Genes_UP_R, Genes_DOWN_R)
+```
+
+## Intersection Relapse R analyses
+
+```{r}
+Genes_UP_R_B_UP <- intersect(List_of_DEG$`NR.B-R.B_DOWN`, List_of_DEG$`R.B-R.REL_UP`)
+Genes_UP_R_B_DOWN <- intersect(List_of_DEG$`NR.B-R.B_UP`, List_of_DEG$`R.B-R.REL_DOWN`)
+
+Gene_set_diff_analysis[["Intersection_analysis"]][["REL_R_B_UP"]] <- enrichGO(
+    gene = Genes_UP_R_B_UP,
+    keyType = "SYMBOL",
+    OrgDb = "org.Hs.eg.db",
+    ont = "ALL",
+    pAdjustMethod = "none", 
+    universe = gene_universe
+  )
+Gene_set_diff_analysis[["Intersection_analysis"]][["REL_R_B_DOWN"]] <- enrichGO(
+    gene = Genes_UP_R_B_DOWN,
+    keyType = "SYMBOL",
+    OrgDb = "org.Hs.eg.db",
+    ont = "ALL",
+    pAdjustMethod = "none", 
+    universe = gene_universe
+  )
+
+rm(Genes_UP_R_B_UP, Genes_UP_R_B_DOWN)
+```
+
+## Relapse versus Baseline R
+
+```{r}
+Gene_set_diff_analysis[["REL_B.R"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][["R.B-REL"]])
+```
+
+
 
 # MS Viper analyses
 
@@ -61,34 +219,45 @@ data(dorothea_hs, package = "dorothea")
 regulons = dorothea_hs %>%
   filter(confidence %in% c("A", "B"))
 
-ref_R_Baseline <- Factor_R_OR_NR_Baseline == "Responder.Baseline"
-ref_OR_Baseline <- Factor_R_OR_NR_Baseline == "Overall_responder.Baseline"
-ref_NR_Baseline <- Factor_R_OR_NR_Baseline == "Non_responder.Baseline"
+ref_R_B <- Factor_R_OR_NR_B == "R.B"
+ref_OR_B <- Factor_R_OR_NR_B == "OR.B"
+ref_NR_B <- Factor_R_OR_NR_B == "NR.B"
+ref_R_REL <- Factor_R_OR_NR_B == "R.REL" | Factor_R_OR_NR_B == "OR.REL" | Factor_R_OR_NR_B == "NR.REL" 
 
-R_OR_msViper <- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline, ref_name = "R", treat = ref_OR_Baseline, treat_name = "OR", minsize = 4, ges.filter = T)
+R_OR_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, "R", ref_OR_B, "OR")
 
-R_OR_msViper_combinatory <- msviperCombinatorial(R_OR_msViper$mrs, regulators = 25, verbose = FALSE)
-R_OR_msViper_synergy <- msviperSynergy(R_OR_msViper_combinatory, verbose = FALSE)
+R_NR_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, "R", ref_NR_B, "NR")
 
-R_NR_msViper <- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline, ref_name = "R", treat = ref_NR_Baseline, treat_name = "NR", minsize = 4, ges.filter = T)
+R_B_R_REL_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, "R", ref_R_REL, "R_REL")
+```
 
-R_NR_msViper_combinatory <- msviperCombinatorial(R_NR_msViper$mrs, regulators = 25, verbose = FALSE)
-R_NR_msViper_synergy <- msviperSynergy(R_NR_msViper_combinatory, verbose = FALSE)
+## Intersection NRs
 
-ref_R_Baseline_no_RUNX1m <- Factor_R_OR_NR_Baseline_RUNX1m == "WT.Responder.Baseline"
-ref_OR_Baseline_no_RUNX1m <- Factor_R_OR_NR_Baseline_RUNX1m == "WT.Overall_responder.Baseline"
-ref_NR_Baseline_no_RUNX1m <- Factor_R_OR_NR_Baseline_RUNX1m == "WT.Non_responder.Baseline"
+```{r}
 
-R_OR_no_RUNX1m_msViper <- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline_no_RUNX1m, ref_name = "R", treat = ref_OR_Baseline_no_RUNX1m, treat_name = "OR", minsize = 4, ges.filter = T)
-
-R_OR_no_RUNX1m_msViper_combinatory <- msviperCombinatorial(R_OR_no_RUNX1m_msViper$mrs, regulators = 25, verbose = FALSE)
-R_OR_no_RUNX1m_msViper_synergy <- msviperSynergy(R_OR_no_RUNX1m_msViper_combinatory, verbose = FALSE)
-
-R_NR_no_RUNX1m_msViper <- run_msviper(RNAseq, regulons, use_aracne = T, ref = ref_R_Baseline_no_RUNX1m, ref_name = "R", treat = ref_NR_Baseline_no_RUNX1m, treat_name = "NR", minsize = 4, ges.filter = T)
-
-R_NR_no_RUNX1m_msViper_combinatory <- msviperCombinatorial(R_NR_no_RUNX1m_msViper$mrs, regulators = 25, verbose = FALSE)
-R_NR_no_RUNX1m_msViper_synergy <- msviperSynergy(R_NR_no_RUNX1m_msViper_combinatory, verbose = FALSE)
 ```
 
 
+# Saving
+
+## Figures
+
+```{r}
+png("Results/Figures/GO_NR_UP.png")
+emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["NR_UP"]], color = "qvalue", size = "Count")
+dev.off()
+png("Results/Figures/GO_NR_DOWN.png")
+emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["NR_DOWN"]], color = "qvalue", size = "Count")
+dev.off()
+
+png("Results/Figures/GO_R_UP.png")
+emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["R_UP"]], color = "qvalue", size = "Count")
+dev.off()
+
+png("Results/Figures/GO_REL_R_B_DOWN.png")
+emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["REL_R_B_DOWN"]], color = "qvalue", size = "Count")
+dev.off()
+
+
+```
 
