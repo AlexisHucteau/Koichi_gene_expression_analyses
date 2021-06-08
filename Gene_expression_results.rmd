@@ -68,6 +68,17 @@ dotplot(Gene_set_diff_analysis[["Intersection_analysis"]][["REL_R_B_DOWN"]], sho
 emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["REL_R_B_DOWN"]], color = "qvalue", size = "Count")
 ```
 
+## Relapse OR
+
+### UP
+
+```{r}
+dotplot(Gene_set_diff_analysis[["Intersection_analysis"]][["REL_OR_B_DOWN"]], showCategory = 30)
+emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["REL_OR_B_DOWN"]], color = "qvalue", size = "Count")
+```
+
+
+
 
 # MS Viper
 
@@ -88,27 +99,8 @@ plot(R_NR_msviper[["Synergy"]])
 ## REL vs R baseline
 
 ```{r}
-plot(R_B_R_REL_msviper[["MSVIPER"]]$mrs)
-plot(R_B_R_REL_msviper[["Synergy"]])
+plot(R_B_REL_msviper[["MSVIPER"]]$mrs)
+plot(R_B_REL_msviper[["Synergy"]])
 ```
 
-# Export table results
-
-## DEG
-
-### NR vs R
-
-```{r}
-write.csv(RNAseq_diff_gene_expression_analysis[["R_OR_NR_Baseline"]][["Non_responder.Baseline-Responder.Baseline"]], "Results/Tables/DEG_NR_vs_R.csv", row.names = T)
-```
-
-## MS_viper
-
-### NR vs R
-
-```{r}
-write.csv(R_NR_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/NR_vs_R_msviper.csv", row.names = F)
-write.csv(R_OR_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/OR_vs_R_msviper.csv", row.names = F)
-write.csv(R_B_R_REL_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/REL_vs_R_msviper.csv", row.names = F)
-```
 

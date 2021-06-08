@@ -67,6 +67,13 @@ for (i in Vector_DEG_of_interest2){
   List_of_DEG[[paste(i, "DOWN", sep =  "_")]] <- RNAseq_diff_gene_expression_analysis[["R_OR_NR_B_RUNX1m"]][[i]] %>% dplyr::filter(logFC < -0.75 & P.Value < 0.1) %>% .$ID
 }
 
+Vector_DEG_of_interest3 <- c("NR.B-REL", "OR.B-REL", "R.B-REL")
+
+for (i in Vector_DEG_of_interest3){
+  List_of_DEG[[paste(i, "UP", sep = "_")]] <- RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][[i]] %>% dplyr::filter(logFC > 0.75 & P.Value < 0.1) %>% .$ID
+  
+  List_of_DEG[[paste(i, "DOWN", sep =  "_")]] <- RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][[i]] %>% dplyr::filter(logFC < -0.75 & P.Value < 0.1) %>% .$ID
+}
 ```
 
 
@@ -204,13 +211,39 @@ Gene_set_diff_analysis[["Intersection_analysis"]][["REL_R_B_DOWN"]] <- enrichGO(
 rm(Genes_UP_R_B_UP, Genes_UP_R_B_DOWN)
 ```
 
+## Intersection Relapse vs OR analyses
+
+```{r}
+Genes_UP_OR_B_UP <- intersect(List_of_DEG$`NR.B-OR.B_DOWN`, List_of_DEG$`OR.B-REL_UP`)
+Genes_DOWN_OR_B_DOWN <- intersect(List_of_DEG$`NR.B-OR.B_UP`, List_of_DEG$`OR.B-REL_DOWN`)
+
+Gene_set_diff_analysis[["Intersection_analysis"]][["REL_OR_B_UP"]] <- enrichGO(
+    gene = Genes_UP_OR_B_UP,
+    keyType = "SYMBOL",
+    OrgDb = "org.Hs.eg.db",
+    ont = "ALL",
+    pAdjustMethod = "none", 
+    universe = gene_universe
+  )
+Gene_set_diff_analysis[["Intersection_analysis"]][["REL_OR_B_DOWN"]] <- enrichGO(
+    gene = Genes_DOWN_OR_B_DOWN,
+    keyType = "SYMBOL",
+    OrgDb = "org.Hs.eg.db",
+    ont = "ALL",
+    pAdjustMethod = "none", 
+    universe = gene_universe
+  )
+
+rm(Genes_UP_OR_B_UP, Genes_DOWN_OR_B_DOWN)
+```
+
+
+
 ## Relapse versus Baseline R
 
 ```{r}
 Gene_set_diff_analysis[["REL_B.R"]] <- Gene_set_analysis(RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][["R.B-REL"]])
 ```
-
-
 
 # MS Viper analyses
 
@@ -228,19 +261,78 @@ R_OR_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, "R", ref_OR_B, "
 
 R_NR_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, "R", ref_NR_B, "NR")
 
-R_B_R_REL_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, "R", ref_R_REL, "R_REL")
+R_B_REL_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, "R", ref_R_REL, "R_REL")
+
+OR_B_REL_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_OR_B, "R", ref_R_REL, "OR_REL")
 ```
 
-## Intersection NRs
+## Intersection 
 
 ```{r}
+TF_UP_NR_R <- R_NR_msviper[["MSVIPER"]]$mrs_table %>% dplyr::filter(pval < 0.1 & nes > 0) %>% .$TF
+TF_UP_REL_R <- R_B_REL_msviper[["MSVIPER"]]$mrs_table %>% dplyr::filter(pval < 0.1 & nes > 0) %>% .$TF
 
+TF_DOWN_NR_R <- R_NR_msviper[["MSVIPER"]]$mrs_table %>% dplyr::filter(pval < 0.1 & nes < 0) %>% .$TF
+TF_DOWN_REL_R <- R_B_REL_msviper[["MSVIPER"]]$mrs_table %>% dplyr::filter(pval < 0.1 & nes < 0) %>% .$TF
+
+TF_UP_NR_and_REL_vs_R <- c(intersect(TF_UP_NR_R, TF_UP_REL_R), intersect(TF_DOWN_NR_R,TF_DOWN_REL_R))
+
+
+
+TF_UP_OR_R <- R_OR_msviper[["MSVIPER"]]$mrs_table %>% dplyr::filter(pval < 0.1 & nes > 0) %>% .$TF
+TF_UP_REL_OR <- OR_B_REL_msviper[["MSVIPER"]]$mrs_table %>% dplyr::filter(pval < 0.1 & nes > 0) %>% .$TF
+
+TF_DOWN_OR_R <- R_OR_msviper[["MSVIPER"]]$mrs_table %>% dplyr::filter(pval < 0.1 & nes < 0) %>% .$TF
+TF_DOWN_REL_OR <- OR_B_REL_msviper[["MSVIPER"]]$mrs_table %>% dplyr::filter(pval < 0.1 & nes < 0) %>% .$TF
+
+TF_UP_NR_and_REL_vs_OR <- c(intersect(TF_UP_OR_R, TF_UP_REL_R), intersect(TF_DOWN_OR_R, TF_DOWN_REL_R))
+
+rm(TF_UP_NR_R, TF_UP_REL_R, TF_DOWN_NR_R, TF_DOWN_REL_R, TF_UP_OR_R, TF_UP_REL_OR, TF_DOWN_OR_R, TF_DOWN_REL_OR)
 ```
+
 
 
 # Saving
 
+## Tables
+
+```{r}
+table_dir <- "Results/Tables/"
+```
+
+
+### DEG
+
+```{r}
+write.csv(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["NR.B-R.B"]], paste0(table_dir, "DEG_NR_vs_R.csv"), row.names = T)
+write.csv(RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][["R.B-REL"]], paste0(table_dir, "DEG_R_vs_REL.csv"), row.names = T)
+
+Double_DEG_NR_R_REL <- merge(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["NR.B-R.B"]], RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][["R.B-REL"]], by="ID")
+colnames(Double_DEG_NR_R_REL) <- c("ID", "NR_R_logFC", "NR_R_AveExpr", "NR_R_t", "NR_R_P.Value", "NR_R_adj.P.Val", "NR_R_B", "R_REL_logFC", "R_REL_AveExpr", "R_REL_t", "R_REL_P.Value", "R_REL_adj.P.Val", "R_REL_B")
+
+write.csv(Double_DEG_NR_R_REL, paste0(table_dir, "Double_DEG_NR_R_REL.csv"), row.names = F)
+```
+
+### MS_viper
+
+```{r}
+write.csv(R_NR_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/NR_vs_R_msviper.csv", row.names = F)
+write.csv(R_OR_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/OR_vs_R_msviper.csv", row.names = F)
+write.csv(R_B_REL_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/REL_vs_R_msviper.csv", row.names = F)
+
+Double_MS_Viper_NR_R_REL <- merge(R_NR_msviper[["MSVIPER"]]$mrs_table, R_B_REL_msviper[["MSVIPER"]]$mrs_table, by = "TF")
+colnames(Double_MS_Viper_NR_R_REL) <- c("ID", "NR_R_size", "NR_R_nes", "NR_R_pval", "NR_R_pval.fdr", "REL_R_size", "REL_R_nes", "REL_R_pval", "REL_R_pval.fdr")
+
+write.csv(Double_MS_Viper_NR_R_REL, paste0(table_dir, "Double_MS_Viper_NR_R_REL.csv"), row.names = F)
+```
+
 ## Figures
+
+```{r}
+fig_dir <- "Results/Figures/"
+```
+
+### GO
 
 ```{r}
 png("Results/Figures/GO_NR_UP.png")
@@ -257,7 +349,19 @@ dev.off()
 png("Results/Figures/GO_REL_R_B_DOWN.png")
 emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["REL_R_B_DOWN"]], color = "qvalue", size = "Count")
 dev.off()
+```
 
+### MS_VIPER
 
+```{r}
+png(paste0(fig_dir, "MS_Viper_NR_R.png"))
+plot(R_NR_msviper[["MSVIPER"]]$mrs)
+dev.off()
+png(paste0(fig_dir, "MS_Viper_OR_R.png"))
+plot(R_OR_msviper[["MSVIPER"]]$mrs)
+dev.off()
+png(paste0(fig_dir, "MS_Viper_REL_R.png"))
+plot(R_B_REL_msviper[["MSVIPER"]]$mrs)
+dev.off()
 ```
 
