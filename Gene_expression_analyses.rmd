@@ -3,9 +3,17 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+# Initialisation
+
+## Packages & functions
+
 ```{r, include=FALSE}
 source("functions.R")
+```
 
+## DATA
+
+```{r, include=FALSE}
 RNAseq_diff_gene_expression_analysis <- list()
 Gene_set_diff_analysis <- list()
 RNAseq <- read.csv("DATA/RNAseq_parsed.csv", row.names = 1, header = T, check.names = F)
@@ -261,6 +269,8 @@ R_OR_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, "R", ref_OR_B, "
 
 R_NR_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, "R", ref_NR_B, "NR")
 
+OR_NR_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_OR_B, "OR", ref_NR_B, "NR")
+
 R_B_REL_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_R_B, "R", ref_R_REL, "R_REL")
 
 OR_B_REL_msviper <- Do_MS_viper_analysis(RNAseq, regulons, ref_OR_B, "R", ref_R_REL, "OR_REL")
@@ -307,8 +317,10 @@ table_dir <- "Results/Tables/"
 write.csv(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["NR.B-R.B"]], paste0(table_dir, "DEG_NR_vs_R.csv"), row.names = T)
 write.csv(RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][["R.B-REL"]], paste0(table_dir, "DEG_R_vs_REL.csv"), row.names = T)
 
-Double_DEG_NR_R_REL <- merge(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["NR.B-R.B"]], RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][["R.B-REL"]], by="ID")
-colnames(Double_DEG_NR_R_REL) <- c("ID", "NR_R_logFC", "NR_R_AveExpr", "NR_R_t", "NR_R_P.Value", "NR_R_adj.P.Val", "NR_R_B", "R_REL_logFC", "R_REL_AveExpr", "R_REL_t", "R_REL_P.Value", "R_REL_adj.P.Val", "R_REL_B")
+Double_DEG_NR_R_REL <- merge(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["NR.B-R.B"]], RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][["R.B-REL"]], by="ID") %>%
+  merge(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["OR.B-R.B"]], by = "ID") %>%
+  merge(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["NR.B-OR.B"]], by = "ID")
+colnames(Double_DEG_NR_R_REL) <- c("ID", "NR_R_logFC", "NR_R_AveExpr", "NR_R_t", "NR_R_P.Value", "NR_R_adj.P.Val", "NR_R_B", "R_REL_logFC", "R_REL_AveExpr", "R_REL_t", "R_REL_P.Value", "R_REL_adj.P.Val", "R_REL_B", "OR_R_logFC", "OR_R_AveExpr", "OR_R_t", "OR_R_P.Value", "OR_R_adj.P.Value", "OR_R_B", "NR_OR_logFC", "NR_OR_AveExpr", "NR_OR_t", "NR_OR_P.Value", "NR_OR_adj.P.Value", "NR_OR_B")
 
 write.csv(Double_DEG_NR_R_REL, paste0(table_dir, "Double_DEG_NR_R_REL.csv"), row.names = F)
 ```
@@ -320,8 +332,10 @@ write.csv(R_NR_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/NR_vs_R_msviper.c
 write.csv(R_OR_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/OR_vs_R_msviper.csv", row.names = F)
 write.csv(R_B_REL_msviper[["MSVIPER"]]$mrs_table, "Results/Tables/REL_vs_R_msviper.csv", row.names = F)
 
-Double_MS_Viper_NR_R_REL <- merge(R_NR_msviper[["MSVIPER"]]$mrs_table, R_B_REL_msviper[["MSVIPER"]]$mrs_table, by = "TF")
-colnames(Double_MS_Viper_NR_R_REL) <- c("ID", "NR_R_size", "NR_R_nes", "NR_R_pval", "NR_R_pval.fdr", "REL_R_size", "REL_R_nes", "REL_R_pval", "REL_R_pval.fdr")
+Double_MS_Viper_NR_R_REL <- merge(R_NR_msviper[["MSVIPER"]]$mrs_table, R_B_REL_msviper[["MSVIPER"]]$mrs_table, by = "TF") %>%
+  merge(R_OR_msviper[["MSVIPER"]]$mrs_table, by = "TF") %>%
+  merge(OR_NR_msviper[["MSVIPER"]]$mrs_table, by = "TF")
+colnames(Double_MS_Viper_NR_R_REL) <- c("ID", "NR_R_size", "NR_R_nes", "NR_R_pval", "NR_R_pval.fdr", "REL_R_size", "REL_R_nes", "REL_R_pval", "REL_R_pval.fdr", "OR_R_size", "OR_R_nes", "OR_R_pval", "OR_R_pval.fdr",  "NR_OR_size", "NR_OR_nes", "NR_OR_pval", "NR_OR_pval.fdr")
 
 write.csv(Double_MS_Viper_NR_R_REL, paste0(table_dir, "Double_MS_Viper_NR_R_REL.csv"), row.names = F)
 ```
