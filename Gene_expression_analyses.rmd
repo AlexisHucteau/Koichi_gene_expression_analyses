@@ -349,6 +349,16 @@ fig_dir <- "Results/Figures/"
 ### GO
 
 ```{r}
+png("Results/Figures/GO_NR_R.png", width = 720, height = 720*9/16)
+dotplot(Gene_set_diff_analysis[["NR_vs_R"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
+dev.off()
+
+png("Results/Figures/GO_Rel_R.png", width = 720, height = 720*9/16)
+dotplot(Gene_set_diff_analysis[["REL_B.R"]], showCategory=10, split=".sign") + facet_grid(.~.sign)
+dev.off()
+
+
+
 png("Results/Figures/GO_NR_UP.png")
 emapplot(Gene_set_diff_analysis[["Intersection_analysis"]][["NR_UP"]], color = "qvalue", size = "Count")
 dev.off()
