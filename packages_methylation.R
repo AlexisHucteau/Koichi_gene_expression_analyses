@@ -1,0 +1,7 @@
+require(ChAMP)
+require(minfi)
+require(BEclear)
+require(factoextra)
+require(zoo)
+require(dplyr)
+require(DNAmArray)
