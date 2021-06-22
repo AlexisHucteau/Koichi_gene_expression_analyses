@@ -3,6 +3,7 @@ title: "R Notebook"
 output: html_notebook
 ---
 
+# Initialisation & Importation
 
 ```{r, include=F}
 source("functions_methylation.R")
@@ -12,15 +13,35 @@ load("DATA/pchic_DATA.RData")
 
 DMR_analyses <- list()
 Ranges_list <- list()
+Overlaps_list <- list()
 Clinical_patient_data <- read.csv("DATA/Clinical_patient_data.csv")
+
+Anno_EPIC <- read.csv("~/Illumina_Manifest/MethylationEPIC_v-1-0_B4.csv", skip = 7) %>% 
+  dplyr::select(., "Name", "CHR", "MAPINFO", "UCSC_RefGene_Name", "UCSC_RefGene_Group", "Relation_to_UCSC_CpG_Island") %>%
+  dplyr::filter(., CHR != "") %>%
+  separate_rows(., UCSC_RefGene_Name, UCSC_RefGene_Group, sep = ";")
+
+Ranges_list[["CpGs"]] <- GRanges(
+  seqnames = Anno_EPIC$CHR,
+  ranges = IRanges(Anno_EPIC$MAPINFO, Anno_EPIC$MAPINFO +1),
+  CpG = Anno_EPIC$Name,
+  Illumina_Gene_name = Anno_EPIC$UCSC_RefGene_Name,
+  position = Anno_EPIC$UCSC_RefGene_Group,
+  Island = Anno_EPIC$Relation_to_UCSC_CpG_Island
+)
+
+overlaps <- findOverlaps(Pchic_data[["GRanges"]], Ranges_list[["CpGs"]])
+Overlaps_list[["CPGS_PCHIC"]] <- data.frame(mcols(Pchic_data[["GRanges"]][queryHits(overlaps),]),
+                          data.frame(mcols(Ranges_list[["CpGs"]][subjectHits(overlaps),])))
 ```
 
+# DMR analysis
 
 ```{r, include=F}
 DMR_analyses[["NR_R"]] <- DMR_analysis(as.matrix(BMIQ_Koichi), c("CR", "CRi"), "Good_Responders", c("SD", "PD"), "Bad_responders", Clinical_patient_data)
 
 Ranges_list[["DMR_NR_R"]] <- GRanges(
-  seqnames = DMR_analyses[["NR_R"]]$BumphunterDMR$seqnames,
+  seqnames = str_remove(DMR_analyses[["NR_R"]]$BumphunterDMR$seqnames, "chr"),
   ranges = IRanges(start = DMR_analyses[["NR_R"]]$BumphunterDMR$start, end = DMR_analyses[["NR_R"]]$BumphunterDMR$end),
   Names = rownames(DMR_analyses[["NR_R"]]$BumphunterDMR),
   start_DMR = DMR_analyses[["NR_R"]]$BumphunterDMR$start,
@@ -30,5 +51,28 @@ Ranges_list[["DMR_NR_R"]] <- GRanges(
 overlaps <- findOverlaps(Pchic_data[["GRanges"]], Ranges_list[["DMR_NR_R"]])
 match_hit <- data.frame(mcols(Pchic_data[["GRanges"]][queryHits(overlaps),]),
                           data.frame(mcols(Ranges_list[["DMR_NR_R"]][subjectHits(overlaps),])))
+```
+
+# DMP analysis
+
+```{r}
+NR_R_Factor <- Make_factor_DNA_meth(colnames(BMIQ_Koichi), Clinical_patient_data)
+
+DMP_analysis <- Differential_analysis(NR_R_Factor, BMIQ_Koichi)
+```
+
+# TF_target_methylation analysis
+
+```{r}
+require(dorothea)
+data(dorothea_hs, package = "dorothea") 
+regulons = dorothea_hs %>%
+  filter(confidence %in% c("A", "B"))
+```
+
+```{r}
+DMP_analysis[["NR_R_filtered"]] <- DMP_analysis[["B_NR-B_R"]][which(DMP_analysis[["B_NR-B_R"]]$P.Value < 0.1),]
+
+RXRA <- TF_target_methylation_analysis("RXRA", regulons, Pchic_data[["pchic"]], Overlaps_list[["CPGS_PCHIC"]], DMP_analysis[["NR_R_filtered"]])
 ```
 
