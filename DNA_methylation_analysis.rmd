@@ -61,6 +61,11 @@ NR_R_Factor <- Make_factor_DNA_meth(colnames(BMIQ_Koichi), Clinical_patient_data
 DMP_analysis <- Differential_analysis(NR_R_Factor, BMIQ_Koichi)
 ```
 
+```{r}
+
+```
+
+
 # TF_target_methylation analysis
 
 ```{r}
@@ -75,4 +80,5 @@ DMP_analysis[["NR_R_filtered"]] <- DMP_analysis[["B_NR-B_R"]][which(DMP_analysis
 
 RXRA <- TF_target_methylation_analysis("RXRA", regulons, Pchic_data[["pchic"]], Overlaps_list[["CPGS_PCHIC"]], DMP_analysis[["NR_R_filtered"]])
 ```
+
 

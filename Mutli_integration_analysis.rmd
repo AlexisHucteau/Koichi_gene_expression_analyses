@@ -1,0 +1,42 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+DEG_NR_R <- RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["NR.B-R.B"]] %>%
+  # dplyr::filter(abs(logFC) > 0.75 & P.Value < 0.1) %>%
+  .$ID
+```
+
+```{r}
+Genes <- DEG_NR_R %>% unlist() %>% as.list()
+names(Genes) <- DEG_NR_R %>% unlist()
+Genes <- lapply(names(Genes), function(g){
+  Target_methylation_analysis(g, Pchic_data[["pchic"]], Overlaps_list[["CPGS_PCHIC"]], DMP_analysis[["NR_R_filtered"]])
+})
+names(Genes) <- DEG_NR_R %>% unlist()
+Genes_data.frame <- rbindlist(Genes)
+Genes_data.frame$Gene <- names(Genes)
+Genes_data.frame[is.na(Genes_data.frame)] <- 0
+Genes_data.frame$Methylation_score <- Genes_data.frame$Promoter + Genes_data.frame$Enhancer
+```
+
+```{r}
+NR_R_All_analysis <- merge(Genes_data.frame, Double_DEG_NR_R_REL, by.x = "Gene", by.y = "ID", all = T)
+```
+
+# Saving
+
+## Tables
+
+```{r}
+write.csv(Genes_data.frame, "Results/Tables/Methylation_NR_R.csv", row.names = F)
+write.csv(NR_R_All_analysis, "Results/Tables/NR_R_All_analysis.csv", row.names = F)
+```
+
+
+```{r}
+write.table(regulons, "DATA/regulons.tsv", sep = "\t", row.names = F, quote = F)
+```
+

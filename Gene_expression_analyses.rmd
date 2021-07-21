@@ -20,6 +20,14 @@ RNAseq <- read.csv("DATA/RNAseq_parsed.csv", row.names = 1, header = T, check.na
 Clinical_patient_data <- read.csv("DATA/Clinical_patient_data.csv")
 ```
 
+## PCA
+
+```{r}
+PCA_rnaseq <- PCA(t(RNAseq), ncp = 3)
+
+```
+
+
 # Differential gene expression
 
 ```{r}

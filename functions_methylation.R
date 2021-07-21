@@ -1,5 +1,5 @@
 "%ni%" <- Negate("%in%")
-source("packages_methylation.R")
+source("GitHub/Koichi_gene_expression_git/Koichi_gene_expression_analyses/packages_methylation.R")
 
 DMR_analysis <- function(DNAmeth, Factor_A, Factor_A_name, Factor_B, Factor_B_name, Phenotype){
   Samples <- colnames(DNAmeth)
@@ -79,6 +79,7 @@ Make_factor_DNA_meth <- function(samples, Phenotype){
     }
     p
   })
+  res <- unname(res)
   return(res)
 }
 

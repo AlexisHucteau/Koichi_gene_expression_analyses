@@ -1,0 +1,116 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(missMethyl)
+library(stringr)
+library(limma)
+basedir_data <- "~/Documents/DATA/KOICHI_Methylation_DATA/GSE153347_RAW/"
+targets <- read.metharray.sheet(basedir_data)
+```
+
+```{r, include=F}
+Sample_name <- list.files(basedir_data) %>% str_remove_all(".idat") %>% str_remove_all("_Grn") %>% str_remove_all("_Red") %>% unique()
+Sample_Well <- Sample_name %>% sapply(function(x){str_split(x, "_") %>% unlist(.) %>% tail(., n=1)}) %>% unname(.)
+person <- Sample_name %>% sapply(function(x){str_split(x, "_") %>% unlist(.) %>% .[2]}) %>% unname(.)
+Array <- Sample_name %>% sapply(function(x){str_split(x, "_") %>% unlist(.) %>% .[1]}) %>% unname(.)
+Slide <- Sample_name %>% str_remove(Array) %>% str_remove("_")
+
+Samplesheet <- data.frame("Sample_Name" = Sample_name, 
+                          "Sample_Well" = Sample_Well,
+                          "Sample_Plate" = rep("<NA>", length(Sample_Well)),
+                          "Sample_Group" = Sample_Well,
+                          "Pool_ID" = rep("<NA>", length(Sample_Well)),
+                          "person" = person,
+                          "age" = rep("<NA>", length(Sample_Well)),
+                          "sex" = rep("<NA>", length(Sample_Well)),
+                          "status" = Sample_Well,
+                          "Array" = Array, 
+                          "Slide" = Slide, 
+                          "Basename" = paste0(basedir_data, Sample_name))
+
+rgSet <- read.metharray.exp(targets = Samplesheet, force = T)
+```
+
+```{r, include=F}
+mSet <- preprocessRaw(rgSet)
+
+mSetSw <- SWAN(mSet,verbose=TRUE)
+
+```
+
+```{r}
+par(mfrow=c(1,2), cex=1.25)
+densityByProbeType(mSet[,1], main = "Raw")
+densityByProbeType(mSetSw[,1], main = "SWAN")
+```
+
+```{r}
+detP <- detectionP(rgSet)
+keep <- rowSums(detP < 0.01) == ncol(rgSet)
+mSetSw <- mSetSw[keep,]
+```
+
+
+```{r, include = F}
+set.seed(10)
+mset_reduced <- mSetSw[sample(1:nrow(mSetSw), 20000),]
+meth <- getMeth(mset_reduced)
+unmeth <- getUnmeth(mset_reduced)
+Mval <- log2((meth + 100)/(unmeth + 100))
+beta <- getBeta(mset_reduced)
+dim(Mval)
+```
+
+```{r}
+par(mfrow=c(1,1))
+plotMDS(Mval, labels=Samplesheet$Sample_Name, col=as.integer(factor(Samplesheet$status)))
+legend("topleft",legend=c("Cancer","Normal"),pch=16,cex=1.2,col=1:2)
+```
+
+```{r}
+Phenotype <- read.csv("DATA/Clinical_patient_data.csv")
+
+Response_1 <- merge(Phenotype[, c("Baseline_Sample", "Best_response")], Samplesheet[,c("Array", "Sample_Name")], by.y = "Array", by.x = "Baseline_Sample", all = T) 
+colnames(Response_1)[1] <- "Sample"
+Response_2 <- merge(Phenotype[, c("Post_treatment_sample", "Best_response")], Samplesheet[,c("Array", "Sample_Name")], by.y = "Array", by.x = "Post_treatment_sample", all = T) 
+colnames(Response_2)[1] <- "Sample"
+
+Response <- rbind(Response_1, Response_2) %>% unique()
+Response <- Response[-which(is.na(Response$Sample) | is.na(Response$Best_response)) ,]
+Control_df <- data.frame("Sample" = Samplesheet$Array[c(98:105)],
+                         "Best_response" = rep("Control", 8), 
+                         "Sample_Name" = Samplesheet$Sample_Name[c(98:105)])
+Response <- rbind(Response, Control_df)
+rownames(Response) <- Response$Sample
+
+Samplesheet$Response <- Response[Samplesheet$Array, "Best_response"]
+Samplesheet$Response <- ifelse(Samplesheet$Response %in% c("CR", "CRi"), "GR", ifelse(Samplesheet$Response %in% c("SD", "PD"), "BR", ifelse(Samplesheet$Response == "Control", "Control", "OR")))
+
+Samplesheet$Timepoint <- ifelse(Samplesheet$status %in% c("RES", "NR"), "Post", "Baseline")
+
+Pheno <- paste(Samplesheet$Response, Samplesheet$Timepoint, sep = ".") %>% factor()
+
+```
+
+```{r}
+library(dplyr)
+Diff <- Differential_analysis(Pheno, Mval)
+```
+
+```{r}
+```
+
+```{r}
+cpgs <- rownames(Diff[["BR.Baseline-GR.Baseline"]])
+par(mfrow=c(2,2))
+for(i in 1:4){
+stripchart(beta[rownames(beta)==cpgs[i],]~Pheno,method="jitter"
+,pch=16,cex=1.5,col=c(4,2),ylab="Beta values",
+vertical=TRUE,cex.axis=1.5,cex.lab=1.5)
+title(cpgs[i],cex.main=1.5)
+}
+```
+
