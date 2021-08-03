@@ -1,0 +1,166 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+PPI_TF_target_Network <- read.csv("Results/Tables/Combined_Networks.tsv", sep = "\t")
+```
+
+# Creation of network from functional protein-protein interaction & TF target networks
+
+```{r, include=F}
+library(igraph)
+library(dplyr)
+igraph_PPI_TF_target_Network <- graph_from_data_frame(PPI_TF_target_Network, directed = T)
+```
+
+# Eigenvector centrality Definition
+
+In graph theory, eigenvector centrality (also called eigencentrality or prestige score[1]) is a measure of the influence of a node in a network. Relative scores are assigned to all nodes in the network based on the concept that connections to high-scoring nodes contribute more to the score of the node in question than equal connections to low-scoring nodes. A high eigenvector score means that a node is connected to many nodes who themselves have high scores.[2] [3]
+
+Google's PageRank and the Katz centrality are variants of the eigenvector centrality.
+
+For a given graph G:=(V,E) with |V| vertices let A = (a_{v,t}) be the adjacency matrix, i.e. a_{v,t} = 1 if vertex v is linked to vertex t, and a_{v,t} = 0 otherwise. The relative centrality, x, score of vertex v can be defined as:
+
+In graph theory and computer science, an adjacency matrix is a square matrix used to represent a finite graph. The elements of the matrix indicate whether pairs of vertices are adjacent or not in the graph.
+
+# Functions
+
+```{r, include = F}
+library(data.table)
+library(lucy)
+
+Prepare_features <- function(feature_data_frame, column_of_interest, type_of_data){
+  if(type_of_data == "DEG"){
+    res <- feature_data_frame[,column_of_interest]
+    colnames(res)[1:3] <- c("Gene", "logFC", "P.Value")
+  }else{
+    res <- feature_data_frame[,column_of_interest]
+    colnames(res)[1:3] <- c("Gene", "nes", "pval")
+  }
+  return(res)
+}
+
+
+Prepare_Cytoscape_network <- function(Big_Network = igraph_PPI_TF_target_Network, DEG_analysis, TF_analysis, logFC_treshold = 0.75){
+  DEG_of_interest <- DEG_analysis %>% dplyr::filter(abs(logFC) > logFC_treshold & P.Value < 0.1) %>% .$Gene
+  TF_of_interest <- TF_analysis %>% dplyr::filter(pval < 0.1) %>% .$Gene
+
+  V_of_interest <- V(Big_Network) %>% .[which(names(.) %in% unique(c(DEG_of_interest, TF_of_interest)))] 
+
+  filtered_graph <- induced_subgraph(Big_Network, V_of_interest)
+  
+  filtered_reversed_graph <- reverse_edge(filtered_graph, E(filtered_graph))
+  
+  eigen_centrality_result <- eigen_centrality(filtered_graph, directed = F)$vector
+  eigen_centrality_directed_result <- eigen_centrality(filtered_graph, directed = T)$vector
+  eigen_centrality_reverse_result <- eigen_centrality(filtered_reversed_graph, directed = T)$vector
+  
+  page_rank_result <- igraph::page.rank(filtered_graph, directed = F)$vector
+  page_rank_directed_result <- igraph::page.rank(filtered_graph, directed = T)$vector
+  page_rank_reverse_result <- igraph::page.rank(filtered_reversed_graph, directed = T)$vector
+  
+  features <- merge(DEG_analysis, TF_analysis, by = "Gene", all = T)
+  features <- merge(features, eigen_centrality_result, by.x = "Gene", by.y = 0, all = T)
+  colnames(features)[ncol(features)] <- "Eigen_centrality"
+  features <- merge(features, eigen_centrality_directed_result, by.x = "Gene", by.y = 0, all = T)
+  colnames(features)[ncol(features)] <- "Eigen_directed_centrality"
+  features <- merge(features, eigen_centrality_reverse_result, by.x = "Gene", by.y = 0, all = T)
+  colnames(features)[ncol(features)] <- "Eigen_reverse_centrality"
+  features <- merge(features, page_rank_result, by.x = "Gene", by.y = 0, all = T)
+  colnames(features)[ncol(features)] <- "Page_rank"
+  features <- merge(features, page_rank_directed_result, by.x = "Gene", by.y = 0, all = T)
+  colnames(features)[ncol(features)] <- "page_rank_directed"
+  features <- merge(features, page_rank_reverse_result, by.x = "Gene", by.y = 0, all = T)
+  colnames(features)[ncol(features)] <- "Page_rank_reverse"
+  
+  set(features,which(is.na(features[["nes"]])),"nes",0)
+  set(features,which(is.na(features[["pval"]])),"pval",1)
+  set(features,which(is.na(features[["Eigen_centrality"]])),"Eigen_centrality",0)
+  set(features,which(is.na(features[["Page_rank"]])),"Page_rank",0)
+  set(features,which(is.na(features[["Eigen_directed_centrality"]])),"Eigen_directed_centrality",0)
+  set(features,which(is.na(features[["page_rank_directed"]])),"page_rank_directed",0)
+  set(features,which(is.na(features[["Eigen_reverse_centrality"]])),"Eigen_reverse_centrality",0)
+  set(features,which(is.na(features[["Page_rank_reverse"]])),"Page_rank_reverse",0)
+  
+  features$TF <- ifelse(features$nes == 0, F, T)
+  
+  res <- list("features" = features,
+              "reversed_network" = filtered_reversed_graph,
+              "network" = filtered_graph)
+  return(res)
+}
+
+All_workflow <- function(feature_DEG_df, column_DEG, feature_tf_df, column_TF, NET = igraph_PPI_TF_target_Network, logFC_treshold = 0.75){
+  DEG <- Prepare_features(feature_DEG_df, column_DEG, "DEG")
+  TF <- Prepare_features(feature_tf_df, column_TF, "TF")
+  res <- Prepare_Cytoscape_network(NET, DEG, TF, logFC_treshold)
+  return(res)
+}
+```
+
+# Koichi Data
+
+```{r}
+DF_DEG_Koichi <- read.csv("Results/Tables/NR_R_All_analysis.csv")
+DF_TF_Koichi <- read.csv("Results/Tables/Double_MS_Viper_NR_R_REL.csv")
+
+
+
+
+########## NR R
+
+Features_NR_R <- All_workflow(DF_DEG_Koichi, c(1,5,6,2:4), DF_TF_Koichi, c(1:3))
+
+write.table(Features_NR_R$features, "Results/Tables/Genes_of_interest_NR_R.tsv", sep = "\t", row.names = F, quote = F)
+
+Features_NR_R$network %>% 
+  igraph::as_data_frame() %>% 
+  write.table("Results/Tables/filtered_PPI_TF_NR_R_network.tsv", sep = "\t", row.names = F, quote = F)
+
+Features_NR_R$reversed_network %>%
+  igraph::as_data_frame() %>% 
+  write.table("Results/Tables/filtered_PPI_TF_NR_R_reversed_network.tsv", sep = "\t", row.names = F, quote = F)
+
+
+############ REL R
+
+Features_REL_R <- All_workflow(DF_DEG_Koichi, c(1,7,8,2:4), DF_TF_Koichi, c(1,4,5))
+
+write.table(Features_REL_R$features, "Results/Tables/Genes_of_interest_REL_R.tsv", sep = "\t", row.names = F, quote = F)
+
+Features_REL_R$network %>% 
+  igraph::as_data_frame() %>% 
+  write.table("Results/Tables/filtered_PPI_TF_REL_R_network.tsv", sep = "\t", row.names = F, quote = F)
+
+Features_REL_R$reversed_network %>% 
+  igraph::as_data_frame() %>% 
+  write.table("Results/Tables/filtered_PPI_TF_REL_R_reversed_network.tsv", sep = "\t", row.names = F, quote = F)
+
+```
+
+# TCGA
+
+```{r}
+DF_DEG_TCGA <- read.csv("../../REVISION_VD_IDH_Alexis/Results/TCGA_IDHm_DEG.tsv", sep = "\t")
+DF_TF_TCGA <- read.csv("../../REVISION_VD_IDH_Alexis/Results/TCGA_IDHm_MS_Viper.tsv", sep = "\t")
+
+Features_TCGA_IDHm_wt <- All_workflow(DF_DEG_TCGA, c(7,1,4), DF_TF_TCGA, c(1,3,4))
+
+write.table(Features_TCGA_IDHm_wt$features, "Results/Tables/Genes_of_interest_TCGA_features.tsv", sep = "\t", row.names = F, quote = F)
+Features_TCGA_IDHm_wt$network %>% igraph::as_data_frame() %>% write.table("Results/Tables/filtered_PPI_TF_TCGA_IDHm_network.tsv", sep = "\t", row.names = F, quote = F)
+```
+
+# Verhaak
+
+```{r}
+DF_DEG_Verhaak <- read.csv("../../REVISION_VD_IDH_Alexis/Results/Genes_diff_Verhaak_IDH.csv", sep = "\t")
+DF_TF_Verhaak <- read.csv("../../REVISION_VD_IDH_Alexis/Results/Verhaak_IDH_MSVIPER.tsv", sep = "\t")
+
+Features_Verhaak_IDHm_wt <- All_workflow(DF_DEG_Verhaak, c(8, 1, 4), DF_TF_Verhaak, c(1,3,4), logFC_treshold = 0.1)
+
+write.table(Features_Verhaak_IDHm_wt$features, "Results/Tables/Genes_of_interest_Verhaak_features.tsv", sep = "\t", row.names = F, quote = F)
+Features_Verhaak_IDHm_wt$network %>% igraph::as_data_frame() %>% write.table("Results/Tables/filtered_PPI_TF_Verhaak_IDHm_network.tsv", sep = "\t", row.names = F, quote = F)
+```
+

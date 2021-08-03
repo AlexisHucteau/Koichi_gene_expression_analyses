@@ -1,0 +1,63 @@
+from	to	confidence	Tf_Regulation	PPI_Annotation	Direction_PPI	Score_PPI	Cleaned_PPI_annotation
+ACSL5	PPARA		0	GErel: expression by	<-	1	GErel
+APEX1	FEN1		0	complex; input	-	1	PPrel
+APEX1	PCNA		0	complex; input; predicted	-	1	PPrel
+APEX1	TFAP2A		0	expression regulated by	<-	1	GErel
+CASP6	TFAP2A		0	activate	->	1	PPrel
+CBL	CD4		0	activated by; complex; input	<-	1	PPrel
+CBL	CSF1R		0	complex; input	-	1	PPrel
+CCL17	CXCR6		0	PPrel: activation, binding/association	->	1	PPrel
+CCL17	TFAP2A		0	expression regulated by	<-	1	GErel
+CCL17	VCAM1		0	predicted	-	0.64	predicted
+CCNE1	CDK6		0	complex	-	1	PPrel
+CCNE1	E2F3		0	GErel: expression by; activate	<->	1	GErel
+CCNE1	KLF10		0	predicted	-	0.64	predicted
+CCNE1	PCNA		0	complex; predicted	-	1	PPrel
+CCNE1	PSMA3		0	catalyzed by	<-	1	PPrel
+CCNE1	PURA		0	predicted	-	0.54	predicted
+CD36	PPARA		0	expression regulated by	<-	1	GErel
+CD36	PRKAB2		0	PPrel: activated, indirect effect	<-	1	PPrel
+CD36	SNAP23		0	activate	->	1	PPrel
+CD36	TFAP2A		0	expression regulated by	<-	1	GErel
+CD4	CSF1R		0	predicted	-	0.92	predicted
+CD4	CXCR6		0	predicted	-	0.54	predicted
+CD4	ETS2		0	expression regulated by	<-	1	GErel
+CD4	PSMA3		0	catalyzed by	<-	1	PPrel
+CDH16	TFAP2A		0	expression regulated by	<-	1	GErel
+CDK6	E2F3		0	activate; inhibite	-	1	PPrel
+CDK6	KLF10		0	predicted	-	0.64	predicted
+CDK6	PCNA		0	PPrel: inhibited by	|-	1	PPrel
+CDK9	RNF20		0	predicted	-	0.64	predicted
+CDK9	RPAP2		0	complex; input	-	1	PPrel
+CHD9	PPARA		0	complex; input	-	1	PPrel
+CHMP2B	CHMP5		0	catalyzed by; complex; input	<-	1	PPrel
+CRABP2	TFAP2A		0	expression regulated by	<-	1	GErel
+CWC25	SF3A3		0	complex; input	-	1	PPrel
+DLGAP2	HOMER1		0	complex; input	-	1	PPrel
+DLGAP4	HOMER1		0	complex; input	-	1	PPrel
+DUSP4	MAP3K4		0	inhibit	-|	1	other
+ETS2	FOSL1	A	1	GErel: expression; expression regulates	->	1	GErel
+ETS2	MSR1	A	1	expression regulates	->	1	GErel
+ETS2	PSEN1	A	1	expression regulates	->	1	GErel
+ETS2	PTHLH	A	1	expression regulates	->	1	GErel
+FEN1	PCNA		0	catalyze; complex; input; predicted	->	1	PPrel
+FOXO4	PRKAB2		0	PPrel: activated by, phosphorylation	<-	1	PPrel
+FOXO4	RAN		0	activated by	<-	1	PPrel
+GPX1	TFAP2C		0	expression regulated by	<-	1	GErel
+HOMER1	TRPC5		0	predicted	-	0.77	predicted
+KLF10	TFAP2A		0	predicted	-	0.64	predicted
+LIN28A	PURA		0	predicted	-	0.64	predicted
+LIN28A	REST		0	expression regulated by	<-	1	GErel
+MRPL37	MRPS12		0	catalyzed by; complex; input	<-	1	PPrel
+MRPL37	MRPS18C		0	catalyzed by; complex; input	<-	1	PPrel
+MRPS12	MRPS18C		0	complex	-	1	PPrel
+NUP107	RAN		0	activate; catalyze; complex; input	->	1	PPrel
+PECAM1	TFAP2A		0	expression regulated by	<-	1	GErel
+PPARA	CD36	A	1			0	other
+PRDM14	DLGAP4	B	1			0	other
+PRDM14	TFAP2A	B	1			0	other
+REST	LIN28A	B	-1			0	other
+STAG3	TEX12		0	complex; input	-	1	PPrel
+TFAP2A	CRABP2	A	1			0	other
+TFAP2A	TFAP2C		0	activate; inhibited by	|->	1	PPrel
+TFAP2C	CRABP2	A	1			0	other

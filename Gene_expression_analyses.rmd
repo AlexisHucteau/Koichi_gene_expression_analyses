@@ -241,7 +241,7 @@ Gene_set_diff_analysis[["Intersection_analysis"]][["REL_OR_B_UP"]] <- enrichGO(
     pAdjustMethod = "none", 
     universe = gene_universe
   )
-Gene_set_diff_analysis[["Intersection_analysis"]][["REL_OR_B_DOWN"]] <- enrichGO(
+Gene_set_diff_analysis[["Intersection_analysis"]][["REL_OR_B_DOWN"]] <- enrichGO(f
     gene = Genes_DOWN_OR_B_DOWN,
     keyType = "SYMBOL",
     OrgDb = "org.Hs.eg.db",
@@ -457,5 +457,202 @@ dev.off()
 png(paste0(fig_dir, "MS_Viper_REL_R.png"))
 plot(R_B_REL_msviper[["MSVIPER"]]$mrs)
 dev.off()
+```
+
+# Signatures
+
+```{r}
+message("PID signature")
+PID_VDR_RXRA_PATHWAy <- read.csv("../../REVISION_VD_IDH_Alexis/Autres Signatures géniques/PID_RXR_VDR_PATHWAY - Feuille.csv", header = F)$V1
+head(PID_VDR_RXRA_PATHWAy, 30)
+
+message("Early signature")
+Early_signature <- read.csv("../../REVISION_VD_IDH_Alexis/Results/Intersect_0.75_0.05_4h.csv", row.names = 1)
+head(Early_signature, 30)
+
+message("Late signature")
+Late_signature <- read.csv("../../REVISION_VD_IDH_Alexis/Results/Intersect_0.75_0.05_24h.csv", row.names = 1)
+head(Late_signature, 30)
+
+message("WP_VDR_PATHWAY")
+WP_VITAMIN_D_RECEPTOR_PATHWAY <- read.csv("../../REVISION_VD_IDH_Alexis/Autres Signatures géniques/VITAMIN_D_RECEPTOR_PATHWAY.txt", skip = 2, header = F)$V1
+head(WP_VITAMIN_D_RECEPTOR_PATHWAY, 30)
+```
+
+```{r}
+volcanoplot_gene_expression <- function(DATA, title, xlim = 10, ylim = 5, pvalue_cutoff = 0.1, logFCcutoff = 0.75){
+  enhancedvolcano_data1 <- data.frame(logFC = DATA[, "logFC"],
+                                      pvalue = DATA[, "P.Value"],
+                                      gene = DATA[, "ID"])
+  
+  EnhancedVolcano(toptable = enhancedvolcano_data1, 
+                  lab = enhancedvolcano_data1$gene, 
+                  x = "logFC", 
+                  y = "pvalue",
+                  FCcutoff = logFCcutoff,
+                  pCutoff = pvalue_cutoff,
+                  title = title,
+                  subtitle = NA,
+                  legendPosition = "right",
+                  subtitleLabSize = 0,
+                  legendLabSize = 10,
+                  ylim = c(0, ylim),
+                  xlim = c(-xlim, xlim)
+  )
+}
+
+```
+
+## EARLY
+
+### NR vs R
+
+```{r}
+volcanoplot_gene_expression(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["NR.B-R.B"]][Early_signature,], "Early VDR signature", ylim = 10, xlim = 5)
+```
+
+## LATE
+
+### NR vs R
+
+```{r}
+volcanoplot_gene_expression(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["NR.B-R.B"]][Late_signature,], "Late VDR Signature", ylim = 10, xlim = 5)
+```
+
+## WP_VITAMIN_D_RECEPTOR_PATHWAY
+
+### NR vs R
+
+```{r}
+volcanoplot_gene_expression(RNAseq_diff_gene_expression_analysis[["R_OR_NR_B"]][["NR.B-R.B"]][WP_VITAMIN_D_RECEPTOR_PATHWAY,], "WP VDR Signature", ylim = 10, xlim = 5)
+```
+
+# Clustering based on pathways
+
+```{r}
+make_heatmap_pathway <- function(data, signature, title, anno){
+  tmp <- data[signature,] %>% as.matrix()
+  corr <- rcorr(tmp, type = "spearman")$r
+  pheatmap(corr, main = title, annotation_col = anno)
+}
+
+RNAseq_Baseline <- RNAseq[,which(colnames(RNAseq) %in% Clinical_patient_data$Baseline_RNAseq_data)]
+Response <- Clinical_patient_data[which(Clinical_patient_data$Baseline_RNAseq_data %in% colnames(RNAseq_Baseline)),c(5,9)] %>% unique()
+rownames(Response) <- Response$Baseline_RNAseq_data
+Response$Best_response <- ifelse(Response$Best_response %in% c("CR", "CRi"), "R", ifelse(Response$Best_response %in% c("SD", "PD"), "NR", "OR"))
+
+annotation_heatmap <- data.frame(Responses = Response[colnames(RNAseq_Baseline),"Best_response"])
+rownames(annotation_heatmap) <- colnames(RNAseq_Baseline)
+
+
+make_heatmap_pathway(RNAseq_Baseline, PID_VDR_RXRA_PATHWAy, "PID_pathway", annotation_heatmap)
+make_heatmap_pathway(RNAseq_Baseline, Early_signature, "Early_signature", annotation_heatmap)
+make_heatmap_pathway(RNAseq_Baseline, Late_signature, "Late_signature", annotation_heatmap)
+make_heatmap_pathway(RNAseq_Baseline, WP_VITAMIN_D_RECEPTOR_PATHWAY, "WP_VITAMIN_D_RECEPTOR_PATHWAY", annotation_heatmap)
+
+```
+
+## EARLY
+
+### REL vs R
+
+```{r}
+volcanoplot_gene_expression(RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][["R.B-REL"]][Early_signature,], "Early VDR signature", ylim = 10, xlim = 5)
+```
+
+## LATE
+
+### NR vs R
+
+```{r}
+volcanoplot_gene_expression(RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][["R.B-REL"]][Late_signature,], "Late VDR Signature", ylim = 10, xlim = 5)
+```
+
+## WP_VITAMIN_D_RECEPTOR_PATHWAY
+
+### NR vs R
+
+```{r}
+volcanoplot_gene_expression(RNAseq_diff_gene_expression_analysis[["REL_Baseline"]][["R.B-REL"]][WP_VITAMIN_D_RECEPTOR_PATHWAY,], "WP VDR Signature", ylim = 10, xlim = 5)
+```
+
+# Clustering based on pathways
+
+```{r}
+make_heatmap_pathway <- function(data, signature, title, anno){
+  tmp <- data[signature,] %>% as.matrix()
+  corr <- rcorr(tmp, type = "pearson")$r
+  pheatmap(corr, main = title, annotation_col = anno)
+}
+
+RNAseq_R_REL <- RNAseq[,Factor_REL_Baseline == "REL" | Factor_REL_Baseline == "R.B"]
+
+annotation_heatmap <- data.frame(Responses = Factor_REL_Baseline[Factor_REL_Baseline == "REL" | Factor_REL_Baseline == "R.B"])
+rownames(annotation_heatmap) <- colnames(RNAseq_R_REL)
+
+
+make_heatmap_pathway(RNAseq_R_REL, PID_VDR_RXRA_PATHWAy, "PID_pathway", annotation_heatmap)
+make_heatmap_pathway(RNAseq_R_REL, Early_signature, "Early_signature", annotation_heatmap)
+make_heatmap_pathway(RNAseq_R_REL, Late_signature, "Late_signature", annotation_heatmap)
+make_heatmap_pathway(RNAseq_R_REL, WP_VITAMIN_D_RECEPTOR_PATHWAY, "WP_VITAMIN_D_RECEPTOR_PATHWAY", annotation_heatmap)
+
+```
+
+# GSEA analyses
+
+```{r}
+DEG_tmp <- dplyr::filter(RNAseq_diff_gene_expression_analysis$R_OR_NR_B$`NR.B-R.B`, P.Value < 0.1)
+
+gene_list_1 <- DEG_tmp$logFC
+names(gene_list_1) <- DEG_tmp$ID
+gene_list_1 = sort(gene_list_1, decreasing = TRUE)
+
+gene_list_1 = gene_list_1[!duplicated(names(gene_list_1))]
+head(gene_list_1)
+```
+
+```{r}
+myGO = fgsea::gmtPathways("~/R/x86_64-pc-linux-gnu-library/4.0/fgsea/extdata/msigdb.v7.4.symbols.gmt")
+```
+
+```{r}
+fgsea::plotEnrichment(myGO$WP_VITAMIN_D_RECEPTOR_PATHWAY, gene_list_1) + labs(title = "WP signature VITAMIN D RECEPTOR PATHWAY TCGA")
+fgsea::plotEnrichment(myGO$PID_RXR_VDR_PATHWAY, gene_list_1) + labs(title = "PID RXRA VITAMIN D RECEPTOR PATHWAY TCGA")
+
+Early_UP <- Early_signature[which(Early_signature$log2FoldChange > 0),] %>% rownames()
+Early_Down <- Early_signature[which(Early_signature$log2FoldChange < 0),] %>% rownames()
+Late_UP <- Late_signature[which(Late_signature$log2FoldChange > 0),] %>% rownames()
+Late_Down <- Late_signature[which(Late_signature$log2FoldChange < 0),] %>% rownames()
+
+fgsea::plotEnrichment(rownames(Early_signature), gene_list_1) + labs(title = "Early VDR signature")
+fgsea::plotEnrichment(rownames(Late_signature), gene_list_1) + labs(title = "Late VDR signature")
+
+# fgsea::plotEnrichment(Early_UP, gene_list_1) + labs(title = "Early_up VDR signature")
+# fgsea::plotEnrichment(Late_UP, gene_list_1) + labs(title = "Late_up VDR signature")
+# 
+# fgsea::plotEnrichment(Early_Down, gene_list_1) + labs(title = "Early_down VDR signature")
+# fgsea::plotEnrichment(Late_Down, gene_list_1) + labs(title = "Late VDR_down signature")
+
+
+```
+
+
+```{r}
+DEG_tmp2 <- dplyr::filter(RNAseq_diff_gene_expression_analysis$REL_Baseline$`R.B-REL`, P.Value < 0.1)
+
+gene_list_2 <- DEG_tmp2$logFC
+names(gene_list_2) <- DEG_tmp2$ID
+gene_list_2 = sort(gene_list_2, decreasing = TRUE)
+
+gene_list_2 = gene_list_2[!duplicated(names(gene_list_2))]
+head(gene_list_2)
+```
+
+```{r}
+fgsea::plotEnrichment(myGO$WP_VITAMIN_D_RECEPTOR_PATHWAY, gene_list_2) + labs(title = "WP signature VITAMIN D RECEPTOR PATHWAY TCGA")
+fgsea::plotEnrichment(myGO$PID_RXR_VDR_PATHWAY, gene_list_2) + labs(title = "PID RXRA VITAMIN D RECEPTOR PATHWAY TCGA")
+
+fgsea::plotEnrichment(Early_signature, gene_list_2) + labs(title = "Early VDR signature")
+fgsea::plotEnrichment(Late_signature, gene_list_2) + labs(title = "Late VDR signature")
 ```
 
