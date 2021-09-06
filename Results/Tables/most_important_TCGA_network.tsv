@@ -1,0 +1,33 @@
+from	to	confidence	Tf_Regulation	PPI_Annotation	Direction_PPI	Score_PPI	Cleaned_PPI_annotation
+ACSL5	PPARA		0	GErel: expression by	<-	1	GErel
+APEX1	PCNA		0	complex; input; predicted	-	1	PPrel
+APEX1	TFAP2A		0	expression regulated by	<-	1	GErel
+CASP6	TFAP2A		0	activate	->	1	PPrel
+CCL17	CXCR6		0	PPrel: activation, binding/association	->	1	PPrel
+CCL17	TFAP2A		0	expression regulated by	<-	1	GErel
+CCL17	VCAM1		0	predicted	-	0.64	predicted
+CCNE1	CDK6		0	complex	-	1	PPrel
+CCNE1	E2F3		0	GErel: expression by; activate	<->	1	GErel
+CCNE1	KLF10		0	predicted	-	0.64	predicted
+CCNE1	PCNA		0	complex; predicted	-	1	PPrel
+CCNE1	PSMA3		0	catalyzed by	<-	1	PPrel
+CCNE1	PURA		0	predicted	-	0.54	predicted
+CD36	PPARA		0	expression regulated by	<-	1	GErel
+CD36	PRKAB2		0	PPrel: activated, indirect effect	<-	1	PPrel
+CD36	SNAP23		0	activate	->	1	PPrel
+CD36	TFAP2A		0	expression regulated by	<-	1	GErel
+CDH16	TFAP2A		0	expression regulated by	<-	1	GErel
+CDK6	E2F3		0	activate; inhibite	-	1	PPrel
+CDK6	KLF10		0	predicted	-	0.64	predicted
+CDK6	PCNA		0	PPrel: inhibited by	|-	1	PPrel
+CHD9	PPARA		0	complex; input	-	1	PPrel
+CRABP2	TFAP2A		0	expression regulated by	<-	1	GErel
+FEN1	PCNA		0	catalyze; complex; input; predicted	->	1	PPrel
+GPX1	TFAP2C		0	expression regulated by	<-	1	GErel
+KLF10	TFAP2A		0	predicted	-	0.64	predicted
+PECAM1	TFAP2A		0	expression regulated by	<-	1	GErel
+PPARA	CD36	A	1			0	other
+PRDM14	TFAP2A	B	1			0	other
+TFAP2A	CRABP2	A	1			0	other
+TFAP2A	TFAP2C		0	activate; inhibited by	|->	1	PPrel
+TFAP2C	CRABP2	A	1			0	other

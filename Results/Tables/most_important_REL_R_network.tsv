@@ -1,0 +1,242 @@
+from	to	confidence	Tf_Regulation	PPI_Annotation	Direction_PPI	Score_PPI	Cleaned_PPI_annotation
+A2M	RELA		0	expression regulated by	<-	1	GErel
+ABCB1	JUN		0	expression regulated by	<-	1	GErel
+ADCY1	EDN1		0	activated by	<-	1	PPrel
+AKT3	JUN		0	PPrel: activation; PPrel: activation, indirect effect	->	1	PPrel
+AKT3	MAPK11		0	PPrel: inhibited by	|-	1	PPrel
+AKT3	RELA		0	PPrel: activation, indirect effect; PPrel: indirect effect	->	1	PPrel
+BCHE	JUN		0	expression regulated by	<-	1	GErel
+BCL2L1	MYC		0	predicted	-	0.54	predicted
+BCL2L1	REL		0	expression regulated by	<-	1	GErel
+BCL2L1	RELA		0	GErel: expression by; expression regulated by	<-	1	GErel
+BDKRB1	EDN1		0	PPrel: activated by	<-	1	PPrel
+BDKRB1	JUN		0	expression regulated by	<-	1	GErel
+C3	GATA2		0	expression regulated by	<-	1	GErel
+CCL21	JUN		0	predicted	-	0.54	predicted
+CCL21	REL		0	predicted	-	0.54	predicted
+CCL21	RELA		0	predicted	-	0.54	predicted
+CCL22	JUN		0	expression regulated by	<-	1	GErel
+CCL22	REL		0	predicted	-	0.54	predicted
+CCL22	RELA		0	predicted	-	0.54	predicted
+CCL23	JUN		0	predicted	-	0.54	predicted
+CCL23	REL		0	predicted	-	0.54	predicted
+CCL23	RELA		0	predicted	-	0.54	predicted
+CCL24	JUN		0	predicted	-	0.54	predicted
+CCL24	REL		0	predicted	-	0.54	predicted
+CCL24	RELA		0	predicted	-	0.54	predicted
+CCL3	JUN		0	GErel: expression by	<-	1	GErel
+CCL3	REL		0	predicted	-	0.54	predicted
+CCL3	RELA		0	GErel: expression by; expression regulated by	<-	1	GErel
+CCL4	JUN		0	GErel: expression by	<-	1	GErel
+CCL4	REL		0	predicted	-	0.54	predicted
+CCL4	RELA		0	GErel: expression by	<-	1	GErel
+CCR3	EDN1		0	complex; reaction	-	1	ECrel
+CD163	JUN		0	expression regulated by	<-	1	GErel
+CD40LG	MAPK11		0	activate	->	1	PPrel
+CD40LG	REL		0	expression regulated by	<-	1	GErel
+CD40LG	RELA		0	activate; expression regulated by; inhibit	<-	1	GErel
+CDC26	RELA		0	reaction	-	1	ECrel
+CDC6	MYC		0	predicted	-	0.64	predicted
+CGREF1	MYC		0	expression regulated by	<-	1	GErel
+CHEK1	SMAD4		0	predicted	-	0.64	predicted
+CLU	GATA2		0	expression regulated by	<-	1	GErel
+CLU	JUN		0	expression regulated by	<-	1	GErel
+CSF2	JUN		0	GErel: expression by	<-	1	GErel
+CSF2	REL		0	expression regulated by	<-	1	GErel
+CSF2	RELA		0	GErel: expression by; expression regulated by	<-	1	GErel
+CSRP1	REL		0	expression regulated by	<-	1	GErel
+CSRP1	RELA		0	expression regulated by	<-	1	GErel
+CTH	RELA		0	predicted	-	0.54	predicted
+CYBB	MAPK11		0	ECrel: activation	->	1	ECrel
+CYSLTR1	EDN1		0	catalyze; input	->	1	PPrel
+DDAH1	JUN		0	expression regulated by	<-	1	GErel
+DLK1	GATA2		0	expression regulated by	<-	1	GErel
+DNAJC2	MYC		0	expression regulated by	<-	1	GErel
+DUSP14	MAPK11		0	inhibit	-|	1	other
+DUSP19	MAPK11		0	inhibite	-|	1	other
+DUSP21	MAPK11		0	inhibite	-|	1	other
+DUSP9	MAPK11		0	PPrel: inhibition, dephosphorylation; inhibite	-|	1	PPrel
+EDN1	FOSL1		0	expression regulated by	<-	1	GErel
+EDN1	FOXA1		0	expression regulated by	<-	1	GErel
+EDN1	GATA2		0	expression regulated by	<-	1	GErel
+EDN1	JUN		0	GErel: expression by; expression regulated by	<-	1	GErel
+EDN1	JUNB		0	expression regulated by	<-	1	GErel
+EDN1	MYC		0	expression regulated by	<-	1	GErel
+EDN1	NMBR		0	predicted	-	0.54	predicted
+EDN1	NTSR2		0	predicted	-	0.54	predicted
+EDN1	PLCB1		0	complex; input	-	1	PPrel
+EDN1	RELA		0	GErel: expression by	<-	1	GErel
+EDN1	REST		0	expression regulated by	<-	1	GErel
+EDN1	SMAD4		0	expression regulated by	<-	1	GErel
+EDN1	GPR148		0	predicted	-	0.54	predicted
+EEF1D	RELA		0	predicted	-	0.64	predicted
+EHHADH	JUN		0	expression regulated by	<-	1	GErel
+EP400	SMAD4		0	complex; input	-	1	PPrel
+EPX	SMAD4		0	expression regulated by	<-	1	GErel
+ETV1	JUN		0	predicted	-	0.64	predicted
+ETV1	MAPK11		0	activated by	<-	1	PPrel
+ETV4	GATA2		0	expression regulated by	<-	1	GErel
+ETV4	JUN		0	expression regulated by	<-	1	GErel
+ETV4	MYC		0	expression regulated by	<-	1	GErel
+FLI1	GATA2		0	complex; expression regulated by; input	<-	1	GErel
+FOSL1	JUN		0	complex; expression regulated by; inhibite; input	<-|	1	GErel
+FOSL1	MAPK11		0	PPrel: activated by, phosphorylation	<-	1	PPrel
+FOSL1	SMAD4		0	complex; input	-	1	PPrel
+FOSL2	JUN		0	complex; input	-	1	PPrel
+FOSL2	MAPK11		0	PPrel: activated by, phosphorylation	<-	1	PPrel
+FOXA1	JUN		0	complex; input; reaction	-	1	ECrel
+FOXA1	MYC	A	1	expression regulated by	<-	1	GErel
+FOXH1	SMAD4		0	complex; inhibit; inhibited by; input	|-|	1	PPrel
+FOXO3	GATA2		0	expression regulated by	<-	1	GErel
+FOXO3	MAPK11		0	PPrel: activated by, phosphorylation	<-	1	PPrel
+FOXO3	MYC		0	activate; inhibited by	|->	1	PPrel
+FOXO3	SMAD4		0	complex; input; reaction	-	1	ECrel
+GATA1	GATA2		0	expression regulated by	<-	1	GErel
+GATA2	CYBB	A	-1			0	other
+GATA2	FOXO3	A	1			0	other
+GATA2	GATA1	A	1			0	other
+GATA2	JUN		0	complex; input; reaction	-	1	ECrel
+GATA2	MACC1		0	expression regulates	->	1	GErel
+GATA2	MYB		0	complex; input	-	1	PPrel
+GATA2	MYC	A	1	expression regulates	->	1	GErel
+GATA2	NR5A1		0	expression regulates	->	1	GErel
+GATA2	SERPINF2		0	expression regulates	->	1	GErel
+GATA2	SMAD4		0	predicted	-	0.64	predicted
+GATA2	TBX19		0	expression regulates	->	1	GErel
+GATA2	WT1	A	1			0	other
+GGT5	JUN		0	expression regulated by	<-	1	GErel
+GRHL3	MYC		0	expression regulated by	<-	1	GErel
+GSTP1	RELA		0	expression regulated by	<-	1	GErel
+HELLS	SMAD4		0	complex; input	-	1	PPrel
+HEYL	MYC		0	GErel: expression	->	1	GErel
+HOXB9	JUN		0	expression regulated by	<-	1	GErel
+IFNA16	JUN		0	reaction	-	1	ECrel
+IFNA16	RELA		0	GErel: expression by; PPrel: activated by	<-	1	GErel
+IFNA2	JUN		0	reaction	-	1	ECrel
+IFNA2	REL		0	predicted	-	0.54	predicted
+IFNA2	RELA		0	GErel: expression by; PPrel: activated by	<-	1	GErel
+IFNA8	JUN		0	reaction	-	1	ECrel
+IFNA8	RELA		0	GErel: expression by; PPrel: activated by	<-	1	GErel
+IL1A	JUN		0	GErel: expression by	<-	1	GErel
+IL1A	MAPK11		0	GErel: expression, indirect effect	<-	1	GErel
+IL1A	RELA		0	GErel: expression by; PPrel: activation, indirect effect	<->	1	GErel
+IL2	JUN		0	GErel: expression by	<-	1	GErel
+IL2	MAPK11		0	activate	->	1	PPrel
+IL2	REL		0	expression regulated by	<-	1	GErel
+IL2	RELA		0	GErel: expression by; expression regulated by	<-	1	GErel
+IL5	JUN		0	GErel: expression by; expression regulated by	<-	1	GErel
+IL5	RELA		0	GErel: expression by	<-	1	GErel
+JUN	ABCB1	A	1			0	other
+JUN	BDKRB1	A	1			0	other
+JUN	CCL4	A	1			0	other
+JUN	CSF2	A	1			0	other
+JUN	EDN1	A	1			0	other
+JUN	EZR	A	1			0	other
+JUN	FOSL1	A	1			0	other
+JUN	IL1A	A	1			0	other
+JUN	IL2	A	-1			0	other
+JUN	IL5	A	1			0	other
+JUN	JUNB		0	complex; input	-	1	PPrel
+JUN	KCNIP3		0	activate; inhibited by	|->	1	PPrel
+JUN	MACC1		0	expression regulates	->	1	GErel
+JUN	MAPK11		0	PPrel: activated by; PPrel: activated by, phosphorylation; PPrel: activated, indirect effect; catalyzed by	<-	1	PPrel
+JUN	MTA3		0	reaction	-	1	ECrel
+JUN	MYB	A	1			0	other
+JUN	MYC	A	-1	GErel: expression; expression regulates	->	1	GErel
+JUN	NKD1		0	activated by	<-	1	PPrel
+JUN	NR5A1		0	predicted	-	0.64	predicted
+JUN	PENK	A	1	expression regulates	->	1	GErel
+JUN	PTGS1		0	expression regulates	->	1	GErel
+JUN	REL		0	expression regulated by	<-	1	GErel
+JUN	RELA		0	GErel: expression; PPrel: activated, indirect effect; complex; input; reaction	<->	1	GErel
+JUN	RHOB	A	1			0	other
+JUN	RTN4		0	expression regulates	->	1	GErel
+JUN	SMAD2		0	complex; input; reaction	-	1	ECrel
+JUN	SMAD4		0	complex; expression regulated by; expression regulates; input; reaction	<->	1	GErel
+JUN	SRC		0	PPrel: activated by, phosphorylation	<-	1	PPrel
+JUN	SUMO1		0	predicted	-	0.99	predicted
+JUN	TCF7		0	GErel: expression by	<-	1	GErel
+JUN	TNFAIP6		0	expression regulates	->	1	GErel
+JUN	VEGFB		0	GErel: expression	->	1	GErel
+JUN	IL8	A	1			0	other
+JUNB	MAPK11		0	PPrel: activated by, phosphorylation	<-	1	PPrel
+JUNB	SMAD4		0	complex; expression regulates; input	->	1	GErel
+LDHC	MYC		0	GErel: expression by	<-	1	GErel
+LSP1	MAPK11		0	activated by	<-	1	PPrel
+MAGEA2	MYC		0	expression regulated by	<-	1	GErel
+MAPK11	MYC		0	activate; catalyze	->	1	PPrel
+MAPK11	RELA		0	PPrel: activation, indirect effect	->	1	PPrel
+MAPK11	REST		0	expression regulated by	<-	1	GErel
+MAPK11	SMAD2		0	PPrel: activation, phosphorylation, indirect effect	->	1	PPrel
+MAPK11	SRC		0	activated by; catalyzed by	<-	1	PPrel
+MMP14	RELA		0	expression regulated by	<-	1	GErel
+MYB	MYC	A	1	expression regulates	->	1	GErel
+MYB	RELA		0	GErel: expression by	<-	1	GErel
+MYC	ASCL2	A	1			0	other
+MYC	DDX11	A	1			0	other
+MYC	FOSL1	A	1			0	other
+MYC	GSTP1	A	1			0	other
+MYC	HSD11B2	A	1			0	other
+MYC	IL2	A	1			0	other
+MYC	JUN	A	1			0	other
+MYC	JUNB	A	-1			0	other
+MYC	MNX1	A	1			0	other
+MYC	MPO	A	1			0	other
+MYC	MST1	A	-1			0	other
+MYC	RELA		0	expression regulated by	<-	1	GErel
+MYC	SIM2	A	1			0	other
+MYC	SLC9A3R2	A	1			0	other
+MYC	SMAD2		0	GErel: repressed by; activated by; complex; inhibit; input	-|	1	GErel
+MYC	SMAD4		0	GErel: repressed by; activated by; complex; input; reaction	-	1	GErel
+MYC	TADA2A		0	predicted	-	0.64	predicted
+MYC	TCF7		0	GErel: expression by	<-	1	GErel
+MYC	TEAD3		0	GErel: expression by	<-	1	GErel
+MYC	TNFRSF8	A	1			0	other
+MYC	TRAP1	A	1			0	other
+MYC	WT1	A	1			0	other
+MYC	VEGFB		0	GErel: expression	->	1	GErel
+MYC	UCN3		0	expression regulates	->	1	GErel
+MYC	TBRG4		0	expression regulates	->	1	GErel
+MYC	DLEU2	A	-1			0	other
+MYC	ENTPD7	A	1			0	other
+NR0B1	RELA		0	predicted	-	0.54	predicted
+NR5A1	SMAD4		0	reaction	-	1	ECrel
+RBPMS	SMAD4		0	predicted	-	0.64	predicted
+RBX1	RELA		0	catalyze; complex; input	->	1	PPrel
+REL	CD40LG	A	1			0	other
+REL	CSF2	A	1			0	other
+REL	CSRP1	A	1			0	other
+REL	IL2	A	1			0	other
+REL	RELA		0	predicted	-	1	predicted
+REL	TNIP2		0	predicted	-	0.64	predicted
+RELA	ABCB1	A	1			0	other
+RELA	BCL2L1	A	1			0	other
+RELA	CCL3	A	1			0	other
+RELA	CCL4	A	1			0	other
+RELA	CD40LG	A	1			0	other
+RELA	CD83	A	1			0	other
+RELA	CSF2	A	1			0	other
+RELA	EDN1	A	1			0	other
+RELA	GSTP1	A	1			0	other
+RELA	IL1A	A	-1			0	other
+RELA	IL2	A	1			0	other
+RELA	MMP14	A	1			0	other
+RELA	MYC	A	1			0	other
+RELA	RNF25		0	predicted	-	0.64	predicted
+RELA	SAA2	A	1	expression regulates	->	1	GErel
+RELA	SMAD4		0	activate	->	1	PPrel
+RELA	SRC		0	activated by	<-	1	PPrel
+RELA	TNIP2		0	activated by	<-	1	PPrel
+RELA	WT1	A	1	expression regulates	->	1	GErel
+RELA	VEGFB		0	GErel: expression	->	1	GErel
+RELA	IL8	A	1			0	other
+RELA	ZDHHC13		0	predicted	-	0.54	predicted
+RUNX3	SMAD4		0	complex; input	-	1	PPrel
+SMAD2	SMAD4		0	PPrel: activation; PPrel: binding/association; complex; inhibited by; input; reaction	|->	1	ECrel
+SMAD4	BAMBI	A	1			0	other
+SMAD4	JUN	A	1			0	other
+SMAD4	MYC	A	1			0	other
+SMAD4	SUMO1		0	predicted	-	0.99	predicted
+SMAD4	TCF7		0	PPrel: activation	->	1	PPrel
+SMAD4	TLE2		0	inhibited by	|-	1	other
+WT1	MYC	A	-1			0	other

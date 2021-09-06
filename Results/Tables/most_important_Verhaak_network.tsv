@@ -1,0 +1,108 @@
+from	to	confidence	Tf_Regulation	PPI_Annotation	Direction_PPI	Score_PPI	Cleaned_PPI_annotation
+ACTA2	TP53		0	predicted	-	0.64	predicted
+AKT3	TP53		0	PPrel: inhibition, phosphorylation	-|	1	PPrel
+APAF1	TP53		0	GErel: expression by	<-	1	GErel
+AR	GNAI1		0	activate	->	1	PPrel
+AR	HK2	A	1			0	other
+AR	HSP90B1		0	PPrel: activation; complex	->	1	PPrel
+AR	IL6ST		0	expression regulates	->	1	GErel
+AR	KLF5	A	1			0	other
+AR	KMT2A		0	predicted	-	0.64	predicted
+AR	NCOA3		0	predicted	-	1	predicted
+AR	NKX3-1	A	1			0	other
+AR	NR3C1		0	complex; input	-	1	PPrel
+AR	PRKCB		0	predicted	-	0.64	predicted
+AR	PRMT2		0	predicted	-	0.64	predicted
+AR	PTEN		0	predicted	-	0.64	predicted
+AR	PTPRM	A	1			0	other
+AR	RANBP9		0	reaction	-	1	ECrel
+AR	RARA		0	expression regulated by; expression regulates	<->	1	GErel
+AR	RUNX2		0	complex; input; reaction	-	1	ECrel
+AR	SCNN1A	A	1			0	other
+AR	SETD7		0	predicted	-	0.64	predicted
+AR	SFPQ		0	predicted	-	0.64	predicted
+AR	SHB		0	predicted	-	0.64	predicted
+AR	SMARCA2	A	1	reaction	-	1	ECrel
+AR	SMARCA4		0	predicted	-	0.64	predicted
+AR	TMF1		0	reaction	-	1	ECrel
+AR	TP53		0	predicted	-	0.64	predicted
+AR	TRIM24		0	reaction	-	1	ECrel
+AR	USP12		0	complex	-	1	PPrel
+AR	VAV2		0	predicted	-	0.64	predicted
+AR	VHL		0	predicted	-	0.64	predicted
+AR	WDR48		0	complex	-	1	PPrel
+AR	YWHAH		0	predicted	-	0.64	predicted
+AR	ZBTB16	A	1			0	other
+AR	PTPN9	A	1			0	other
+AR	RNASE4	A	1			0	other
+AXL	NR3C1		0	expression regulated by	<-	1	GErel
+BANP	NR3C1		0	expression regulated by	<-	1	GErel
+BANP	TP53		0	complex; input	-	1	PPrel
+BHLHE41	NR3C1		0	activated by; inhibite	<-|	1	PPrel
+CALD1	NR3C1		0	expression regulated by	<-	1	GErel
+CD82	TP53		0	GErel: expression by	<-	1	GErel
+CEP128	TP53		0	predicted	-	0.64	predicted
+CLOCK	NR3C1		0	reaction	-	1	ECrel
+CREBZF	TP53		0	predicted	-	0.64	predicted
+EPAS1	NR3C1		0	complex; input; reaction	-	1	ECrel
+FGF18	NR3C1		0	expression regulated by	<-	1	GErel
+H2AC4	NR3C1		0	expression regulated by	<-	1	GErel
+HIPK1	TP53		0	PPrel: activation, phosphorylation; complex; expression regulated by; input	<->	1	GErel
+HIPK3	TP53		0	PPrel: activation, phosphorylation	->	1	PPrel
+HSP90B1	TP53		0	predicted	-	0.64	predicted
+ING2	TP53		0	complex; input	-	1	PPrel
+IQGAP1	TP53		0	predicted	-	0.64	predicted
+IRF8	NR3C1		0	predicted	-	0.64	predicted
+ITCH	TP53		0	predicted	-	0.64	predicted
+KAT6A	TP53		0	complex; input	-	1	PPrel
+KMT2A	NR3C1		0	predicted	-	0.98	predicted
+L3MBTL1	TP53		0	complex; input	-	1	PPrel
+LIG4	TP53		0	expression regulated by	<-	1	GErel
+MAPK12	TP53		0	PPrel: activation, phosphorylation; PPrel: phosphorylation; catalyze	->	1	PPrel
+MECOM	TP53		0	activated by; inhibite	<-|	1	PPrel
+MEF2C	NR3C1		0	reaction	-	1	ECrel
+MYCN	TP53	A	1			0	other
+NBN	TP53		0	catalyze	->	1	PPrel
+NCOA3	NR3C1		0	activate; complex; input; predicted	->	1	PPrel
+NCOA3	TP53		0	predicted	-	0.64	predicted
+NFIC	NR3C1		0	expression regulates	->	1	GErel
+NFIC	TP53	A	1	expression regulated by; expression regulates	<->	1	GErel
+NKX3-1	NR3C1		0	predicted	-	0.64	predicted
+NOC2L	TP53		0	complex; input	-	1	PPrel
+NR3C1	CALD1	A	1			0	other
+NR3C1	RARA		0	expression regulates	->	1	GErel
+NR3C1	RHOB		0	expression regulates	->	1	GErel
+NR3C1	RUNX2		0	activated by; inhibit	<-|	1	PPrel
+NR3C1	SCNN1A	A	1			0	other
+NR3C1	SMARCA2		0	predicted	-	0.98	predicted
+NR3C1	SMARCA4		0	complex; inhibit; input	-|	1	PPrel
+NR3C1	STAT5A		0	predicted	-	0.54	predicted
+NR3C1	TMF1		0	predicted	-	0.64	predicted
+NR3C1	TP53		0	activated by; complex; inhibit; input	<-|	1	PPrel
+NR3C1	TP53BP1		0	predicted	-	0.64	predicted
+NR3C1	YWHAH		0	predicted	-	0.64	predicted
+PSMB1	TP53		0	catalyze	->	1	PPrel
+PTEN	TP53		0	GErel: expression by; expression regulated by	<-	1	GErel
+PTK2	TP53		0	predicted	-	0.64	predicted
+RANBP9	TP53		0	predicted	-	0.64	predicted
+RBBP4	TP53		0	activated by; inhibite	<-|	1	PPrel
+SETD7	TP53		0	activate	->	1	PPrel
+SLC7A11	TP53		0	GErel: repressed by	|-	1	GErel
+SMARCA4	TP53		0	inhibited by	|-	1	other
+STAT5A	TP53		0	predicted	-	0.54	predicted
+TFDP2	TP53		0	complex; input	-	1	PPrel
+TNFRSF10A	TP53		0	GErel: expression by; expression regulated by	<-	1	GErel
+TP53	ACTA2	A	1			0	other
+TP53	APAF1	A	1			0	other
+TP53	CD82	A	1			0	other
+TP53	HGF	A	1			0	other
+TP53	JAK2	A	1			0	other
+TP53	PTEN	A	-1			0	other
+TP53	TNFRSF10A	A	1			0	other
+TP53	TP53BP1		0	predicted	-	0.99	predicted
+TP53	TRIM24		0	predicted	-	0.99	predicted
+TP53	VASP		0	predicted	-	0.64	predicted
+TP53	VHL		0	predicted	-	0.64	predicted
+TP53	YBX1		0	predicted	-	0.99	predicted
+TP53	YWHAH		0	predicted	-	0.54	predicted
+TP53	ZMAT3	A	1	GErel: expression	->	1	GErel

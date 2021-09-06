@@ -656,3 +656,96 @@ fgsea::plotEnrichment(Early_signature, gene_list_2) + labs(title = "Early VDR si
 fgsea::plotEnrichment(Late_signature, gene_list_2) + labs(title = "Late VDR signature")
 ```
 
+# TF activities
+
+```{r}
+tf_activities <- run_viper(RNAseq, regulons, 
+                           options =  list(method = "scale", minsize = 4, eset.filter = FALSE, cores = 1, verbose = FALSE))
+```
+
+# Focus on one gene
+
+```{r}
+Focus_on_one_gene <- function(RNAseq, Gene, Comparison_A, Comparison_A_name, Comparison_B, Comparison_B_name, phenotype, tfs){
+  df_tf <- tfs[rownames(tfs) == Gene, phenotype %in% c(Comparison_A, Comparison_B)]
+  df <- RNAseq[Gene, phenotype %in% c(Comparison_A, Comparison_B)]
+  phenotype <- phenotype[phenotype %in% c(Comparison_A, Comparison_B)]
+  pheno <- ifelse(phenotype == Comparison_A, Comparison_A_name, Comparison_B_name)
+  df <- t(df) %>% as.data.frame()
+  df_tf <- df_tf %>% as.data.frame()
+  df$Phenotype <- pheno
+  df_tf$Phenotype <- pheno
+  
+  df[,1] <- as.numeric(df[,1])
+  df_tf[,1] <- as.numeric(df_tf[,1])
+  colnames(df_tf)[1] <- "Gene"
+  colnames(df)[1] <- "Gene"
+  res <- list("Expr" = df,
+              "TF" = df_tf)
+  res
+}
+```
+
+
+```{r}
+Make_gene_expr_tf_activity_boxplots <- function(RNAseq, TF_to_focus, Comparison_A, Comparison_A_name, Comparison_B, Comparison_B_name, Phenotype, tf_activities){
+  Phenotype_of_interest <- Factor_R_OR_NR_B
+
+  Data_on_the_gene <- Focus_on_one_gene(RNAseq, TF_to_focus, Comparison_A, Comparison_A_name, Comparison_B, Comparison_B_name, Phenotype, tf_activities)
+  par(mfrow=c(1,2))
+  expr_plot <- ggplot(Data_on_the_gene$Expr, aes(x=Phenotype, y = Gene, fill=Phenotype))+
+    geom_boxplot() +
+    geom_jitter(Data_on_the_gene$Expr, inherit.aes = FALSE, mapping = aes(y = Gene, x = Phenotype), width = 0.25, alpha = 0.5, colour = "darkred")+
+
+    geom_signif(
+      comparisons = list(c(Comparison_A_name, Comparison_B_name))
+    ) +
+    ggtitle(paste0(TF_to_focus, " expression voom normalized"))+
+    ylab("Voom expression")
+  # dev.off()
+  
+  # png(paste0(TF_to_focus, "_NR_R_TF_boxplot.png"))
+  tf_plot <- ggplot(Data_on_the_gene$TF, aes(x=Phenotype, y = Gene, fill=Phenotype))+
+    geom_boxplot() +
+    geom_jitter(Data_on_the_gene$TF, inherit.aes = FALSE, mapping = aes(y = Gene, x = Phenotype), width = 0.25, alpha = 0.5, colour = "darkred")+
+    geom_signif(
+      comparisons = list(c(Comparison_A_name, Comparison_B_name))
+    ) +
+    ggtitle(paste0(TF_to_focus, " TF activity"))+
+    ylab("Tf activity")
+  plot_grid(expr_plot, tf_plot, labels=c("A", "B"), ncol = 2, nrow = 1)
+  ggsave(paste0(TF_to_focus, "_", Comparison_A_name, "_", Comparison_B_name, "_boxplots.png"))
+
+}
+```
+
+```{r}
+Make_gene_expr_tf_activity_boxplots(RNAseq, "RUNX1", "R.B", "Responder", "NR.B", "Bad_responder", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "RELA",  "R.B", "Responder", "NR.B", "Bad_responder", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "CEBPA",  "R.B", "Responder", "NR.B", "Bad_responder", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "HIF1A",  "R.B", "Responder", "NR.B", "Bad_responder", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "MYC",  "R.B", "Responder", "NR.B", "Bad_responder", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "SMAD3",  "R.B", "Responder", "NR.B", "Bad_responder", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "REL",  "R.B", "Responder", "NR.B", "Bad_responder", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "JUN",  "R.B", "Responder", "NR.B", "Bad_responder", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "CREB1",  "R.B", "Responder", "NR.B", "Bad_responder", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "FOXO3",  "R.B", "Responder", "NR.B", "Bad_responder", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "RXRA",  "R.B", "Responder", "NR.B", "Bad_responder", Factor_R_OR_NR_B, tf_activities)
+
+```
+
+```{r}
+Make_gene_expr_tf_activity_boxplots(RNAseq, "RUNX1", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "RELA", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "CEBPA", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "HIF1A", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "MYC", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "SMAD3", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse",Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "REL", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "JUN", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "CREB1", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "FOXO3", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
+Make_gene_expr_tf_activity_boxplots(RNAseq, "RXRA", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
+
+```
+
