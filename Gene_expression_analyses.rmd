@@ -241,7 +241,7 @@ Gene_set_diff_analysis[["Intersection_analysis"]][["REL_OR_B_UP"]] <- enrichGO(
     pAdjustMethod = "none", 
     universe = gene_universe
   )
-Gene_set_diff_analysis[["Intersection_analysis"]][["REL_OR_B_DOWN"]] <- enrichGO(f
+Gene_set_diff_analysis[["Intersection_analysis"]][["REL_OR_B_DOWN"]] <- enrichGO(
     gene = Genes_DOWN_OR_B_DOWN,
     keyType = "SYMBOL",
     OrgDb = "org.Hs.eg.db",
@@ -668,7 +668,7 @@ tf_activities <- run_viper(RNAseq, regulons,
 ```{r}
 Focus_on_one_gene <- function(RNAseq, Gene, Comparison_A, Comparison_A_name, Comparison_B, Comparison_B_name, phenotype, tfs){
   df_tf <- tfs[rownames(tfs) == Gene, phenotype %in% c(Comparison_A, Comparison_B)]
-  df <- RNAseq[Gene, phenotype %in% c(Comparison_A, Comparison_B)]
+  df <- RNAseq[str_detect(rownames(RNAseq), Gene), phenotype %in% c(Comparison_A, Comparison_B)]
   phenotype <- phenotype[phenotype %in% c(Comparison_A, Comparison_B)]
   pheno <- ifelse(phenotype == Comparison_A, Comparison_A_name, Comparison_B_name)
   df <- t(df) %>% as.data.frame()
@@ -689,7 +689,7 @@ Focus_on_one_gene <- function(RNAseq, Gene, Comparison_A, Comparison_A_name, Com
 
 ```{r}
 Make_gene_expr_tf_activity_boxplots <- function(RNAseq, TF_to_focus, Comparison_A, Comparison_A_name, Comparison_B, Comparison_B_name, Phenotype, tf_activities){
-  Phenotype_of_interest <- Factor_R_OR_NR_B
+  Phenotype_of_interest <- Phenotype
 
   Data_on_the_gene <- Focus_on_one_gene(RNAseq, TF_to_focus, Comparison_A, Comparison_A_name, Comparison_B, Comparison_B_name, Phenotype, tf_activities)
   par(mfrow=c(1,2))
@@ -746,6 +746,38 @@ Make_gene_expr_tf_activity_boxplots(RNAseq, "JUN", "R.B", "Baseline", c("OR.REL"
 Make_gene_expr_tf_activity_boxplots(RNAseq, "CREB1", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
 Make_gene_expr_tf_activity_boxplots(RNAseq, "FOXO3", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
 Make_gene_expr_tf_activity_boxplots(RNAseq, "RXRA", "R.B", "Baseline", c("OR.REL", "R.REL"), "Relapse", Factor_R_OR_NR_B, tf_activities)
+
+```
+
+```{r}
+library(viper)
+data(dorothea_hs, package = "dorothea") 
+regulons = dorothea_hs %>%
+  filter(confidence %in% c("A", "B"))
+```
+
+
+```{r}
+tf_activities_TCGA <- run_viper(TCGA_norm_data, regulons, 
+                           options =  list(method = "scale", minsize = 4, eset.filter = FALSE, cores = 1, verbose = FALSE))
+
+Make_factor_TCGA <- function(Samplesheet){
+  IDH1_typeof_mutations <- c("p.R132C", "p.R132G", "p.R132H", "p.R132S")
+  IDH2_typeof_mutations <- c("p.R140L", "p.R140Q", "p.R172K")
+  IDH1_factor <- ifelse(Samplesheet["IDH1",] %in% IDH1_typeof_mutations, "IDH1m", "")
+  IDH2_factor <- ifelse(Samplesheet["IDH2",] %in% IDH2_typeof_mutations, "IDH2m", "")
+  IDH_factor <- paste(IDH1_factor, IDH2_factor, sep = ".")
+  final_factor <- ifelse(IDH1_factor == "IDH1m" | IDH2_factor == "IDH2m", "IDHm", "IDHwt")
+  res <- list("IDHm" = final_factor, "IDH12m" = IDH_factor)
+  return(res)
+}
+
+TCGA_IDH_factor <- Make_factor_TCGA(TCGA_clinicals)
+
+Make_gene_expr_tf_activity_boxplots(TCGA_norm_data, "RUNX1", "IDHm", "IDHm", "IDHwt", "IDHwt", TCGA_IDH_factor$IDHm, tf_activities_TCGA)
+Make_gene_expr_tf_activity_boxplots(TCGA_norm_data, "TFAP2A", "IDHm", "IDHm", "IDHwt", "IDHwt", TCGA_IDH_factor$IDHm, tf_activities_TCGA)
+Make_gene_expr_tf_activity_boxplots(TCGA_norm_data, "TFAP2C", "IDHm", "IDHm", "IDHwt", "IDHwt", TCGA_IDH_factor$IDHm, tf_activities_TCGA)
+Make_gene_expr_tf_activity_boxplots(TCGA_norm_data, "REST", "IDHm", "IDHm", "IDHwt", "IDHwt", TCGA_IDH_factor$IDHm, tf_activities_TCGA)
 
 ```
 
